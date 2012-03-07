@@ -50,8 +50,17 @@
   <ItemGroup>
     <Folder Include="Collections\" />
     <Folder Include="Collections\Extensions\" />
+    <Folder Include="Security\" />
+    <Folder Include="Security\Cryptography\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Extensions\NameValueCollectionExtensionsTest.cs" />
+    <Compile Include="Security\Cryptography\HashTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Security\Cryptography\Md5TestFile.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Gettext-ScanForTranslations>false</Gettext-ScanForTranslations>
+    </None>
   </ItemGroup>
 </Project>

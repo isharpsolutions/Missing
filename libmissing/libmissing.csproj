@@ -39,6 +39,9 @@
     <Compile Include="Collections\Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Data\Extensions\DataRowExtension.cs" />
     <Compile Include="Options\Options.cs" />
+    <Compile Include="Security\Cryptography\Hash.cs" />
+    <Compile Include="Security\Cryptography\HashFactory.cs" />
+    <Compile Include="Security\Cryptography\HashType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -52,5 +55,7 @@
     <Folder Include="Data\" />
     <Folder Include="Data\Extensions\" />
     <Folder Include="Options\" />
+    <Folder Include="Security\" />
+    <Folder Include="Security\Cryptography\" />
   </ItemGroup>
 </Project>
