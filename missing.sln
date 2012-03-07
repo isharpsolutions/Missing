@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libmissing", "libmissing\libmissing.csproj", "{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libmissing-tests", "libmissing-tests\libmissing-tests.csproj", "{0B84B343-B684-405A-BD95-98495455093F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B84B343-B684-405A-BD95-98495455093F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B84B343-B684-405A-BD95-98495455093F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B84B343-B684-405A-BD95-98495455093F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B84B343-B684-405A-BD95-98495455093F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = libmissing\libmissing.csproj
+		Policies = $0
+		$0.StandardHeader = $1
+		$1.Text = 
+		$1.IncludeInNewFiles = False
+		$0.VersionControlPolicy = $2
+		$2.inheritsSet = Mono
+		$0.ChangeLogPolicy = $3
+		$3.UpdateMode = None
+		$3.MessageStyle = $4
+		$4.LineAlign = 0
+		$3.inheritsSet = Mono
+	EndGlobalSection
+EndGlobal
