@@ -1,0 +1,8 @@
+*.pidb
+*.userprefs
+*bin/
+*test-results/
+*.bak
+*.checksum
+*~
+*.orig
