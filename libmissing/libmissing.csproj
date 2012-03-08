@@ -49,6 +49,7 @@
     <Compile Include="Network\GetEasyHttpRequest.cs" />
     <Compile Include="Network\EasyHttpRequestFactory.cs" />
     <Compile Include="Network\EasyHttpRequest.cs" />
+    <Compile Include="Reflection\TypeHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -65,5 +66,6 @@
     <Folder Include="Security\" />
     <Folder Include="Security\Cryptography\" />
     <Folder Include="Network\" />
+    <Folder Include="Reflection\" />
   </ItemGroup>
 </Project>

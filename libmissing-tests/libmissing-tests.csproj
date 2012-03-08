@@ -52,10 +52,12 @@
     <Folder Include="Collections\Extensions\" />
     <Folder Include="Security\" />
     <Folder Include="Security\Cryptography\" />
+    <Folder Include="Reflection\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Extensions\NameValueCollectionExtensionsTest.cs" />
     <Compile Include="Security\Cryptography\HashTest.cs" />
+    <Compile Include="Reflection\TypeHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
