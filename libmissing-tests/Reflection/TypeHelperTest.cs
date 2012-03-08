@@ -9,7 +9,10 @@ namespace Missing
 	{
 		public TypeHelperTestType()
 		{
+			this.WhosYourDaddy = "You are!";
 		}
+		
+		public string WhosYourDaddy { get; set; }
 	}
 	
 	[TestFixture]
@@ -54,5 +57,30 @@ namespace Missing
 			}
 		}
 		#endregion Get Type
+		
+		#region Create Instance
+		[Test]
+		public void CreateInstance_FullName_Exists()
+		{
+			Type t = TypeHelper.GetType("Missing.TypeHelperTestType");
+			
+			//
+			// full call
+			//
+			TypeHelperTestType actual = TypeHelper.CreateInstance<TypeHelperTestType>(t);
+			
+			Assert.AreEqual("Missing.TypeHelperTestType", actual.GetType().FullName, "Full call: Type.FullName is wrong");
+			Assert.AreEqual("You are!", actual.WhosYourDaddy, "Full call: Property is wrong");
+			
+			
+			//
+			// convenience overload
+			//
+			TypeHelperTestType convenience = TypeHelper.CreateInstance<TypeHelperTestType>("Missing.TypeHelperTestType");
+			
+			Assert.AreEqual("Missing.TypeHelperTestType", convenience.GetType().FullName, "Convenience: Type.FullName is wrong");
+			Assert.AreEqual("You are!", convenience.WhosYourDaddy, "Convenience: Property is wrong");
+		}
+		#endregion Create Instance
 	}
 }
