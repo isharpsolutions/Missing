@@ -45,7 +45,10 @@
     <Compile Include="Security\Cryptography\HashType.cs" />
     <Compile Include="Network\HttpRequestMethod.cs" />
     <Compile Include="Network\HttpRequestStatus.cs" />
-    <Compile Include="Network\HttpRequestUserFriendly.cs" />
+    <Compile Include="Network\PostEasyHttpRequest.cs" />
+    <Compile Include="Network\GetEasyHttpRequest.cs" />
+    <Compile Include="Network\EasyHttpRequestFactory.cs" />
+    <Compile Include="Network\EasyHttpRequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
