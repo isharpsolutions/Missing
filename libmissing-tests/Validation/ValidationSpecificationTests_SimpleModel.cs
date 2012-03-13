@@ -26,6 +26,21 @@ namespace Missing
 	}
 	#endregion Validation spec
 	
+	#region Int model
+	public class IntModel
+	{
+		public int MyNumber { get; set; }
+	}
+	
+	public class IntModelValidationSpecification : ValidationSpecification<IntModel>
+	{
+		public IntModelValidationSpecification()
+		{
+			base.Field(y => y.MyNumber).Required();
+		}
+	}
+	#endregion Int model
+	
 	[TestFixture]
 	public class ValidationSpecificationTests_SimpleModel
 	{
@@ -45,6 +60,23 @@ namespace Missing
 			m.Info.Name = "iSharp";
 			
 			ValidationResult result = Validator.Validate<SimpleModel>(m);
+		}
+		
+		[Test]
+		public void IntModel()
+		{
+			IntModelValidationSpecification spec = new IntModelValidationSpecification();
+			
+			Assert.AreEqual(1, spec.Properties.Count, "There should be 1 property");
+			Assert.IsTrue(spec.Properties[0].IsRequired, "The property should be flagged as required");
+			
+			Assert.AreEqual(1, spec.Properties[0].PropertyPath.Count, "Path should have 1 element");
+			Assert.AreEqual("MyNumber", spec.Properties[0].PropertyPath[0], "First part of the path is wrong");
+			
+			IntModel model = new IntModel();
+			model.MyNumber = 29;
+			
+			ValidationResult result = Validator.Validate<IntModel>(model);
 		}
 	}
 }

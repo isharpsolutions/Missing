@@ -40,10 +40,22 @@ namespace Missing.Validation
 			foreach (ValidationProperty prop in vs.Properties)
 			{
 				// check the value of the property
+				if (!IsValid<T>(prop, input))
+				{
+					// the input was not valid
+				}
 			}
 			
 			return result;
 		}
+		
+		private static bool IsValid<T>(ValidationProperty prop, T input) where T : class
+		{
+			PropertyData pd = TypeHelper.GetPropertyData(input, prop.PropertyPath);
+			
+			var val = pd.Value;
+			
+			return true;
+		}
 	}
 }
-
