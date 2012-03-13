@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace Missing.Reflection
 {
@@ -152,6 +153,57 @@ namespace Missing.Reflection
 		public static T CreateInstance<T>(Type type)
 		{
 			return (T)Activator.CreateInstance(type);
+		}
+		
+		/// <summary>
+		/// Get the PropertyInfo from given type, following the "property path"
+		/// defined as property names in a list of strings.
+		/// </summary>
+		/// <returns>
+		/// The property info or default(PropertyInfo)
+		/// </returns>
+		/// <param name="t">
+		/// The initial type
+		/// </param>
+		/// <param name="path">
+		/// The names of each property to follow
+		/// </param>
+		/// <exception cref="ArgumentException">
+		/// Thrown if <paramref name="path"/> has a count of 0
+		/// </exception>
+		/// <example>
+		/// <code>
+		/// public class Child
+		/// {
+		/// 	public string Name { get; set; }
+		/// }
+		/// 
+		/// public class Parent
+		/// {
+		/// 	public Child Child { get; set; }
+		/// }
+		/// 
+		/// PropertyInfo pi = TypeHelper.GetPropertyInfo(typeof(Parent), new List<string>() { "Child", "Name" });
+		/// pi.Name ==> "Name"
+		/// </code>
+		/// </example>
+		public static PropertyInfo GetPropertyInfo(Type t, IList<string> path)
+		{
+			if (path.Count == 0)
+			{
+				throw new ArgumentException("The path is empty");
+			}
+			
+			Type curT = t;
+			PropertyInfo pi = default(PropertyInfo);
+			
+			for (int i=0; i<path.Count; i++)
+			{
+				pi = curT.GetProperty(path[i]);
+				curT = pi.PropertyType;
+			}
+			
+			return pi;
 		}
 	}
 }
