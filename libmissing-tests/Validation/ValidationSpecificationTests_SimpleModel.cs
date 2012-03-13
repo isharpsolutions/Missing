@@ -40,6 +40,11 @@ namespace Missing
 			Assert.AreEqual(2, spec.Properties[0].PropertyPath.Count, "Path should have 2 elements");
 			Assert.AreEqual("Info", spec.Properties[0].PropertyPath[0], "First part of the path is wrong");
 			Assert.AreEqual("Name", spec.Properties[0].PropertyPath[1], "Second part of the path is wrong");
+			
+			SimpleModel m = new SimpleModel();
+			m.Info.Name = "iSharp";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(m);
 		}
 	}
 }

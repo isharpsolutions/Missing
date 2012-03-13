@@ -45,6 +45,17 @@ namespace Missing.Reflection
 			
 			foreach (Assembly ass in loadedAssemblies)
 			{
+				Console.WriteLine("Assembly: '{0}'", ass.FullName);
+				
+				if (ass.FullName.StartsWith("libmissing-tests"))
+				{
+					Type[] allTypes = ass.GetTypes();
+					foreach (Type t in allTypes)
+					{
+						Console.WriteLine(t.FullName);
+					}
+				}
+				
 				result = ass.GetType(name, false, true);
 				if (result != null)
 				{
@@ -55,6 +66,50 @@ namespace Missing.Reflection
 			if (result == null)
 			{
 				throw new ArgumentException(String.Format("There is no type '{0}' in any of the loaded assemblies. Remember that the name must also contain the namespace.", name));
+			}
+			
+			return result;
+		}
+		
+		[ObsoleteAttribute("Do not use this method... It only exists temporarily while implementing Validation")]
+		public static Type GetTypeEndsWith(string name, bool doLookInSystem)
+		{
+			PrepareListOfAssemblies();
+			
+			Type result = null;
+			Type[] allTypes;
+			
+			foreach (Assembly ass in loadedAssemblies)
+			{
+				if (!doLookInSystem)
+				{
+					if (ass.FullName.StartsWith("System") || ass.FullName.StartsWith("mscorlib"))
+					{
+						continue;
+					}
+				}
+				
+				allTypes = ass.GetTypes();
+				
+				foreach (Type t in allTypes)
+				{
+					Console.WriteLine(t.FullName);
+					if (t.FullName.EndsWith(name))
+					{
+						result = t;
+						break;
+					}
+				}
+
+				if (result != null)
+				{
+					break;
+				}
+			}
+			
+			if (result == null)
+			{
+				throw new ArgumentException(String.Format("There is no type '{0}' in any of the loaded assemblies.", name));
 			}
 			
 			return result;
