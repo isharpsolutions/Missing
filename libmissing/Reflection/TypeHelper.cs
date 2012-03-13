@@ -154,16 +154,16 @@ namespace Missing.Reflection
 		{
 			return (T)Activator.CreateInstance(type);
 		}
-		
+
 		/// <summary>
-		/// Get the PropertyInfo from given type, following the "property path"
+		/// Get PropertyInfo and value from a given class instance, following the "property path"
 		/// defined as property names in a list of strings.
 		/// </summary>
 		/// <returns>
-		/// The property info or default(PropertyInfo)
+		/// The property data.
 		/// </returns>
-		/// <param name="t">
-		/// The initial type
+		/// <param name="input">
+		/// The class instance to traverse
 		/// </param>
 		/// <param name="path">
 		/// The names of each property to follow
@@ -183,27 +183,40 @@ namespace Missing.Reflection
 		/// 	public Child Child { get; set; }
 		/// }
 		/// 
-		/// PropertyInfo pi = TypeHelper.GetPropertyInfo(typeof(Parent), new List<string>() { "Child", "Name" });
-		/// pi.Name ==> "Name"
+		/// Parent input = new Parent() {
+		/// 	Child = new Child() {
+		/// 		Name = "Kirk"
+		/// 	}
+		/// };
+		/// 
+		/// PropertyData pd = TypeHelper.GetPropertyData(input, new List<string>() { "Child", "Name" });
+		/// pd.PropertyInfo.Name ==> "Name"
+		/// pd.Value ==> "Kirk"
 		/// </code>
 		/// </example>
-		public static PropertyInfo GetPropertyInfo(Type t, IList<string> path)
+		public static PropertyData GetPropertyData(object input, IList<string> path)
 		{
 			if (path.Count == 0)
 			{
 				throw new ArgumentException("The path is empty");
 			}
 			
-			Type curT = t;
-			PropertyInfo pi = default(PropertyInfo);
+			Type curT = input.GetType();
+			
+			PropertyData result = new PropertyData();
+			result.Value = input;
+			
+			result.PropertyInfo = default(PropertyInfo);
 			
 			for (int i=0; i<path.Count; i++)
 			{
-				pi = curT.GetProperty(path[i]);
-				curT = pi.PropertyType;
+				result.PropertyInfo = curT.GetProperty(path[i]);
+				result.Value = result.PropertyInfo.GetValue(result.Value, null);
+				
+				curT = result.PropertyInfo.PropertyType;
 			}
 			
-			return pi;
+			return result;
 		}
 	}
 }

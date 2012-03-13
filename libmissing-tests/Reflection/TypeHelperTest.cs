@@ -20,7 +20,9 @@ namespace Missing
 	{
 		public TypeHelperTestTypeWrapper()
 		{
-			this.Child.WhosYourDaddy = "My mommy";
+			this.Child = new TypeHelperTestType() {
+				WhosYourDaddy = "My mommy"
+			};
 		}
 		
 		public TypeHelperTestType Child { get; set; }
@@ -94,13 +96,13 @@ namespace Missing
 		}
 		#endregion Create Instance
 		
-		#region GetPropertyInfo
+		#region GetPropertyData
 		[Test]
-		public void GetPropertyInfo_EmptyPath()
+		public void GetPropertyData_EmptyPath()
 		{
 			try
 			{
-				TypeHelper.GetPropertyInfo(typeof(TypeHelperTestType), new List<string>());
+				TypeHelper.GetPropertyData(new TypeHelperTestType(), new List<string>());
 				Assert.Fail("An ArgumentException should have been thrown");
 			}
 			
@@ -111,20 +113,32 @@ namespace Missing
 		}
 		
 		[Test]
-		public void GetPropertyInfo_OneLevel()
+		public void GetPropertyData_OneLevel()
 		{
-			PropertyInfo pi = TypeHelper.GetPropertyInfo(typeof(TypeHelperTestType), new List<string>() { "WhosYourDaddy" });
+			TypeHelperTestType input = new TypeHelperTestType() {
+				WhosYourDaddy = "Spock"
+			};
 			
-			Assert.AreEqual("WhosYourDaddy", pi.Name, "Name is wrong");
+			PropertyData data = TypeHelper.GetPropertyData(input, new List<string>() { "WhosYourDaddy" });
+			
+			Assert.AreEqual("WhosYourDaddy", data.PropertyInfo.Name, "Name is wrong");
+			Assert.AreEqual("Spock", data.Value, "Value is wrong");
 		}
 		
 		[Test]
-		public void GetPropertyInfo_TwoLevels()
+		public void GetPropertyData_TwoLevels()
 		{
-			PropertyInfo pi = TypeHelper.GetPropertyInfo(typeof(TypeHelperTestTypeWrapper), new List<string>() { "Child", "WhosYourDaddy" });
+			TypeHelperTestTypeWrapper input = new TypeHelperTestTypeWrapper() {
+				Child = new TypeHelperTestType() {
+					WhosYourDaddy = "Spock"
+				}
+			};
 			
-			Assert.AreEqual("WhosYourDaddy", pi.Name, "Name is wrong");
+			PropertyData data = TypeHelper.GetPropertyData(input, new List<string>() { "Child", "WhosYourDaddy" });
+			
+			Assert.AreEqual("WhosYourDaddy", data.PropertyInfo.Name, "Name is wrong");
+			Assert.AreEqual("Spock", data.Value, "Value is wrong");
 		}
-		#endregion GetPropertyInfo
+		#endregion GetPropertyData
 	}
 }
