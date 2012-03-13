@@ -53,11 +53,15 @@
     <Folder Include="Security\" />
     <Folder Include="Security\Cryptography\" />
     <Folder Include="Reflection\" />
+    <Folder Include="Validation\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Extensions\NameValueCollectionExtensionsTest.cs" />
     <Compile Include="Security\Cryptography\HashTest.cs" />
     <Compile Include="Reflection\TypeHelperTest.cs" />
+    <Compile Include="Validation\ContactInfo.cs" />
+    <Compile Include="Validation\ContactInfoValidationSpecification.cs" />
+    <Compile Include="Validation\ValidationSpecificationTests_SimpleModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
