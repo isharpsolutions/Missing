@@ -1,6 +1,6 @@
 using System;
 using System.Reflection;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Missing.Validation
 {
@@ -8,10 +8,10 @@ namespace Missing.Validation
 	{
 		public ValidationProperty()
 		{
-			this.PropertyPath = new StringCollection();
+			this.PropertyPath = new List<string>();
 		}
 		
-		public StringCollection PropertyPath { get; set; }
+		public IList<string> PropertyPath { get; set; }
 		
 		#region Required
 		private bool isRequired = false;
@@ -31,4 +31,3 @@ namespace Missing.Validation
 		#endregion Required
 	}
 }
-
