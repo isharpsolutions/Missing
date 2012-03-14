@@ -59,8 +59,8 @@
     <Compile Include="Validation\ValidationError.cs" />
     <Compile Include="Validation\ValidationErrorCollection.cs" />
     <Compile Include="Validation\Enforcer.cs" />
-    <Compile Include="Validation\EmailEnforcer.cs" />
-    <Compile Include="Validation\RegExpEnforcer.cs" />
+    <Compile Include="Validation\Enforcers\EmailEnforcer.cs" />
+    <Compile Include="Validation\Enforcers\RegExpEnforcer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -79,5 +79,6 @@
     <Folder Include="Network\" />
     <Folder Include="Reflection\" />
     <Folder Include="Validation\" />
+    <Folder Include="Validation\Enforcers\" />
   </ItemGroup>
 </Project>

@@ -55,6 +55,7 @@
     <Folder Include="Security\Cryptography\" />
     <Folder Include="Reflection\" />
     <Folder Include="Validation\" />
+    <Folder Include="Validation\Enforcers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Extensions\NameValueCollectionExtensionsTest.cs" />
@@ -64,8 +65,8 @@
     <Compile Include="Validation\ContactInfoValidationSpecification.cs" />
     <Compile Include="Validation\ValidationSpecificationTests_SimpleModel.cs" />
     <Compile Include="Validation\ValidationSpecification_GetPropertyPathTests.cs" />
-    <Compile Include="Validation\EmailEnforcerTests.cs" />
-    <Compile Include="Validation\RegExpEnforcerTests.cs" />
+    <Compile Include="Validation\Enforcers\EmailEnforcerTests.cs" />
+    <Compile Include="Validation\Enforcers\RegExpEnforcerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">

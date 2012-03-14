@@ -1,5 +1,5 @@
 using System;
-using Missing.Validation;
+using Missing.Validation.Enforcers;
 using NUnit.Framework;
 
 namespace Missing

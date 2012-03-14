@@ -1,7 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Missing.Validation
+namespace Missing.Validation.Enforcers
 {
 	/// <summary>
 	/// Checks an input string against a supplied
