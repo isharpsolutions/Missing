@@ -73,7 +73,7 @@ namespace Missing.Reflection
 		}
 		
 		[ObsoleteAttribute("Do not use this method... It only exists temporarily while implementing Validation")]
-		public static Type GetTypeEndsWith(string name, bool doLookInSystem)
+		internal static Type GetTypeEndsWith(string name, bool doLookInSystem)
 		{
 			PrepareListOfAssemblies();
 			
