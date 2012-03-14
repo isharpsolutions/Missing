@@ -9,10 +9,15 @@ namespace Missing
 	{
 		public SimpleModel()
 		{
-			this.Info = new ContactInfo();
 		}
 		
-		public ContactInfo Info { get; set; }
+		public string MyString { get; set; }
+		public int MyInt { get; set; }
+		public long MyLong { get; set; }
+		public bool MyBool { get; set; }
+		public decimal MyDecimal { get; set; }
+		public float MyFloat { get; set; }
+		public double MyDouble { get; set; }
 	}
 	#endregion Model
 	
@@ -21,67 +26,68 @@ namespace Missing
 	{
 		public SimpleModelValidationSpecification()
 		{
-			base.Field(y => y.Info.Name).Required();
+			base.Field(y => y.MyString).Required();
+			base.Field(y => y.MyInt).Required();
 		}
 	}
 	#endregion Validation spec
 	
-	#region Int model
-	public class IntModel
-	{
-		public int MyNumber { get; set; }
-	}
-	
-	public class IntModelValidationSpecification : ValidationSpecification<IntModel>
-	{
-		public IntModelValidationSpecification()
-		{
-			base.Field(y => y.MyNumber).Required();
-		}
-	}
-	#endregion Int model
 	
 	[TestFixture]
 	public class ValidationSpecificationTests_SimpleModel
 	{
 		[Test]
-		public void Simple()
+		public void SimpleModel_AllValid()
 		{
-			SimpleModelValidationSpecification spec = new SimpleModelValidationSpecification();
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
 			
-			Assert.AreEqual(1, spec.Properties.Count, "There should be 1 property");
-			Assert.IsTrue(spec.Properties[0].IsRequired, "The property should be flagged as required");
-			
-			Assert.AreEqual(2, spec.Properties[0].PropertyPath.Count, "Path should have 2 elements");
-			Assert.AreEqual("Info", spec.Properties[0].PropertyPath[0], "First part of the path is wrong");
-			Assert.AreEqual("Name", spec.Properties[0].PropertyPath[1], "Second part of the path is wrong");
-			
-			SimpleModel m = new SimpleModel();
-			m.Info.Name = "iSharp";
-			
-			ValidationResult result = Validator.Validate<SimpleModel>(m);
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
 			
 			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 		
 		[Test]
-		public void IntModel()
+		public void SimpleModel_StringIsNull()
 		{
-			IntModelValidationSpecification spec = new IntModelValidationSpecification();
+			SimpleModel model = new SimpleModel();
+			model.MyString = null;
+			model.MyInt = 29;
 			
-			Assert.AreEqual(1, spec.Properties.Count, "There should be 1 property");
-			Assert.IsTrue(spec.Properties[0].IsRequired, "The property should be flagged as required");
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
 			
-			Assert.AreEqual(1, spec.Properties[0].PropertyPath.Count, "Path should have 1 element");
-			Assert.AreEqual("MyNumber", spec.Properties[0].PropertyPath[0], "First part of the path is wrong");
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			IntModel model = new IntModel();
-			model.MyNumber = 29;
+			Assert.AreEqual("MyString", result.Errors[0].PropertyName, "The property name is wrong");
+		}
+		
+		[Test]
+		public void SimpleModel_StringIsEmpty()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = String.Empty;
+			model.MyInt = 29;
 			
-			ValidationResult result = Validator.Validate<IntModel>(model);
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
 			
-			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyString", result.Errors[0].PropertyName, "The property name is wrong");
+		}
+		
+		[Test]
+		public void SimpleModel_StringIsWhiteSpace()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "   ";
+			model.MyInt = 29;
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyString", result.Errors[0].PropertyName, "The property name is wrong");
 		}
 	}
 }
-
