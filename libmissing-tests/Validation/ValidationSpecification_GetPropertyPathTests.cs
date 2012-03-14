@@ -34,6 +34,13 @@ namespace Missing
 		{
 			public string SubString { get; set; }
 			public int SubInt { get; set; }
+			
+			public GetPropertyPathTestModelSub2 Three { get; set; }
+		}
+		
+		public class GetPropertyPathTestModelSub2
+		{
+			public int ThirdInt { get; set; }
 		}
 		
 		#region First level
@@ -116,7 +123,7 @@ namespace Missing
 		{
 			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.SubString);
 			
-			Assert.AreEqual(1, path.Count, "Path should contain 2 elements");
+			Assert.AreEqual(2, path.Count, "Path should contain 2 elements");
 			Assert.AreEqual("Sub", path[0], "First: Element is wrong");
 			Assert.AreEqual("SubString", path[1], "Second: Element is wrong");
 		}
@@ -126,11 +133,24 @@ namespace Missing
 		{
 			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.SubInt);
 			
-			Assert.AreEqual(1, path.Count, "Path should contain 2 elements");
+			Assert.AreEqual(2, path.Count, "Path should contain 2 elements");
 			Assert.AreEqual("Sub", path[0], "First: Element is wrong");
 			Assert.AreEqual("SubInt", path[1], "Second: Element is wrong");
 		}
 		#endregion Second level
+		
+		#region Third level
+		[Test]
+		public void ThirdLevel_Int()
+		{
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.Three.ThirdInt);
+			
+			Assert.AreEqual(3, path.Count, "Path should contain 3 elements");
+			Assert.AreEqual("Sub", path[0], "First: Element is wrong");
+			Assert.AreEqual("Three", path[1], "Second: Element is wrong");
+			Assert.AreEqual("ThirdInt", path[2], "Third: Element is wrong");
+		}
+		#endregion Third level
 	}
 }
 

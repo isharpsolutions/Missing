@@ -65,7 +65,35 @@ namespace Missing.Validation
 		{
 			List<string> path = new List<string>();
 			
-			path.Add( exp.Member.Name );
+			
+			MemberExpression curExp = exp;
+			
+			int failsafeMax = 500;
+			int failsafe = 0;
+			
+			while (true)
+			{
+				path.Add(curExp.Member.Name);
+				
+				if (curExp.Expression is MemberExpression)
+				{
+					curExp = (MemberExpression)curExp.Expression;
+				}
+				
+				else
+				{
+					break;
+				}
+				
+				failsafe++;
+				
+				if (failsafe == failsafeMax)
+				{
+					throw new ArgumentException("Breaking out of infinite loop using failsafe");
+				}
+			}
+			
+			path.Reverse();
 			
 			return path;
 		}
