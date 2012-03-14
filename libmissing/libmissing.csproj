@@ -60,6 +60,7 @@
     <Compile Include="Validation\ValidationErrorCollection.cs" />
     <Compile Include="Validation\Enforcer.cs" />
     <Compile Include="Validation\EmailEnforcer.cs" />
+    <Compile Include="Validation\RegExpEnforcer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
