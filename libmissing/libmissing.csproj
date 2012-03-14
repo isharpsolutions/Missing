@@ -56,6 +56,8 @@
     <Compile Include="Validation\ValidationSpecification.cs" />
     <Compile Include="Validation\Validator.cs" />
     <Compile Include="Reflection\PropertyData.cs" />
+    <Compile Include="Validation\ValidationError.cs" />
+    <Compile Include="Validation\ValidationErrorCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

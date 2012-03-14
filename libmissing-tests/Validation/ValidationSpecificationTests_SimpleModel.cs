@@ -60,6 +60,8 @@ namespace Missing
 			m.Info.Name = "iSharp";
 			
 			ValidationResult result = Validator.Validate<SimpleModel>(m);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 		
 		[Test]
@@ -77,6 +79,8 @@ namespace Missing
 			model.MyNumber = 29;
 			
 			ValidationResult result = Validator.Validate<IntModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 	}
 }

@@ -13,6 +13,14 @@ namespace Missing.Validation
 		
 		public IList<string> PropertyPath { get; set; }
 		
+		public string Name
+		{
+			get
+			{
+				return this.PropertyPath[ this.PropertyPath.Count - 1 ];
+			}
+		}
+		
 		#region Required
 		private bool isRequired = false;
 		
