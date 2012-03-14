@@ -8,6 +8,21 @@ namespace Missing
 	public class EmailEnforcerTests
 	{
 		[Test]
+		public void InvalidInputType()
+		{
+			try
+			{
+				(new EmailEnforcer()).Check(34);
+				
+				Assert.Fail("An ArgumentException should have been thrown");
+			}
+			
+			catch (ArgumentException)
+			{
+			}
+		}
+		
+		[Test]
 		public void SimpleAddress()
 		{
 			string email = "valid@domain.tld";
