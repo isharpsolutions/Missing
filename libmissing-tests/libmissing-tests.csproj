@@ -64,6 +64,7 @@
     <Compile Include="Validation\ContactInfoValidationSpecification.cs" />
     <Compile Include="Validation\ValidationSpecificationTests_SimpleModel.cs" />
     <Compile Include="Validation\ValidationSpecification_GetPropertyPathTests.cs" />
+    <Compile Include="Validation\EmailEnforcerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">

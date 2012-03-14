@@ -58,6 +58,8 @@
     <Compile Include="Reflection\PropertyData.cs" />
     <Compile Include="Validation\ValidationError.cs" />
     <Compile Include="Validation\ValidationErrorCollection.cs" />
+    <Compile Include="Validation\Enforcer.cs" />
+    <Compile Include="Validation\EmailEnforcer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
