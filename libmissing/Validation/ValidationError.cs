@@ -13,7 +13,7 @@ namespace Missing.Validation
 		public ValidationError() : this(String.Empty, String.Empty)
 		{
 		}
-		
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Missing.Validation.ValidationError"/> class.
 		/// </summary>
@@ -27,6 +27,22 @@ namespace Missing.Validation
 		{
 			this.PropertyName = propertyName;
 			this.Message = message;
+		}
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Validation.ValidationError"/> class.
+		/// </summary>
+		/// <param name="propertyName">
+		/// The name of the property that contains an error
+		/// </param>
+		/// <param name="messageFormat">
+		/// Format of descriptive message
+		/// </param>
+		/// <param name="messageArgs">
+		/// Arguments for descriptive message format
+		/// </param>
+		public ValidationError(string propertyName, string messageFormat, params object[] messageArgs) : this(propertyName, String.Format(messageFormat, messageArgs))
+		{
 		}
 		
 		/// <summary>
