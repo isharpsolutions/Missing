@@ -26,8 +26,17 @@ namespace Missing
 			public float MyFloat { get; set; }
 			public double MyDouble { get; set; }
 			public GetPropertyPathTestModelEnum MyEnum { get; set; }
+			
+			public GetPropertyPathTestModelSub Sub { get; set; }
 		}
 		
+		public class GetPropertyPathTestModelSub
+		{
+			public string SubString { get; set; }
+			public int SubInt { get; set; }
+		}
+		
+		#region First level
 		[Test]
 		public void FirstLevel_String()
 		{
@@ -99,6 +108,29 @@ namespace Missing
 			Assert.AreEqual(1, path.Count, "Path should contain 1 element");
 			Assert.AreEqual("MyEnum", path[0], "Element is wrong");
 		}
+		#endregion First level
+		
+		#region Second level
+		[Test]
+		public void SecondLevel_String()
+		{
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.SubString);
+			
+			Assert.AreEqual(1, path.Count, "Path should contain 2 elements");
+			Assert.AreEqual("Sub", path[0], "First: Element is wrong");
+			Assert.AreEqual("SubString", path[1], "Second: Element is wrong");
+		}
+		
+		[Test]
+		public void SecondLevel_Int()
+		{
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.SubInt);
+			
+			Assert.AreEqual(1, path.Count, "Path should contain 2 elements");
+			Assert.AreEqual("Sub", path[0], "First: Element is wrong");
+			Assert.AreEqual("SubInt", path[1], "Second: Element is wrong");
+		}
+		#endregion Second level
 	}
 }
 

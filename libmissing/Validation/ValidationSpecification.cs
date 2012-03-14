@@ -27,15 +27,6 @@ namespace Missing.Validation
 			
 			prop.PropertyPath = ValidationSpecification.GetPropertyPath<T>(memberExpression);
 			
-			/*
-			string[] path = memberExpression.Body.ToString().Remove(0, lambdaPrefix.Length + 1).Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
-			
-			foreach (string p in path)
-			{
-				prop.PropertyPath.Add(p);
-			}
-			*/
-			
 			this.properties.Add(prop);
 			
 			return prop;
@@ -48,20 +39,33 @@ namespace Missing.Validation
 	{
 		internal static IList<string> GetPropertyPath<T>(Expression<Func<T, object>> exp) where T : class
 		{
-			List<string> path = new List<string>();
+			MemberExpression mExp;
 			
 			if (exp.Body is UnaryExpression)
 			{
 				UnaryExpression uexp = (UnaryExpression)exp.Body;
-				MemberExpression mexp = (MemberExpression)uexp.Operand;
 				
-				path.Add(mexp.Member.Name);
+				mExp = (MemberExpression)uexp.Operand;
 			}
 			
 			else
 			{
-				path.Add( ((MemberExpression)exp.Body).Member.Name);
+				mExp = (MemberExpression)exp.Body;
 			}
+			
+			if (mExp == default(MemberExpression))
+			{
+				throw new ArgumentException("Unable to determine a MemberExpression");
+			}
+			
+			return GetPropertyPathFromMemberExpression(mExp);
+		}
+		
+		private static IList<string> GetPropertyPathFromMemberExpression(MemberExpression exp)
+		{
+			List<string> path = new List<string>();
+			
+			path.Add( exp.Member.Name );
 			
 			return path;
 		}
