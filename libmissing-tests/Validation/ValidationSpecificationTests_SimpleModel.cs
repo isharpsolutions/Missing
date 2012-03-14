@@ -26,8 +26,13 @@ namespace Missing
 	{
 		public SimpleModelValidationSpecification()
 		{
-			base.Field(y => y.MyString).Required();
-			base.Field(y => y.MyInt).Required();
+			base.Field(y => y.MyString)
+				.Required()
+				.Length(10);
+			
+			
+			base.Field(y => y.MyInt)
+				.Required();
 		}
 	}
 	#endregion Validation spec
@@ -81,6 +86,20 @@ namespace Missing
 		{
 			SimpleModel model = new SimpleModel();
 			model.MyString = "   ";
+			model.MyInt = 29;
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyString", result.Errors[0].PropertyName, "The property name is wrong");
+		}
+		
+		[Test]
+		public void SimpleModel_StringTooLong()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Very long and annoying string that will never ever pass validation";
 			model.MyInt = 29;
 			
 			ValidationResult result = Validator.Validate<SimpleModel>(model);

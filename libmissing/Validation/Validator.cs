@@ -60,6 +60,7 @@ namespace Missing.Validation
 			
 			var val = pd.Value;
 			
+			#region Is required
 			if (prop.IsRequired)
 			{
 				if (val is string)
@@ -75,6 +76,20 @@ namespace Missing.Validation
 					return new ValidationError(prop.Name, "Property is required but was 'null'");
 				}
 			}
+			#endregion Is required
+			
+			#region Length
+			if (val is string)
+			{
+				if (prop.MaxLength > 0)
+				{
+					if ( ((string)val).Length > prop.MaxLength )
+					{
+						return new ValidationError(prop.Name, "Value exceeds max length of '{0}'", prop.MaxLength);
+					}
+				}
+			}
+			#endregion Length
 			
 			return default(ValidationError);
 		}
