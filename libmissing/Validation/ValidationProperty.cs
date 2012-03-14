@@ -59,5 +59,34 @@ namespace Missing.Validation
 			return this;
 		}
 		#endregion Required
+		
+		#region Length
+		private int length = -1;
+		
+		/// <summary>
+		/// Get/set maximum allowed length of the value
+		/// </summary>
+		internal int MaxLength
+		{
+			get { return this.length; }
+			set { this.length = value; }
+		}
+		
+		/// <summary>
+		/// Maximum allowed length of the value
+		/// </summary>
+		/// <param name="length">
+		/// Length
+		/// </param>
+		/// <remarks>
+		/// This is currently only used when validating strings
+		/// </remarks>
+		public ValidationProperty Length(int length)
+		{
+			this.MaxLength = length;
+			
+			return this;
+		}
+		#endregion Length
 	}
 }
