@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Collections.Generic;
+using Missing.Validation.Enforcers;
 
 namespace Missing.Validation
 {
@@ -88,5 +89,35 @@ namespace Missing.Validation
 			return this;
 		}
 		#endregion Length
+		
+		#region Enforcer
+		/// <summary>
+		/// The enforcer (may be null)
+		/// </summary>
+		private Enforcer enforcer = default(Enforcer);
+		
+		/// <summary>
+		/// Get/set the enforcer to use
+		/// </summary>
+		/// <remarks>
+		/// If the value is default(Enforcer) then
+		/// an enforcer should not be used
+		/// </remarks>
+		internal Enforcer Enforcer
+		{
+			get { return this.enforcer; }
+			set { this.enforcer = value; }
+		}
+		#endregion Enforcer
+		
+		/// <summary>
+		/// The value must be a valid email address
+		/// </summary>
+		public ValidationProperty AllowedEmail()
+		{
+			this.Enforcer = new EmailEnforcer();
+			
+			return this;
+		}
 	}
 }
