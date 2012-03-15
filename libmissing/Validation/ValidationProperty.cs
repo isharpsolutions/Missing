@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 using Missing.Validation.Enforcers;
+using System.Text.RegularExpressions;
 
 namespace Missing.Validation
 {
@@ -116,6 +117,53 @@ namespace Missing.Validation
 		public ValidationProperty AllowedEmail()
 		{
 			this.Enforcer = new EmailEnforcer();
+			
+			return this;
+		}
+		
+		/// <summary>
+		/// Use the supplied regular expression for validation
+		/// </summary>
+		/// <param name="regex">
+		/// The Regex
+		/// </param>
+		public ValidationProperty Allowed(Regex regex)
+		{
+			this.Enforcer = new RegExpEnforcer() {
+				Regex = regex
+			};
+			
+			return this;
+		}
+		
+		/// <summary>
+		/// Use the supplied enforcer for validation
+		/// </summary>
+		/// <param name="enforcer">
+		/// The enforcer
+		/// </param>
+		public ValidationProperty Allowed(Enforcer enforcer)
+		{
+			this.Enforcer = enforcer;
+			
+			return this;
+		}
+		
+		/// <summary>
+		/// Creates a regular expression with the given
+		/// allowed characters.
+		/// 
+		/// The regular expression is "case insensitive"
+		/// </summary>
+		/// <param name="allowedCharacters">
+		/// The set of allowed characters, just like you would write
+		/// it in a regular expression "[]" block
+		/// </param>
+		public ValidationProperty Allowed(string allowedCharacters)
+		{
+			this.Enforcer = new RegExpEnforcer() {
+				Regex = new Regex(String.Format("^[{0}]*$", allowedCharacters), RegexOptions.Compiled | RegexOptions.IgnoreCase)
+			};
 			
 			return this;
 		}
