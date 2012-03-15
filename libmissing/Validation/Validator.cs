@@ -76,6 +76,17 @@ namespace Missing.Validation
 					return new ValidationError(prop.Name, "Property is required but was 'null'");
 				}
 			}
+			
+			else
+			{
+				// if the property is not required
+				// and it has no value, skip the rest
+				// of the validation
+				if (val == null)
+				{
+					return default(ValidationError);
+				}
+			}
 			#endregion Is required
 			
 			#region Length
@@ -90,6 +101,18 @@ namespace Missing.Validation
 				}
 			}
 			#endregion Length
+			
+			#region Enforcer
+			if (prop.Enforcer != default(Enforcer))
+			{
+				string enforcerResult = prop.Enforcer.Check(val);
+				
+				if (!enforcerResult.Equals(String.Empty))
+				{
+					return new ValidationError(prop.Name, "Enforcer '{0}' says: {1}", prop.Enforcer.GetType(), enforcerResult);
+				}
+			}
+			#endregion Enforcer
 			
 			return default(ValidationError);
 		}
