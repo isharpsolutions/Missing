@@ -67,7 +67,7 @@ namespace Missing.Validation
 				{
 					if (String.IsNullOrWhiteSpace((string)val))
 					{
-						return new ValidationError(prop.Name, "Property is required but was 'null', 'String.Emptpy' or consisted of only whitespace.");
+						return new ValidationError(prop.Name, "Property is required but was 'null', 'String.Empty' or consisted of only whitespace.");
 					}
 				}
 				
