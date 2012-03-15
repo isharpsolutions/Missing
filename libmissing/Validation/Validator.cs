@@ -105,7 +105,16 @@ namespace Missing.Validation
 			#region Enforcer
 			if (prop.Enforcer != default(Enforcer))
 			{
-				string enforcerResult = prop.Enforcer.Check(val);
+				string enforcerResult = String.Empty;
+				
+				try
+				{
+					enforcerResult = prop.Enforcer.Check(val);
+				}
+				catch (Exception ex)
+				{
+					enforcerResult = ex.Message;
+				}
 				
 				if (!enforcerResult.Equals(String.Empty))
 				{
