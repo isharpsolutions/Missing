@@ -22,12 +22,12 @@ namespace Missing.Validation
 		/// <summary>
 		/// Get/set the property path
 		/// </summary>
-		public IList<string> PropertyPath { get; set; }
+		internal IList<string> PropertyPath { get; set; }
 		
 		/// <summary>
 		/// Get the name of the underlying property
 		/// </summary>
-		public string Name
+		internal string Name
 		{
 			get
 			{

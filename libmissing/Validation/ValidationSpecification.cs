@@ -25,7 +25,7 @@ namespace Missing.Validation
 		/// <summary>
 		/// Get/set the full set of fields
 		/// </summary>
-		public FieldSpecificationCollection Fields
+		internal FieldSpecificationCollection Fields
 		{
 			get { return this.fields; }
 			set { this.fields = value; }
