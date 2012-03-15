@@ -63,29 +63,59 @@ namespace Missing.Validation
 		#endregion Required
 		
 		#region Length
-		private int length = -1;
+		private int maxLength = -1;
+		private int minLength = -1;
 		
 		/// <summary>
 		/// Get/set maximum allowed length of the value
 		/// </summary>
 		internal int MaxLength
 		{
-			get { return this.length; }
-			set { this.length = value; }
+			get { return this.maxLength; }
+			set { this.maxLength = value; }
+		}
+		
+		/// <summary>
+		/// Get/set minimum allowed length of the value
+		/// </summary>
+		internal int MinLength
+		{
+			get { return this.minLength; }
+			set { this.minLength = value; }
 		}
 		
 		/// <summary>
 		/// Maximum allowed length of the value
 		/// </summary>
-		/// <param name="length">
+		/// <param name="maxLength">
 		/// Length
 		/// </param>
 		/// <remarks>
 		/// This is currently only used when validating strings
 		/// </remarks>
-		public ValidationProperty Length(int length)
+		public ValidationProperty Length(int maxLength)
 		{
-			this.MaxLength = length;
+			this.MaxLength = maxLength;
+			
+			return this;
+		}
+		
+		/// <summary>
+		/// Maximum and minimum length of the value
+		/// </summary>
+		/// <param name="maxLength">
+		/// Max length.
+		/// </param>
+		/// <param name="minLength">
+		/// Minimum length.
+		/// </param>
+		/// <remarks>
+		/// This is currently only used when validating strings
+		/// </remarks>
+		public ValidationProperty Length(int maxLength, int minLength)
+		{
+			this.MaxLength = maxLength;
+			this.MinLength = minLength;
 			
 			return this;
 		}

@@ -99,6 +99,14 @@ namespace Missing.Validation
 						return new ValidationError(prop.Name, "Value exceeds max length of '{0}'", prop.MaxLength);
 					}
 				}
+				
+				if (prop.MinLength >= 0)
+				{
+					if ( ((string)val).Length < prop.MinLength )
+					{
+						return new ValidationError(prop.Name, "Value is shorter than allowed minimum length of '{0}'", prop.MinLength);
+					}
+				}
 			}
 			#endregion Length
 			

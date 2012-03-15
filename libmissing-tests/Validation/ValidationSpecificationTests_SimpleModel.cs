@@ -19,6 +19,7 @@ namespace Missing
 		public string MyRegexString { get; set; }
 		public string MyOnlyA { get; set; }
 		public string MyHotdog { get; set; }
+		public string MyMaxAndMinString { get; set; }
 	}
 	#endregion Model
 	
@@ -45,6 +46,9 @@ namespace Missing
 			
 			base.Field(y => y.MyHotdog)
 				.Allowed(new SimpleModelEnforcer());
+			
+			base.Field(y => y.MyMaxAndMinString)
+				.Length(5, 2);
 		}
 	}
 	
@@ -282,6 +286,34 @@ namespace Missing
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
 			Assert.AreEqual("MyLong", result.Errors[0].PropertyName, "The property name is wrong");
+		}
+		
+		[Test]
+		public void SimpleModel_MaxAndMinLengthValid()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyMaxAndMinString = "abcd";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void SimpleModel_MaxAndMinLengthInvalid()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyMaxAndMinString = "a";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyMaxAndMinString", result.Errors[0].PropertyName, "The property name is wrong");
 		}
 	}
 }
