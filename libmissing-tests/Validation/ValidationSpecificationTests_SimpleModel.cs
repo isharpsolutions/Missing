@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using Missing.Validation;
+using System.Text.RegularExpressions;
 
 namespace Missing
 {
@@ -20,6 +21,9 @@ namespace Missing
 		public double MyDouble { get; set; }
 		
 		public string MyEmail { get; set; }
+		public string MyRegexString { get; set; }
+		public string MyOnlyA { get; set; }
+		public string MyHotdog { get; set; }
 	}
 	#endregion Model
 	
@@ -38,6 +42,15 @@ namespace Missing
 			base.Field(y => y.MyEmail)
 				.AllowedEmail();
 			
+			base.Field(y => y.MyRegexString)
+				.Allowed(new Regex("abc"));
+			
+			base.Field(y => y.MyOnlyA)
+				.Allowed("a");
+			
+			base.Field(y => y.MyHotdog)
+				.Allowed(new SimpleModelEnforcer());
+			
 			// this is invalid and is only
 			// there to test handling of exceptions
 			// from enforcers
@@ -49,6 +62,21 @@ namespace Missing
 			//base.Field(y => y.MyLong)
 			//	.AllowedEmail();
 		}
+	}
+	
+	public class SimpleModelEnforcer : Enforcer
+	{
+		#region implemented abstract members of Missing.Validation.Enforcer
+		public override string Check(object input)
+		{
+			if (((string)input).Equals("Hotdog"))
+			{
+				return String.Empty;
+			}
+			
+			return "Bad hotdog bro!";
+		}
+		#endregion
 	}
 	#endregion Validation spec
 	
@@ -155,40 +183,88 @@ namespace Missing
 			Assert.AreEqual("MyEmail", result.Errors[0].PropertyName, "The property name is wrong");
 		}
 		
-		[Ignore]
 		[Test]
 		public void SimpleModel_RegexValid()
 		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyRegexString = "abc abc abc";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 		
-		[Ignore]
 		[Test]
 		public void SimpleModel_RegexInvalid()
 		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyRegexString = "def def def";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyRegexString", result.Errors[0].PropertyName, "The property name is wrong");
 		}
 		
-		[Ignore]
 		[Test]
 		public void SimpleModel_AllowedCharactersValid()
 		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyOnlyA = "aaAAaAAaa";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 		
-		[Ignore]
 		[Test]
 		public void SimpleModel_AllowedCharactersInvalid()
 		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyOnlyA = "Annabelle";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyOnlyA", result.Errors[0].PropertyName, "The property name is wrong");
 		}
 		
-		[Ignore]
 		[Test]
 		public void SimpleModel_CustomEnforcerValid()
 		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyHotdog = "Hotdog";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 		
-		[Ignore]
 		[Test]
 		public void SimpleModel_CustomEnforcerInvalid()
 		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyHotdog = "Burger";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyHotdog", result.Errors[0].PropertyName, "The property name is wrong");
 		}
 	}
 }
