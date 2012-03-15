@@ -14,11 +14,6 @@ namespace Missing
 		
 		public string MyString { get; set; }
 		public int MyInt { get; set; }
-		public long MyLong { get; set; }
-		public bool MyBool { get; set; }
-		public decimal MyDecimal { get; set; }
-		public float MyFloat { get; set; }
-		public double MyDouble { get; set; }
 		
 		public string MyEmail { get; set; }
 		public string MyRegexString { get; set; }
@@ -50,17 +45,6 @@ namespace Missing
 			
 			base.Field(y => y.MyHotdog)
 				.Allowed(new SimpleModelEnforcer());
-			
-			// this is invalid and is only
-			// there to test handling of exceptions
-			// from enforcers
-			// 
-			// as we cannot see whether a Long is
-			// not set, including this field makes
-			// all tests fail, as the enforcer is
-			// always run
-			//base.Field(y => y.MyLong)
-			//	.AllowedEmail();
 		}
 	}
 	
@@ -79,6 +63,26 @@ namespace Missing
 		#endregion
 	}
 	#endregion Validation spec
+	
+	#region Long model
+	public class LongModel
+	{
+		public long MyLong { get; set; }
+	}
+	
+	public class LongModelValidationSpecification : ValidationSpecification<LongModel>
+	{
+		public LongModelValidationSpecification()
+		{
+			// this is invalid and is only
+			// there to test handling of exceptions
+			// from enforcers
+
+			base.Field(y => y.MyLong)
+				.AllowedEmail();
+		}
+	}
+	#endregion Long model
 	
 	
 	[TestFixture]
@@ -265,6 +269,19 @@ namespace Missing
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
 			Assert.AreEqual("MyHotdog", result.Errors[0].PropertyName, "The property name is wrong");
+		}
+		
+		[Test]
+		public void LongModel()
+		{
+			LongModel model = new LongModel();
+			model.MyLong = 133;
+			
+			ValidationResult result = Validator.Validate<LongModel>(model);
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyLong", result.Errors[0].PropertyName, "The property name is wrong");
 		}
 	}
 }
