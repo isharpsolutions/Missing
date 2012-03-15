@@ -4,8 +4,24 @@ using System.Reflection;
 
 namespace Missing.Validation
 {
+	/// <summary>
+	/// Holds methods for Validation purposes
+	/// </summary>
 	public static class Validator
 	{
+		#region Validate
+		/// <summary>
+		/// Validate the specified input
+		/// </summary>
+		/// <param name="input">
+		/// The model that should be validated
+		/// </param>
+		/// <typeparam name="T">
+		/// The type of the model
+		/// </typeparam>
+		/// <exception cref="ArgumentException">
+		/// Thrown if a proper <see cref="ValidationSpecification"/> cannot be found
+		/// </exception>
 		public static ValidationResult Validate<T>(T input) where T : class
 		{
 			ValidationResult result = new ValidationResult();
@@ -53,7 +69,27 @@ namespace Missing.Validation
 			
 			return result;
 		}
+		#endregion Validate
 		
+		#region Validate field helper
+		/// <summary>
+		/// Validates a specific field based on a field specification
+		/// and an instance of the model
+		/// </summary>
+		/// <returns>
+		/// An instance of <see cref="ValidationError"/> if field's value
+		/// in the model does not correspond with the field specification.
+		/// If the value is valid, then default(ValidationError) is returned.
+		/// </returns>
+		/// <param name="field">
+		/// The field specification
+		/// </param>
+		/// <param name="input">
+		/// The input model
+		/// </param>
+		/// <typeparam name="T">
+		/// The model type
+		/// </typeparam>
 		private static ValidationError ValidateField<T>(FieldSpecification field, T input) where T : class
 		{
 			PropertyData pd = TypeHelper.GetPropertyData(input, field.PropertyPath);
@@ -133,5 +169,6 @@ namespace Missing.Validation
 			
 			return default(ValidationError);
 		}
+		#endregion Validate field helper
 	}
 }
