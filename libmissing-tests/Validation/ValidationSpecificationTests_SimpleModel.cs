@@ -37,6 +37,17 @@ namespace Missing
 			
 			base.Field(y => y.MyEmail)
 				.AllowedEmail();
+			
+			// this is invalid and is only
+			// there to test handling of exceptions
+			// from enforcers
+			// 
+			// as we cannot see whether a Long is
+			// not set, including this field makes
+			// all tests fail, as the enforcer is
+			// always run
+			//base.Field(y => y.MyLong)
+			//	.AllowedEmail();
 		}
 	}
 	#endregion Validation spec
