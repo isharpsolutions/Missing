@@ -37,15 +37,6 @@ namespace Missing
 			
 			base.Field(y => y.MyEmail)
 				.AllowedEmail();
-			
-			//
-			// make a test where email is not required
-			// but still calls AllowedEmail
-			//
-			// not calling required should make the
-			// field continue validation only if
-			// the field contains a value
-			//
 		}
 	}
 	#endregion Validation spec
@@ -151,6 +142,42 @@ namespace Missing
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
 			Assert.AreEqual("MyEmail", result.Errors[0].PropertyName, "The property name is wrong");
+		}
+		
+		[Ignore]
+		[Test]
+		public void SimpleModel_RegexValid()
+		{
+		}
+		
+		[Ignore]
+		[Test]
+		public void SimpleModel_RegexInvalid()
+		{
+		}
+		
+		[Ignore]
+		[Test]
+		public void SimpleModel_AllowedCharactersValid()
+		{
+		}
+		
+		[Ignore]
+		[Test]
+		public void SimpleModel_AllowedCharactersInvalid()
+		{
+		}
+		
+		[Ignore]
+		[Test]
+		public void SimpleModel_CustomEnforcerValid()
+		{
+		}
+		
+		[Ignore]
+		[Test]
+		public void SimpleModel_CustomEnforcerInvalid()
+		{
 		}
 	}
 }
