@@ -20,15 +20,15 @@ namespace Missing.Validation
 		/// <summary>
 		/// Collection of validation properties
 		/// </summary>
-		private ValidationPropertyCollection properties = new ValidationPropertyCollection();
+		private FieldSpecificationCollection fields = new FieldSpecificationCollection();
 		
 		/// <summary>
-		/// Get/set the full set of validation properties
+		/// Get/set the full set of fields
 		/// </summary>
-		public ValidationPropertyCollection Properties
+		public FieldSpecificationCollection Fields
 		{
-			get { return this.properties; }
-			set { this.properties = value; }
+			get { return this.fields; }
+			set { this.fields = value; }
 		}
 		
 		/// <summary>
@@ -37,13 +37,13 @@ namespace Missing.Validation
 		/// <param name="memberExpression">
 		/// Lambda expression like "y => y.PropertyOne.PropertyTwo"
 		/// </param>
-		public ValidationProperty Field(Expression<Func<T, object>> memberExpression)
+		public FieldSpecification Field(Expression<Func<T, object>> memberExpression)
 		{
-			ValidationProperty prop = new ValidationProperty();
+			FieldSpecification prop = new FieldSpecification();
 			
 			prop.PropertyPath = ValidationSpecification.GetPropertyPath<T>(memberExpression);
 			
-			this.properties.Add(prop);
+			this.fields.Add(prop);
 			
 			return prop;
 		}

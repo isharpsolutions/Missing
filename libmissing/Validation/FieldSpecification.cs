@@ -7,14 +7,14 @@ using System.Text.RegularExpressions;
 namespace Missing.Validation
 {
 	/// <summary>
-	/// Validation property
+	/// Specification of how to validate a specific field
 	/// </summary>
-	public class ValidationProperty
+	public class FieldSpecification
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.ValidationProperty"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.FieldSpecification"/> class.
 		/// </summary>
-		public ValidationProperty()
+		public FieldSpecification()
 		{
 			this.PropertyPath = new List<string>();
 		}
@@ -39,7 +39,7 @@ namespace Missing.Validation
 		private bool isRequired = false;
 		
 		/// <summary>
-		/// Get/set whether this property is required
+		/// Get/set whether this field is required
 		/// </summary>
 		internal bool IsRequired
 		{
@@ -48,13 +48,13 @@ namespace Missing.Validation
 		}
 		
 		/// <summary>
-		/// Marks this property as being required
+		/// Marks this field as being required
 		/// </summary>
 		/// <remarks>
 		/// Currently we do not support "Required"
-		/// for properties of types where default(..type..) = null
+		/// for fields of types where default(..type..) = null
 		/// </remarks>
-		public ValidationProperty Required()
+		public FieldSpecification Required()
 		{
 			this.IsRequired = true;
 			
@@ -93,7 +93,7 @@ namespace Missing.Validation
 		/// <remarks>
 		/// This is currently only used when validating strings
 		/// </remarks>
-		public ValidationProperty Length(int maxLength)
+		public FieldSpecification Length(int maxLength)
 		{
 			this.MaxLength = maxLength;
 			
@@ -112,7 +112,7 @@ namespace Missing.Validation
 		/// <remarks>
 		/// This is currently only used when validating strings
 		/// </remarks>
-		public ValidationProperty Length(int maxLength, int minLength)
+		public FieldSpecification Length(int maxLength, int minLength)
 		{
 			this.MaxLength = maxLength;
 			this.MinLength = minLength;
@@ -144,7 +144,7 @@ namespace Missing.Validation
 		/// <summary>
 		/// The value must be a valid email address
 		/// </summary>
-		public ValidationProperty AllowedEmail()
+		public FieldSpecification AllowedEmail()
 		{
 			this.Enforcer = new EmailEnforcer();
 			
@@ -157,7 +157,7 @@ namespace Missing.Validation
 		/// <param name="regex">
 		/// The Regex
 		/// </param>
-		public ValidationProperty Allowed(Regex regex)
+		public FieldSpecification Allowed(Regex regex)
 		{
 			this.Enforcer = new RegExpEnforcer() {
 				Regex = regex
@@ -172,7 +172,7 @@ namespace Missing.Validation
 		/// <param name="enforcer">
 		/// The enforcer
 		/// </param>
-		public ValidationProperty Allowed(Enforcer enforcer)
+		public FieldSpecification Allowed(Enforcer enforcer)
 		{
 			this.Enforcer = enforcer;
 			
@@ -189,7 +189,7 @@ namespace Missing.Validation
 		/// The set of allowed characters, just like you would write
 		/// it in a regular expression "[]" block
 		/// </param>
-		public ValidationProperty Allowed(string allowedCharacters)
+		public FieldSpecification Allowed(string allowedCharacters)
 		{
 			this.Enforcer = new RegExpEnforcer() {
 				Regex = new Regex(String.Format("^[{0}]*$", allowedCharacters), RegexOptions.Compiled | RegexOptions.IgnoreCase)

@@ -17,23 +17,23 @@ namespace Missing.Validation
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Missing.Validation.ValidationError"/> class.
 		/// </summary>
-		/// <param name="propertyName">
-		/// The name of the property that contains an error
+		/// <param name="fieldName">
+		/// The name of the field that contains an error
 		/// </param>
 		/// <param name="message">
 		/// A descriptive message of what the error is
 		/// </param>
-		public ValidationError(string propertyName, string message)
+		public ValidationError(string fieldName, string message)
 		{
-			this.PropertyName = propertyName;
+			this.FieldName = fieldName;
 			this.Message = message;
 		}
 		
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Missing.Validation.ValidationError"/> class.
 		/// </summary>
-		/// <param name="propertyName">
-		/// The name of the property that contains an error
+		/// <param name="fieldName">
+		/// The name of the field that contains an error
 		/// </param>
 		/// <param name="messageFormat">
 		/// Format of descriptive message
@@ -41,14 +41,14 @@ namespace Missing.Validation
 		/// <param name="messageArgs">
 		/// Arguments for descriptive message format
 		/// </param>
-		public ValidationError(string propertyName, string messageFormat, params object[] messageArgs) : this(propertyName, String.Format(messageFormat, messageArgs))
+		public ValidationError(string fieldName, string messageFormat, params object[] messageArgs) : this(fieldName, String.Format(messageFormat, messageArgs))
 		{
 		}
 		
 		/// <summary>
 		/// Get/set the name of the property that contains an error
 		/// </summary>
-		public string PropertyName { get; set; }
+		public string FieldName { get; set; }
 		
 		/// <summary>
 		/// Get/set a descriptive message of what the error is

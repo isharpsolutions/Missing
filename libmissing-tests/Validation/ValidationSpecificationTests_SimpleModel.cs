@@ -118,7 +118,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyString", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyString", result.Errors[0].FieldName, "The property name is wrong");
 		}
 		
 		[Test]
@@ -132,7 +132,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyString", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyString", result.Errors[0].FieldName, "The property name is wrong");
 		}
 		
 		[Test]
@@ -146,7 +146,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyString", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyString", result.Errors[0].FieldName, "The property name is wrong");
 		}
 		
 		[Test]
@@ -160,7 +160,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyString", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyString", result.Errors[0].FieldName, "The property name is wrong");
 		}
 		
 		[Test]
@@ -188,7 +188,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyEmail", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyEmail", result.Errors[0].FieldName, "The property name is wrong");
 		}
 		
 		[Test]
@@ -216,7 +216,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyRegexString", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyRegexString", result.Errors[0].FieldName, "The property name is wrong");
 		}
 		
 		[Test]
@@ -244,7 +244,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyOnlyA", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyOnlyA", result.Errors[0].FieldName, "The property name is wrong");
 		}
 		
 		[Test]
@@ -272,7 +272,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyHotdog", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyHotdog", result.Errors[0].FieldName, "The property name is wrong");
 		}
 		
 		[Test]
@@ -285,7 +285,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyLong", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyLong", result.Errors[0].FieldName, "The property name is wrong");
 		}
 		
 		[Test]
@@ -313,7 +313,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyMaxAndMinString", result.Errors[0].PropertyName, "The property name is wrong");
+			Assert.AreEqual("MyMaxAndMinString", result.Errors[0].FieldName, "The property name is wrong");
 		}
 	}
 }

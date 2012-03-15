@@ -38,10 +38,10 @@ namespace Missing.Validation
 			
 			ValidationError error;
 			// run through each element in the specification
-			foreach (ValidationProperty prop in vs.Properties)
+			foreach (FieldSpecification field in vs.Fields)
 			{
-				// check the value of the property
-				error = ValidateProperty<T>(prop, input);
+				// check the value of the field
+				error = ValidateField<T>(field, input);
 				
 				if (error != default(ValidationError))
 				{
@@ -54,32 +54,32 @@ namespace Missing.Validation
 			return result;
 		}
 		
-		private static ValidationError ValidateProperty<T>(ValidationProperty prop, T input) where T : class
+		private static ValidationError ValidateField<T>(FieldSpecification field, T input) where T : class
 		{
-			PropertyData pd = TypeHelper.GetPropertyData(input, prop.PropertyPath);
+			PropertyData pd = TypeHelper.GetPropertyData(input, field.PropertyPath);
 			
 			var val = pd.Value;
 			
 			#region Is required
-			if (prop.IsRequired)
+			if (field.IsRequired)
 			{
 				if (val is string)
 				{
 					if (String.IsNullOrWhiteSpace((string)val))
 					{
-						return new ValidationError(prop.Name, "Property is required but was 'null', 'String.Empty' or consisted of only whitespace.");
+						return new ValidationError(field.Name, "Field is required but was 'null', 'String.Empty' or consisted of only whitespace.");
 					}
 				}
 				
 				else if (val == null)
 				{
-					return new ValidationError(prop.Name, "Property is required but was 'null'");
+					return new ValidationError(field.Name, "Field is required but was 'null'");
 				}
 			}
 			
 			else
 			{
-				// if the property is not required
+				// if the field is not required
 				// and it has no value, skip the rest
 				// of the validation
 				if (val == null)
@@ -92,32 +92,32 @@ namespace Missing.Validation
 			#region Length
 			if (val is string)
 			{
-				if (prop.MaxLength > 0)
+				if (field.MaxLength > 0)
 				{
-					if ( ((string)val).Length > prop.MaxLength )
+					if ( ((string)val).Length > field.MaxLength )
 					{
-						return new ValidationError(prop.Name, "Value exceeds max length of '{0}'", prop.MaxLength);
+						return new ValidationError(field.Name, "Value exceeds max length of '{0}'", field.MaxLength);
 					}
 				}
 				
-				if (prop.MinLength >= 0)
+				if (field.MinLength >= 0)
 				{
-					if ( ((string)val).Length < prop.MinLength )
+					if ( ((string)val).Length < field.MinLength )
 					{
-						return new ValidationError(prop.Name, "Value is shorter than allowed minimum length of '{0}'", prop.MinLength);
+						return new ValidationError(field.Name, "Value is shorter than allowed minimum length of '{0}'", field.MinLength);
 					}
 				}
 			}
 			#endregion Length
 			
 			#region Enforcer
-			if (prop.Enforcer != default(Enforcer))
+			if (field.Enforcer != default(Enforcer))
 			{
 				string enforcerResult = String.Empty;
 				
 				try
 				{
-					enforcerResult = prop.Enforcer.Check(val);
+					enforcerResult = field.Enforcer.Check(val);
 				}
 				catch (Exception ex)
 				{
@@ -126,7 +126,7 @@ namespace Missing.Validation
 				
 				if (!enforcerResult.Equals(String.Empty))
 				{
-					return new ValidationError(prop.Name, "Enforcer '{0}' says: {1}", prop.Enforcer.GetType(), enforcerResult);
+					return new ValidationError(field.Name, "Enforcer '{0}' says: {1}", field.Enforcer.GetType(), enforcerResult);
 				}
 			}
 			#endregion Enforcer
