@@ -69,7 +69,7 @@ namespace Missing.Validation
 		/// Thrown if the method is unable to find the appropiate
 		/// MemberExpression in the lambda expression.
 		/// </exception>
-		internal static IList<string> GetPropertyPath<T>(Expression<Func<T, object>> exp) where T : class
+		internal static PropertyPath GetPropertyPath<T>(Expression<Func<T, object>> exp) where T : class
 		{
 			MemberExpression mExp;
 			
@@ -105,9 +105,9 @@ namespace Missing.Validation
 		/// <exception cref="ArgumentException">
 		/// Thrown if the inner loop exceeds a maximum number of iterations
 		/// </exception>
-		private static IList<string> GetPropertyPathFromMemberExpression(MemberExpression exp)
+		private static PropertyPath GetPropertyPathFromMemberExpression(MemberExpression exp)
 		{
-			List<string> path = new List<string>();
+			List<String> path = new List<String>();
 			
 			
 			MemberExpression curExp = exp;
@@ -139,7 +139,9 @@ namespace Missing.Validation
 			
 			path.Reverse();
 			
-			return path;
+			return new PropertyPath() {
+				Parts = path
+			};
 		}
 	}
 }

@@ -47,7 +47,7 @@ namespace Missing
 		[Test]
 		public void FirstLevel_String()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyString);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyString).Parts;
 			
 			Assert.AreEqual(1, path.Count, "Path should contain 1 element");
 			Assert.AreEqual("MyString", path[0], "Element is wrong");
@@ -56,7 +56,7 @@ namespace Missing
 		[Test]
 		public void FirstLevel_Int()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyInt);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyInt).Parts;
 			
 			Assert.AreEqual(1, path.Count, "Path should contain 1 element");
 			Assert.AreEqual("MyInt", path[0], "Element is wrong");
@@ -65,7 +65,7 @@ namespace Missing
 		[Test]
 		public void FirstLevel_Long()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyLong);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyLong).Parts;
 			
 			Assert.AreEqual(1, path.Count, "Path should contain 1 element");
 			Assert.AreEqual("MyLong", path[0], "Element is wrong");
@@ -74,7 +74,7 @@ namespace Missing
 		[Test]
 		public void FirstLevel_Bool()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyBool);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyBool).Parts;
 			
 			Assert.AreEqual(1, path.Count, "Path should contain 1 element");
 			Assert.AreEqual("MyBool", path[0], "Element is wrong");
@@ -83,7 +83,7 @@ namespace Missing
 		[Test]
 		public void FirstLevel_Decimal()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyDecimal);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyDecimal).Parts;
 			
 			Assert.AreEqual(1, path.Count, "Path should contain 1 element");
 			Assert.AreEqual("MyDecimal", path[0], "Element is wrong");
@@ -92,7 +92,7 @@ namespace Missing
 		[Test]
 		public void FirstLevel_Float()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyFloat);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyFloat).Parts;
 			
 			Assert.AreEqual(1, path.Count, "Path should contain 1 element");
 			Assert.AreEqual("MyFloat", path[0], "Element is wrong");
@@ -101,7 +101,7 @@ namespace Missing
 		[Test]
 		public void FirstLevel_Double()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyDouble);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyDouble).Parts;
 			
 			Assert.AreEqual(1, path.Count, "Path should contain 1 element");
 			Assert.AreEqual("MyDouble", path[0], "Element is wrong");
@@ -110,7 +110,7 @@ namespace Missing
 		[Test]
 		public void FirstLevel_Enum()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyEnum);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.MyEnum).Parts;
 			
 			Assert.AreEqual(1, path.Count, "Path should contain 1 element");
 			Assert.AreEqual("MyEnum", path[0], "Element is wrong");
@@ -121,7 +121,7 @@ namespace Missing
 		[Test]
 		public void SecondLevel_String()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.SubString);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.SubString).Parts;
 			
 			Assert.AreEqual(2, path.Count, "Path should contain 2 elements");
 			Assert.AreEqual("Sub", path[0], "First: Element is wrong");
@@ -131,7 +131,7 @@ namespace Missing
 		[Test]
 		public void SecondLevel_Int()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.SubInt);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.SubInt).Parts;
 			
 			Assert.AreEqual(2, path.Count, "Path should contain 2 elements");
 			Assert.AreEqual("Sub", path[0], "First: Element is wrong");
@@ -143,7 +143,7 @@ namespace Missing
 		[Test]
 		public void ThirdLevel_Int()
 		{
-			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.Three.ThirdInt);
+			List<string> path = (List<string>)ValidationSpecification.GetPropertyPath<GetPropertyPathTestModel>(y => y.Sub.Three.ThirdInt).Parts;
 			
 			Assert.AreEqual(3, path.Count, "Path should contain 3 elements");
 			Assert.AreEqual("Sub", path[0], "First: Element is wrong");

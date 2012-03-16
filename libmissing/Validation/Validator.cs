@@ -92,7 +92,7 @@ namespace Missing.Validation
 		/// </typeparam>
 		private static ValidationError ValidateField<T>(FieldSpecification field, T input) where T : class
 		{
-			PropertyData pd = TypeHelper.GetPropertyData(input, field.PropertyPath);
+			PropertyData pd = TypeHelper.GetPropertyData(input, field.PropertyPath.Parts);
 			
 			var val = pd.Value;
 			
@@ -103,13 +103,13 @@ namespace Missing.Validation
 				{
 					if (String.IsNullOrWhiteSpace((string)val))
 					{
-						return new ValidationError(field.Name, "Field is required but was 'null', 'String.Empty' or consisted of only whitespace.");
+						return new ValidationError(field.PropertyPath.AsString(), "Field is required but was 'null', 'String.Empty' or consisted of only whitespace.");
 					}
 				}
 				
 				else if (val == null)
 				{
-					return new ValidationError(field.Name, "Field is required but was 'null'");
+					return new ValidationError(field.PropertyPath.AsString(), "Field is required but was 'null'");
 				}
 			}
 			
@@ -118,7 +118,17 @@ namespace Missing.Validation
 				// if the field is not required
 				// and it has no value, skip the rest
 				// of the validation
-				if (val == null)
+				
+				
+				if (val is string)
+				{
+					if (String.IsNullOrWhiteSpace((string)val))
+					{
+						return default(ValidationError);
+					}
+				}
+				
+				else if (val == null)
 				{
 					return default(ValidationError);
 				}
@@ -132,7 +142,7 @@ namespace Missing.Validation
 				{
 					if ( ((string)val).Length > field.MaxLength )
 					{
-						return new ValidationError(field.Name, "Value exceeds max length of '{0}'", field.MaxLength);
+						return new ValidationError(field.PropertyPath.AsString(), "Value exceeds max length of '{0}'", field.MaxLength);
 					}
 				}
 				
@@ -140,7 +150,7 @@ namespace Missing.Validation
 				{
 					if ( ((string)val).Length < field.MinLength )
 					{
-						return new ValidationError(field.Name, "Value is shorter than allowed minimum length of '{0}'", field.MinLength);
+						return new ValidationError(field.PropertyPath.AsString(), "Value is shorter than allowed minimum length of '{0}'", field.MinLength);
 					}
 				}
 			}
@@ -162,7 +172,7 @@ namespace Missing.Validation
 				
 				if (!enforcerResult.Equals(String.Empty))
 				{
-					return new ValidationError(field.Name, enforcerResult) {
+					return new ValidationError(field.PropertyPath.AsString(), enforcerResult) {
 						EnforcerName = field.Enforcer.GetType().FullName
 					};
 				}

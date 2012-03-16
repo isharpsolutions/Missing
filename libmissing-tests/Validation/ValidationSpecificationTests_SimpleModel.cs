@@ -118,7 +118,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyString", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyString", result.Errors[0].PropertyPath, "The property name is wrong");
 		}
 		
 		[Test]
@@ -132,7 +132,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyString", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyString", result.Errors[0].PropertyPath, "The property name is wrong");
 		}
 		
 		[Test]
@@ -146,7 +146,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyString", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyString", result.Errors[0].PropertyPath, "The property name is wrong");
 		}
 		
 		[Test]
@@ -160,7 +160,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyString", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyString", result.Errors[0].PropertyPath, "The property name is wrong");
 		}
 		
 		[Test]
@@ -188,7 +188,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyEmail", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyEmail", result.Errors[0].PropertyPath, "The property name is wrong");
 			Assert.AreEqual(typeof(Missing.Validation.Enforcers.EmailEnforcer).FullName, result.Errors[0].EnforcerName, "The name of the enforcer is wrong");
 		}
 		
@@ -217,7 +217,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyRegexString", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyRegexString", result.Errors[0].PropertyPath, "The property name is wrong");
 			Assert.AreEqual(typeof(Missing.Validation.Enforcers.RegExpEnforcer).FullName, result.Errors[0].EnforcerName, "The name of the enforcer is wrong");
 		}
 		
@@ -246,7 +246,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyOnlyA", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyOnlyA", result.Errors[0].PropertyPath, "The property name is wrong");
 			Assert.AreEqual(typeof(Missing.Validation.Enforcers.RegExpEnforcer).FullName, result.Errors[0].EnforcerName, "The name of the enforcer is wrong");
 		}
 		
@@ -275,7 +275,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyHotdog", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyHotdog", result.Errors[0].PropertyPath, "The property name is wrong");
 			Assert.AreEqual(typeof(Missing.SimpleModelEnforcer).FullName, result.Errors[0].EnforcerName, "The name of the enforcer is wrong");
 		}
 		
@@ -289,16 +289,55 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyLong", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyLong", result.Errors[0].PropertyPath, "The property name is wrong");
 		}
 		
 		[Test]
-		public void SimpleModel_MaxAndMinLengthValid()
+		public void SimpleModel_MaxAndMinLengthValidByValue()
 		{
 			SimpleModel model = new SimpleModel();
 			model.MyString = "Something";
 			model.MyInt = 29;
 			model.MyMaxAndMinString = "abcd";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void SimpleModel_MaxAndMinLengthValidByNull()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyMaxAndMinString = null;
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void SimpleModel_MaxAndMinLengthValidByEmpty()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyMaxAndMinString = String.Empty;
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void SimpleModel_MaxAndMinLengthValidByWhiteSpace()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyMaxAndMinString = "  ";
 			
 			ValidationResult result = Validator.Validate<SimpleModel>(model);
 			
@@ -317,7 +356,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("MyMaxAndMinString", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual("MyMaxAndMinString", result.Errors[0].PropertyPath, "The property name is wrong");
 		}
 	}
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Reflection;
-using System.Collections.Generic;
 using Missing.Validation.Enforcers;
 using System.Text.RegularExpressions;
 
@@ -16,13 +15,13 @@ namespace Missing.Validation
 		/// </summary>
 		public FieldSpecification()
 		{
-			this.PropertyPath = new List<string>();
+			this.PropertyPath = new PropertyPath();
 		}
 		
 		/// <summary>
 		/// Get/set the property path
 		/// </summary>
-		internal IList<string> PropertyPath { get; set; }
+		internal PropertyPath PropertyPath { get; set; }
 		
 		/// <summary>
 		/// Get the name of the underlying property
@@ -31,7 +30,7 @@ namespace Missing.Validation
 		{
 			get
 			{
-				return this.PropertyPath[ this.PropertyPath.Count - 1 ];
+				return this.PropertyPath.FieldName;
 			}
 		}
 		
