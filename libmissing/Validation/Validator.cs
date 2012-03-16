@@ -162,7 +162,9 @@ namespace Missing.Validation
 				
 				if (!enforcerResult.Equals(String.Empty))
 				{
-					return new ValidationError(field.Name, "Enforcer '{0}' says: {1}", field.Enforcer.GetType(), enforcerResult);
+					return new ValidationError(field.Name, enforcerResult) {
+						EnforcerName = field.Enforcer.GetType().FullName
+					};
 				}
 			}
 			#endregion Enforcer

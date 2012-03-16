@@ -189,6 +189,7 @@ namespace Missing
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
 			Assert.AreEqual("MyEmail", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual(typeof(Missing.Validation.Enforcers.EmailEnforcer).FullName, result.Errors[0].EnforcerName, "The name of the enforcer is wrong");
 		}
 		
 		[Test]
@@ -217,6 +218,7 @@ namespace Missing
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
 			Assert.AreEqual("MyRegexString", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual(typeof(Missing.Validation.Enforcers.RegExpEnforcer).FullName, result.Errors[0].EnforcerName, "The name of the enforcer is wrong");
 		}
 		
 		[Test]
@@ -245,6 +247,7 @@ namespace Missing
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
 			Assert.AreEqual("MyOnlyA", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual(typeof(Missing.Validation.Enforcers.RegExpEnforcer).FullName, result.Errors[0].EnforcerName, "The name of the enforcer is wrong");
 		}
 		
 		[Test]
@@ -273,6 +276,7 @@ namespace Missing
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
 			Assert.AreEqual("MyHotdog", result.Errors[0].FieldName, "The property name is wrong");
+			Assert.AreEqual(typeof(Missing.SimpleModelEnforcer).FullName, result.Errors[0].EnforcerName, "The name of the enforcer is wrong");
 		}
 		
 		[Test]

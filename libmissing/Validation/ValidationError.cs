@@ -54,6 +54,11 @@ namespace Missing.Validation
 		/// Get/set a descriptive message of what the error is
 		/// </summary>
 		public string Message { get; set; }
+		
+		/// <summary>
+		/// Get/set the full name of the enforcer that noticed the error
+		/// </summary>
+		public string EnforcerName { get; set; }
 	}
 }
 
