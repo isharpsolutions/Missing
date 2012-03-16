@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using Missing.Reflection;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Missing
 {
@@ -13,6 +14,18 @@ namespace Missing
 		}
 		
 		public string WhosYourDaddy { get; set; }
+	}
+	
+	public class TypeHelperTestTypeWrapper
+	{
+		public TypeHelperTestTypeWrapper()
+		{
+			this.Child = new TypeHelperTestType() {
+				WhosYourDaddy = "My mommy"
+			};
+		}
+		
+		public TypeHelperTestType Child { get; set; }
 	}
 	
 	[TestFixture]
@@ -82,5 +95,50 @@ namespace Missing
 			Assert.AreEqual("You are!", convenience.WhosYourDaddy, "Convenience: Property is wrong");
 		}
 		#endregion Create Instance
+		
+		#region GetPropertyData
+		[Test]
+		public void GetPropertyData_EmptyPath()
+		{
+			try
+			{
+				TypeHelper.GetPropertyData(new TypeHelperTestType(), new List<string>());
+				Assert.Fail("An ArgumentException should have been thrown");
+			}
+			
+			catch (ArgumentException)
+			{
+				// good :)
+			}
+		}
+		
+		[Test]
+		public void GetPropertyData_OneLevel()
+		{
+			TypeHelperTestType input = new TypeHelperTestType() {
+				WhosYourDaddy = "Spock"
+			};
+			
+			PropertyData data = TypeHelper.GetPropertyData(input, new List<string>() { "WhosYourDaddy" });
+			
+			Assert.AreEqual("WhosYourDaddy", data.PropertyInfo.Name, "Name is wrong");
+			Assert.AreEqual("Spock", data.Value, "Value is wrong");
+		}
+		
+		[Test]
+		public void GetPropertyData_TwoLevels()
+		{
+			TypeHelperTestTypeWrapper input = new TypeHelperTestTypeWrapper() {
+				Child = new TypeHelperTestType() {
+					WhosYourDaddy = "Spock"
+				}
+			};
+			
+			PropertyData data = TypeHelper.GetPropertyData(input, new List<string>() { "Child", "WhosYourDaddy" });
+			
+			Assert.AreEqual("WhosYourDaddy", data.PropertyInfo.Name, "Name is wrong");
+			Assert.AreEqual("Spock", data.Value, "Value is wrong");
+		}
+		#endregion GetPropertyData
 	}
 }

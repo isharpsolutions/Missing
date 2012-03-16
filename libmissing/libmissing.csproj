@@ -50,6 +50,17 @@
     <Compile Include="Network\EasyHttpRequestFactory.cs" />
     <Compile Include="Network\EasyHttpRequest.cs" />
     <Compile Include="Reflection\TypeHelper.cs" />
+    <Compile Include="Validation\ValidationResult.cs" />
+    <Compile Include="Validation\ValidationSpecification.cs" />
+    <Compile Include="Validation\Validator.cs" />
+    <Compile Include="Reflection\PropertyData.cs" />
+    <Compile Include="Validation\ValidationError.cs" />
+    <Compile Include="Validation\ValidationErrorCollection.cs" />
+    <Compile Include="Validation\Enforcer.cs" />
+    <Compile Include="Validation\Enforcers\EmailEnforcer.cs" />
+    <Compile Include="Validation\Enforcers\RegExpEnforcer.cs" />
+    <Compile Include="Validation\FieldSpecification.cs" />
+    <Compile Include="Validation\FieldSpecificationCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -67,5 +78,7 @@
     <Folder Include="Security\Cryptography\" />
     <Folder Include="Network\" />
     <Folder Include="Reflection\" />
+    <Folder Include="Validation\" />
+    <Folder Include="Validation\Enforcers\" />
   </ItemGroup>
 </Project>
