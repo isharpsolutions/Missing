@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 
-namespace Missing.Network
+namespace Missing.Network.EasyHttpRequestSpecializations
 {
 	/// <summary>
 	/// Specialization that handles "POST" requests

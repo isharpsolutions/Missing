@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace Missing.Network
+namespace Missing.Network.EasyHttpRequestSpecializations
 {
 	/// <summary>
 	/// Specialization that handles "GET" requests

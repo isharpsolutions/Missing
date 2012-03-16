@@ -45,8 +45,6 @@
     <Compile Include="Security\Cryptography\HashType.cs" />
     <Compile Include="Network\HttpRequestMethod.cs" />
     <Compile Include="Network\HttpRequestStatus.cs" />
-    <Compile Include="Network\PostEasyHttpRequest.cs" />
-    <Compile Include="Network\GetEasyHttpRequest.cs" />
     <Compile Include="Network\EasyHttpRequestFactory.cs" />
     <Compile Include="Network\EasyHttpRequest.cs" />
     <Compile Include="Reflection\TypeHelper.cs" />
@@ -62,6 +60,8 @@
     <Compile Include="Validation\FieldSpecification.cs" />
     <Compile Include="Validation\FieldSpecificationCollection.cs" />
     <Compile Include="Validation\PropertyPath.cs" />
+    <Compile Include="Network\EasyHttpRequestSpecializations\GetEasyHttpRequest.cs" />
+    <Compile Include="Network\EasyHttpRequestSpecializations\PostEasyHttpRequest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -81,5 +81,6 @@
     <Folder Include="Reflection\" />
     <Folder Include="Validation\" />
     <Folder Include="Validation\Enforcers\" />
+    <Folder Include="Network\EasyHttpRequestSpecializations\" />
   </ItemGroup>
 </Project>
