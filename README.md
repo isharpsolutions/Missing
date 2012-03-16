@@ -11,16 +11,22 @@ Our goal is to make a lightweight library that is easy to use and understand and
 Versioning
 ----------
 
-For transparency and insight into our release cycle, and for striving to maintain backward compatibility, Missing will be maintained under the Semantic Versioning guidelines as much as possible.
-
 Releases will be numbered with the follow format:
 
 `<major>.<minor>.<patch>`
 
 And constructed with the following guidelines:
 
-* Breaking backward compatibility bumps the major
-* New additions without breaking backward compatibility bumps the minor
-* Bug fixes and misc changes bump the patch
+* Addition of new namespaces bumps the major
+* Additions in existing namespaces bumps the minor
+* Bug fixes and misc that does not change the public API bump the patch
 
-For more information on SemVer, please visit http://semver.org/.
+We strive to never break backwards-compatibility. Once the API is public it must not change.
+
+Some APIs might need to be replaced over time. This will be done by adding new APIs with different names
+and marking the old APIs as "deprecated" and later as "obsolete", and only removing them from the code if
+we learn that no one is using them.
+
+**The APIs should be considered unstable until we reach version 1.0.0**
+
+Until we reach version 1.0.0 namespace additions will bump the minor.
