@@ -16,6 +16,7 @@ namespace Missing.Network
 		/// </summary>
 		public PostEasyHttpRequest() : base()
 		{
+			this.contentType = "application/x-www-form-urlencoded";
 		}
 		#endregion Constructors
 		
