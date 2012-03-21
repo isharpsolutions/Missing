@@ -46,17 +46,6 @@ namespace Missing.Reflection
 			
 			foreach (Assembly ass in loadedAssemblies)
 			{
-				Console.WriteLine("Assembly: '{0}'", ass.FullName);
-				
-				if (ass.FullName.StartsWith("libmissing-tests"))
-				{
-					Type[] allTypes = ass.GetTypes();
-					foreach (Type t in allTypes)
-					{
-						Console.WriteLine(t.FullName);
-					}
-				}
-				
 				result = ass.GetType(name, false, true);
 				if (result != null)
 				{
@@ -94,7 +83,6 @@ namespace Missing.Reflection
 				
 				foreach (Type t in allTypes)
 				{
-					Console.WriteLine(t.FullName);
 					if (t.FullName.EndsWith(name))
 					{
 						result = t;
