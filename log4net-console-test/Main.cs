@@ -11,7 +11,8 @@ namespace log4netconsoletest
 		{
 			Console.WriteLine("Missing Log4Net Console Test");
 			
-			Log.UseConfig(Log4NetConfigurations.SimpleConsole);
+			//Log.UseConfig(Log4NetConfigurations.SimpleConsole);
+			Log.UseConfig(Log4NetConfigurations.ColoredConsoleAppender);
 			
 			//
 			// trace

@@ -32,7 +32,7 @@ Global
 		{1704ADEF-ED3E-40DF-94E5-98A9377D13A9} = {FD6E48B8-2073-457E-92CE-686498205771}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = libmissing\libmissing.csproj
+		StartupItem = log4net-console-test\log4net-console-test.csproj
 		Policies = $0
 		$0.StandardHeader = $1
 		$1.Text = 
