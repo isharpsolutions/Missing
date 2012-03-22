@@ -38,6 +38,7 @@
       <HintPath>..\resources\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -68,7 +69,7 @@
     <Compile Include="Network\EasyHttpRequestSpecializations\PostEasyHttpRequest.cs" />
     <Compile Include="Diagnostics\Log.cs" />
     <Compile Include="Diagnostics\LogTools.cs" />
-    <Compile Include="Diagnostics\Log4NetConfigurations\Log4NetConfigurations.cs" />
+    <Compile Include="Diagnostics\Log4NetConfigurations.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -90,6 +91,5 @@
     <Folder Include="Validation\Enforcers\" />
     <Folder Include="Network\EasyHttpRequestSpecializations\" />
     <Folder Include="Diagnostics\" />
-    <Folder Include="Diagnostics\Log4NetConfigurations\" />
   </ItemGroup>
 </Project>

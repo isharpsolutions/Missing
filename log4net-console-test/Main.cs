@@ -7,8 +7,9 @@ namespace log4netconsoletest
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			Console.WriteLine("Missing Log4Net Console Test");
 			
+			Log.UseConfig(Log4NetConfigurations.SimpleConsole);
 			Log.Trace("muhahaha");
 		}
 	}

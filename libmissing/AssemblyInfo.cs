@@ -17,7 +17,18 @@ using System.Runtime.CompilerServices;
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
-[assembly: AssemblyVersion("0.1.3")]
+
+/**
+ * Releases will be numbered with the follow format:
+ * <major>.<minor>.<patch>
+ *
+ * And constructed with the following guidelines:
+ *
+ * Addition of new namespaces bumps the major
+ * Additions in existing namespaces bumps the minor
+ * Bug fixes and misc that does not change the public API bump the patch
+ */
+[assembly: AssemblyVersion("0.2.0")]
 
 [assembly: InternalsVisibleTo("libmissing-tests")]
 
