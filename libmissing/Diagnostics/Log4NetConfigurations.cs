@@ -55,5 +55,22 @@ namespace Missing.Diagnostics
 			}
 		}
 		#endregion Simple console
+		
+		/*
+		<appender name="ColoredConsoleAppender" type="log4net.Appender.ColoredConsoleAppender">
+		    <mapping>
+		        <level value="ERROR" />
+		        <foreColor value="White" />
+		        <backColor value="Red, HighIntensity" />
+		    </mapping>
+		    <mapping>
+		        <level value="DEBUG" />
+		        <backColor value="Green" />
+		    </mapping>
+		    <layout type="log4net.Layout.PatternLayout">
+		        <conversionPattern value="%date [%thread] %-5level %logger [%property{NDC}] - %message%newline" />
+		    </layout>
+		</appender>
+		*/
 	}
 }
