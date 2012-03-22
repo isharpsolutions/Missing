@@ -1,30 +1,82 @@
 using System;
+using System.Collections.Generic;
 using log4net.Appender;
 using log4net.Core;
-using System.Collections.Generic;
 
 namespace Missing.Diagnostics.Log4NetAppenders
 {
+	/// <summary>
+	/// Appends logging events to the console with color
+	/// </summary>
+	/// <remarks>
+	/// <para>
+	/// When configuring the colored console appender, mapping should be
+	/// specified to map a logging level to a color. For example:
+	/// </para>
+	/// <code lang="XML" escaped="true">
+	/// <mapping>
+	///     <level value="ERROR" />
+	///     <foreground value="White" />
+	///     <background value="Red" />
+	/// </mapping>
+	/// <mapping>
+	///     <level value="DEBUG" />
+	///     <background value="Green" />
+	/// </mapping>
+	/// </code>
+	/// <para>
+	/// The Level is the standard log4net logging level and ForeColor and BackColor can be any
+	/// color from <see cref="ConsoleColor"/>
+	/// </para>
+	/// </remarks>
 	public class ManagedColoredConsoleAppender : AppenderSkeleton
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Diagnostics.Log4NetAppenders.ManagedColoredConsoleAppender"/> class.
+		/// </summary>
 		public ManagedColoredConsoleAppender() : base()
 		{
 		}
 		
+		#region Color mappings
+		/// <summary>
+		/// The color mappings
+		/// </summary>
 		private Dictionary<string, ColorMapping> colorMappings = new Dictionary<string, ColorMapping>();
 		
+		/// <summary>
+		/// Add a color mapping
+		/// </summary>
+		/// <param name="mapping">
+		/// The mapping
+		/// </param>
 		public void AddMapping(ColorMapping mapping)
 		{
 			this.colorMappings.Add(mapping.level, mapping);
 		}
+		#endregion Color mappings
 		
 		#region implemented abstract members of log4net.Appender.AppenderSkeleton
+		/// <summary>
+		/// Append the specified loggingEvent.
+		/// </summary>
+		/// <param name="loggingEvent">
+		/// Logging event.
+		/// </param>
 		protected override void Append(LoggingEvent loggingEvent)
 		{
+			//
+			// set colors
+			//
 			if (this.colorMappings.ContainsKey(loggingEvent.Level.Name))
 			{
 				ColorMapping colors = this.colorMappings[loggingEvent.Level.Name];
 				Console.ForegroundColor = colors.ActualForeground;
+				
+				if (colors.HasForeground())
+				{
+					Console.ForegroundColor = colors.ActualForeground;
+				}
 				
 				if (colors.HasBackground())
 				{
@@ -43,43 +95,4 @@ namespace Missing.Diagnostics.Log4NetAppenders
 		}
 		#endregion
 	}
-	
-	public class ColorMapping : IOptionHandler
-	{
-		public ColorMapping()
-		{
-			this.level = String.Empty;
-		}
-		
-		public string level { get; set; }
-		public string foreground { get; set; }
-		public string background { get; set; }
-		
-		public ConsoleColor ActualForeground { get; set; }
-		public ConsoleColor ActualBackground { get; set; }
-		
-		public bool HasBackground()
-		{
-			return !this.background.Equals(String.Empty);
-		}
-		
-		#region IOptionHandler implementation
-		public void ActivateOptions()
-		{
-			ConsoleColor tmp = ConsoleColor.Black;
-			
-			if (Enum.TryParse<ConsoleColor>(this.foreground, true, out tmp))
-			{
-				this.ActualForeground = tmp;
-			}
-			
-			if (Enum.TryParse<ConsoleColor>(this.background, true, out tmp))
-			{
-				this.ActualBackground = tmp;
-			}
-		}
-		#endregion
-	}
-	
 }
-

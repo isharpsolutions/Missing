@@ -57,38 +57,14 @@ namespace Missing.Diagnostics
 		}
 		#endregion Simple console
 		
-		private static XmlElement GetColorMapping(XmlDocument doc, string level, ConsoleColor foregroundColor)
-		{
-			return GetColorMapping(doc, level, foregroundColor.ToString(), String.Empty);
-		}
-		
-		private static XmlElement GetColorMapping(XmlDocument doc, string level, ConsoleColor foregroundColor, ConsoleColor backgroundColor)
-		{
-			return GetColorMapping(doc, level, foregroundColor.ToString(), backgroundColor.ToString());
-		}
-		
-		private static XmlElement GetColorMapping(XmlDocument doc, string level, string foregroundColor, string backgroundColor)
-		{
-			XmlElement mapping = doc.CreateElement("mapping");
-			
-			XmlElement mappingLevel = doc.CreateElement("level");
-			mappingLevel.SetAttribute("value", level);
-			
-			XmlElement foreground = doc.CreateElement("foreground");
-			foreground.SetAttribute("value", foregroundColor);
-			
-			XmlElement background = doc.CreateElement("background");
-			background.SetAttribute("value", backgroundColor);
-			
-			mapping.AppendChild(foreground);
-			mapping.AppendChild(background);
-			mapping.AppendChild(mappingLevel);
-			
-			return mapping;
-		}
-		
 		#region Colored console appender
-		public static XmlElement ColoredConsoleAppender
+		/// <summary>
+		/// Colored version of "Simple console configuration".
+		/// 
+		/// The format is:
+		/// [level][date][caller] message
+		/// </summary>
+		public static XmlElement SimpleConsoleColored
 		{
 			get
 			{
@@ -136,6 +112,87 @@ namespace Missing.Diagnostics
 				
 				return wrapper;
 			}
+		}
+		
+		/// <summary>
+		/// Get color mapping xml element without background color
+		/// </summary>
+		/// <returns>
+		/// The color mapping.
+		/// </returns>
+		/// <param name="doc">
+		/// Document.
+		/// </param>
+		/// <param name="level">
+		/// Level.
+		/// </param>
+		/// <param name="foregroundColor">
+		/// Foreground color.
+		/// </param>
+		private static XmlElement GetColorMapping(XmlDocument doc, string level, ConsoleColor foregroundColor)
+		{
+			return GetColorMapping(doc, level, foregroundColor.ToString(), String.Empty);
+		}
+		
+		/// <summary>
+		/// Get color mapping xml element
+		/// </summary>
+		/// <returns>
+		/// The color mapping.
+		/// </returns>
+		/// <param name="doc">
+		/// Document.
+		/// </param>
+		/// <param name="level">
+		/// Level.
+		/// </param>
+		/// <param name="foregroundColor">
+		/// Foreground color.
+		/// </param>
+		/// <param name="backgroundColor">
+		/// Background color.
+		/// </param>
+		private static XmlElement GetColorMapping(XmlDocument doc, string level, ConsoleColor foregroundColor, ConsoleColor backgroundColor)
+		{
+			return GetColorMapping(doc, level, foregroundColor.ToString(), backgroundColor.ToString());
+		}
+		
+		/// <summary>
+		/// Get color mapping xml element
+		/// </summary>
+		/// <returns>
+		/// The color mapping.
+		/// </returns>
+		/// <param name="doc">
+		/// Document.
+		/// </param>
+		/// <param name="level">
+		/// Level.
+		/// </param>
+		/// <param name="foregroundColor">
+		/// Foreground color.
+		/// </param>
+		/// <param name="backgroundColor">
+		/// Background color.
+		/// </param>
+		private static XmlElement GetColorMapping(XmlDocument doc, string level, string foregroundColor, string backgroundColor)
+		{
+			XmlElement mapping = doc.CreateElement("mapping");
+			
+			XmlElement mappingLevel = doc.CreateElement("level");
+			mappingLevel.SetAttribute("value", level);
+			
+			XmlElement foreground = doc.CreateElement("foreground");
+			foreground.SetAttribute("value", foregroundColor);
+			
+			XmlElement background = doc.CreateElement("background");
+			background.SetAttribute("value", backgroundColor);
+			
+			mapping.AppendChild(foreground);
+			mapping.AppendChild(background);
+			mapping.AppendChild(mappingLevel);
+			
+			return mapping;
 		}
 		#endregion Colored console appender
 	}
