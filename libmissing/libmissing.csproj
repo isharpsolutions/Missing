@@ -70,6 +70,7 @@
     <Compile Include="Diagnostics\Log.cs" />
     <Compile Include="Diagnostics\LogTools.cs" />
     <Compile Include="Diagnostics\Log4NetConfigurations.cs" />
+    <Compile Include="Diagnostics\EntrySeverity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

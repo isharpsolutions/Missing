@@ -13,7 +13,7 @@ namespace Missing.Diagnostics
 		/// Simple console configuration.
 		/// 
 		/// The format is:
-		/// [date][caller] message
+		/// [level][date][caller] message
 		/// </summary>
 		public static XmlElement SimpleConsole
 		{
@@ -35,7 +35,7 @@ namespace Missing.Diagnostics
 				
 				XmlElement conversionPattern = doc.CreateElement("conversionPattern");
 				layout.AppendChild(conversionPattern);
-				conversionPattern.SetAttribute("value", "[%date][%property{%%CALLER%%}] %message%newline".Replace("%%CALLER%%", Log.CallerContextName));
+				conversionPattern.SetAttribute("value", "[%-5level][%date][%property{%%CALLER%%}] %message%newline".Replace("%%CALLER%%", Log.CallerContextName));
 				
 				//
 				// root

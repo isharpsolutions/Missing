@@ -21,11 +21,8 @@ namespace Missing.Diagnostics
 		}
 		
 		/// <summary>
-		/// Searches through the stack trace, and locates the first method in the frames NOT matching <paramref name="searchPattern"/>
+		/// Searches through the stack trace, and locates the first method in the frames NOT matching the <see cref="Log"/> methods
 		/// </summary>
-		/// <param name="searchPattern">
-		/// A <see cref="System.String"/> containing the string to use for matching
-		/// </param>
 		/// <param name="caller">
 		/// A <see cref="System.String"/> which upon success will contain the name of the caller
 		/// </param>
@@ -41,8 +38,10 @@ namespace Missing.Diagnostics
 		/// <returns>
 		/// A <see cref="System.Boolean"/> which is <c>true</c> if a match was found, <c>false</c> otherwise
 		/// </returns>
-		public static bool FindFrame(string searchPattern, out string caller, out string callerClass, out string callerName, out string fullName, out string callerNamespace)// find first frame that is not "Trace"
+		public static bool FindFrame(out string caller, out string callerClass, out string callerName, out string fullName, out string callerNamespace)// find first frame that is not "Trace"
 		{
+			string ignoredCallers = "Trace,Debug,Information,Warning,Error,Fatal,SetCallerInContext,ToLog";
+			
 			StackTrace stackTrace = new StackTrace();
 			
 			for (int i=1; i<=stackTrace.FrameCount; i++)
@@ -53,7 +52,7 @@ namespace Missing.Diagnostics
 				fullName = stackTrace.GetFrame(i).GetMethod().DeclaringType.FullName;
 				callerNamespace = stackTrace.GetFrame(i).GetMethod().DeclaringType.Namespace;
 				
-				if (!caller.Equals(searchPattern))
+				if (!ignoredCallers.Contains(caller))
 				{
 					return true;
 				}
