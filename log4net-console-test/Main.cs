@@ -12,7 +12,25 @@ namespace log4netconsoletest
 			Console.WriteLine("Missing Log4Net Console Test");
 			
 			//Log.UseConfig(Log4NetConfigurations.SimpleConsole);
-			Log.UseConfig(Log4NetConfigurations.SimpleConsoleColored);
+			//Log.UseConfig(Log4NetConfigurations.SimpleConsoleColored);
+			
+			/*****************************************************************
+			 CREATE SCHEMA `missing` DEFAULT CHARACTER SET utf8;
+			  
+			 CREATE TABLE `mysqladonetappender` (
+			   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			   `DateTime` datetime DEFAULT NULL,
+			   `Level` text,
+			   `Caller` text,
+			   `Message` text,
+			   PRIMARY KEY (`id`)
+			 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+			 
+			 create user 'missing'@'localhost' identified by '123456';
+			 grant insert on missing.* to 'missing'@'localhost';
+			 flush privileges;
+			 ******************************************************************/
+			Log.UseConfig(Log4NetConfigurations.MySqlAdoNetAppender("mysqladonetappender", "127.0.0.1", "missing", "missing", "123456"));
 			
 			//
 			// trace
