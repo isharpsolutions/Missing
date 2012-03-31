@@ -69,6 +69,29 @@ namespace Missing
 				// good
 			}
 		}
+		
+		[Test]
+		public void GetType_PartialNamePredicate_Exists()
+		{
+			Type t = TypeHelper.GetType(y => y.FullName.EndsWith("TypeHelperTestType"));
+			
+			Assert.AreEqual("Missing.TypeHelperTestType", t.FullName, "FullName is wrong");
+		}
+		
+		[Test]
+		public void GetType_PartialNamePredicate_DoesNotExist()
+		{
+			try
+			{
+				TypeHelper.GetType(y => y.FullName.EndsWith("DoesNotExist"));
+				Assert.Fail("An ArgumentException should have been thrown");
+			}
+			
+			catch (ArgumentException)
+			{
+				// good
+			}
+		}
 		#endregion Get Type
 		
 		#region Create Instance
