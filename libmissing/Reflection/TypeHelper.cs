@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Missing.Reflection
 {
@@ -10,98 +11,117 @@ namespace Missing.Reflection
 	public static class TypeHelper
 	{
 		/// <summary>
-		/// The loaded assemblies
+		/// Get the type matching the given predicate.
+		/// 
+		/// Only the supplied assemblies are searched.
+		/// 
+		/// Should multiple matches exist, only the first match is returned.
 		/// </summary>
-		private static Assembly[] loadedAssemblies = null;
-		
-		/// <summary>
-		/// Prepares the list of loaded assemblies
-		/// </summary>
-		private static void PrepareListOfAssemblies()
+		/// <returns>
+		/// The type.
+		/// </returns>
+		/// <param name="typePredicate">
+		/// The predicate that the wanted type must match
+		/// </param>
+		/// <param name="assemblies">
+		/// The set of assemblies to search through
+		/// </param>
+		/// <exception cref="ArgumentException">
+		/// Thrown if a type matching the predicate could not be found
+		/// </exception>
+		/// <example>
+		/// TypeHelper.GetType(assemblies, y => y.FullName.Equals("MyNamespace.MyType"));
+		/// TypeHelper.GetType(assemblies, y => y.FullName.Endswith("MyType"));
+		/// TypeHelper.GetType(assemblies, y => y.Name.Equals("MyType"));
+		/// </example>
+		public static Type GetType(Predicate<Type> typePredicate, Assembly[] assemblies)
 		{
-			if (loadedAssemblies == null)
+			Type[] allTypes;
+			
+			foreach (Assembly ass in assemblies)
 			{
-				loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+				allTypes = ass.GetTypes();
+				
+				foreach (Type t in allTypes)
+				{
+					
+					if (typePredicate(t))
+					{
+						return t;
+					}
+				}
 			}
+			
+			throw new ArgumentException("There was no mathing types in any of the assemblies");
 		}
 		
 		/// <summary>
-		/// Get a <see cref="Type"/> instance for a given type name
+		/// Get the type matching the given predicate.
+		/// 
+		/// All loaded assemblies are searched.
+		/// 
+		/// Should multiple matches exist, only the first match is returned.
+		/// </summary>
+		/// <returns>
+		/// The type.
+		/// </returns>
+		/// <param name="typePredicate">
+		/// The predicate that the wanted type must match
+		/// </param>
+		public static Type GetType(Predicate<Type> typePredicate)
+		{
+			return GetType(typePredicate, AssemblyHelper.GetAssemblies());
+		}
+		
+		
+		/// <summary>
+		/// Get the type with the given name.
+		/// 
+		/// All loaded assemblies are searched.
 		/// </summary>
 		/// <param name="name">
-		/// A <see cref="String"/> with the full name of the wanted type
+		/// A <see cref="String"/> with the full name of the wanted type.
+		/// The name must match <see cref="System.Type.FullName"/>
 		/// </param>
 		/// <returns>
 		/// The <see cref="Type"/>
 		/// </returns>
-		/// <exception cref='ArgumentException'>
+		/// <exception cref="ArgumentException">
 		/// Thrown if the type specified by <paramref name="name"/> could
 		/// not be found in any of the loaded assemblies
 		/// </exception>
 		public static Type GetType(string name)
 		{
-			PrepareListOfAssemblies();
-			
-			Type result = null;
-			
-			foreach (Assembly ass in loadedAssemblies)
+			try
 			{
-				result = ass.GetType(name, false, true);
-				if (result != null)
-				{
-					break;
-				}
+				return GetType(y => y.FullName == name, AssemblyHelper.GetAssemblies());
 			}
 			
-			if (result == null)
+			catch (ArgumentException)
 			{
 				throw new ArgumentException(String.Format("There is no type '{0}' in any of the loaded assemblies. Remember that the name must also contain the namespace.", name));
 			}
-			
-			return result;
 		}
 		
-		[ObsoleteAttribute("Do not use this method... It only exists temporarily while implementing Validation")]
-		internal static Type GetTypeEndsWith(string name, bool doLookInSystem)
+		/// <summary>
+		/// Get the type matching the given predicate.
+		/// 
+		/// Only the loaded assemblies matching the assembly filter are searched.
+		/// 
+		/// Should multiple matches exist, only the first match is returned.
+		/// </summary>
+		/// <returns>
+		/// The type.
+		/// </returns>
+		/// <param name="typePredicate">
+		/// The predicate that the wanted type must match
+		/// </param>
+		/// <param name="assemblyPredicate">
+		/// The predicate that assemblies must match in order to be searched
+		/// </param>
+		public static Type GetType(Predicate<Type> typePredicate, Predicate<Assembly> assemblyPredicate)
 		{
-			PrepareListOfAssemblies();
-			
-			Type result = null;
-			Type[] allTypes;
-			
-			foreach (Assembly ass in loadedAssemblies)
-			{
-				if (!doLookInSystem)
-				{
-					if (ass.FullName.StartsWith("System") || ass.FullName.StartsWith("mscorlib"))
-					{
-						continue;
-					}
-				}
-				
-				allTypes = ass.GetTypes();
-				
-				foreach (Type t in allTypes)
-				{
-					if (t.FullName.EndsWith(name))
-					{
-						result = t;
-						break;
-					}
-				}
-
-				if (result != null)
-				{
-					break;
-				}
-			}
-			
-			if (result == null)
-			{
-				throw new ArgumentException(String.Format("There is no type '{0}' in any of the loaded assemblies.", name));
-			}
-			
-			return result;
+			return GetType(typePredicate, AssemblyHelper.GetAssemblies(assemblyPredicate));
 		}
 		
 		/// <summary>
@@ -177,9 +197,9 @@ namespace Missing.Reflection
 		/// 	}
 		/// };
 		/// 
-		/// PropertyData pd = TypeHelper.GetPropertyData(input, new List<string>() { "Child", "Name" });
-		/// pd.PropertyInfo.Name ==> "Name"
-		/// pd.Value ==> "Kirk"
+		/// PropertyData pd = TypeHelper.GetPropertyData(input, new List&lt;string&gt;() { "Child", "Name" });
+		/// // pd.PropertyInfo.Name ==> "Name"
+		/// // pd.Value ==> "Kirk"
 		/// </code>
 		/// </example>
 		public static PropertyData GetPropertyData(object input, IList<string> path)

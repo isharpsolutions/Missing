@@ -68,6 +68,7 @@
     <Compile Include="Network\EasyHttpRequestSpecializations\GetEasyHttpRequest.cs" />
     <Compile Include="Network\EasyHttpRequestSpecializations\PostEasyHttpRequest.cs" />
     <Compile Include="Diagnostics\Log.cs" />
+    <Compile Include="Reflection\AssemblyHelper.cs" />
     <Compile Include="Diagnostics\LogTools.cs" />
     <Compile Include="Diagnostics\Log4NetConfigurations.cs" />
     <Compile Include="Diagnostics\EntrySeverity.cs" />

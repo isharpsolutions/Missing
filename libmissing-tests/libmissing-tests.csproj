@@ -46,6 +46,9 @@
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="None" ResourceNamePolicy="FileFormatDefault" />
+        </Policies>
         <Deployment.LinuxDeployData generatePcFile="false" />
       </Properties>
     </MonoDevelop>
@@ -67,6 +70,7 @@
     <Compile Include="Validation\ValidationSpecification_GetPropertyPathTests.cs" />
     <Compile Include="Validation\Enforcers\EmailEnforcerTests.cs" />
     <Compile Include="Validation\Enforcers\RegExpEnforcerTests.cs" />
+    <Compile Include="Reflection\AssemblyHelperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
