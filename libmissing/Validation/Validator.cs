@@ -1,6 +1,7 @@
 using System;
 using Missing.Reflection;
 using System.Reflection;
+using System.Linq;
 
 namespace Missing.Validation
 {
@@ -39,7 +40,9 @@ namespace Missing.Validation
 			
 			try
 			{
-				vsType = TypeHelper.GetTypeEndsWith(vsTypeName, false);
+				// we do not want to search for types in "System...."
+				Assembly[] assemblies = AssemblyHelper.GetAssemblies(y => !y.FullName.StartsWith("System") && !y.FullName.StartsWith("mscorlib"));
+				vsType = TypeHelper.GetType(y => y.FullName.EndsWith(vsTypeName), assemblies);
 			}
 			
 			catch (Exception)

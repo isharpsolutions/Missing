@@ -42,5 +42,8 @@ Global
 		$6.inheritsSet = Mono
 		$6.inheritsScope = text/x-csharp
 		$6.scope = text/x-csharp
+		$0.DotNetNamingPolicy = $7
+		$7.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$7.ResourceNamePolicy = FileFormatDefault
 	EndGlobalSection
 EndGlobal

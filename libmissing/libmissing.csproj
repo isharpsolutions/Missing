@@ -62,6 +62,7 @@
     <Compile Include="Validation\PropertyPath.cs" />
     <Compile Include="Network\EasyHttpRequestSpecializations\GetEasyHttpRequest.cs" />
     <Compile Include="Network\EasyHttpRequestSpecializations\PostEasyHttpRequest.cs" />
+    <Compile Include="Reflection\AssemblyHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
