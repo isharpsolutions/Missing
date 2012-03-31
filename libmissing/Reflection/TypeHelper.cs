@@ -197,9 +197,9 @@ namespace Missing.Reflection
 		/// 	}
 		/// };
 		/// 
-		/// PropertyData pd = TypeHelper.GetPropertyData(input, new List<string>() { "Child", "Name" });
-		/// pd.PropertyInfo.Name ==> "Name"
-		/// pd.Value ==> "Kirk"
+		/// PropertyData pd = TypeHelper.GetPropertyData(input, new List&lt;string&gt;() { "Child", "Name" });
+		/// // pd.PropertyInfo.Name ==> "Name"
+		/// // pd.Value ==> "Kirk"
 		/// </code>
 		/// </example>
 		public static PropertyData GetPropertyData(object input, IList<string> path)
