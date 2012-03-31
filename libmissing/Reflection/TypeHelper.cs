@@ -125,6 +125,43 @@ namespace Missing.Reflection
 		}
 		
 		/// <summary>
+		/// Get all types matching the given predicate.
+		/// 
+		/// Only the supplied assemblies are searched.
+		/// </summary>
+		/// <returns>
+		/// The types.
+		/// </returns>
+		/// <param name="typePredicate">
+		/// The predicate that the wanted types must match
+		/// </param>
+		/// <param name="assemblies">
+		/// The set of assemblies to search through
+		/// </param>
+		public static List<Type> GetTypes(Predicate<Type> typePredicate, Assembly[] assemblies)
+		{
+			List<Type> result = new List<Type>();
+			
+			Type[] allTypes;
+			
+			foreach (Assembly ass in assemblies)
+			{
+				allTypes = ass.GetTypes();
+				
+				foreach (Type t in allTypes)
+				{
+					if (typePredicate(t))
+					{
+						result.Add(t);
+					}
+				}
+			}
+			
+			return result;
+		}
+		
+		
+		/// <summary>
 		/// Create an instance of a specific type
 		/// </summary>
 		/// <returns>
