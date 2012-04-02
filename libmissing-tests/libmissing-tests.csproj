@@ -61,6 +61,7 @@
     <Folder Include="Reflection\" />
     <Folder Include="Validation\" />
     <Folder Include="Validation\Enforcers\" />
+    <Folder Include="Security\Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Extensions\NameValueCollectionExtensionsTest.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Validation\Enforcers\EmailEnforcerTests.cs" />
     <Compile Include="Validation\Enforcers\RegExpEnforcerTests.cs" />
     <Compile Include="Reflection\AssemblyHelperTest.cs" />
+    <Compile Include="Security\Authentication\RoleCollectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">

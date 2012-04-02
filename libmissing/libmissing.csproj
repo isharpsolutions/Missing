@@ -74,6 +74,11 @@
     <Compile Include="Diagnostics\EntrySeverity.cs" />
     <Compile Include="Diagnostics\Log4NetAppenders\ManagedColoredConsoleAppender.cs" />
     <Compile Include="Diagnostics\Log4NetAppenders\ColorMapping.cs" />
+    <Compile Include="Security\Authentication\UserBase.cs" />
+    <Compile Include="Security\Authentication\UserStatus.cs" />
+    <Compile Include="Security\Authentication\Role.cs" />
+    <Compile Include="Security\Authentication\RoleCollection.cs" />
+    <Compile Include="Security\Authentication\IRoleCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -96,5 +101,6 @@
     <Folder Include="Network\EasyHttpRequestSpecializations\" />
     <Folder Include="Diagnostics\" />
     <Folder Include="Diagnostics\Log4NetAppenders\" />
+    <Folder Include="Security\Authentication\" />
   </ItemGroup>
 </Project>
