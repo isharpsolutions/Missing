@@ -8,6 +8,9 @@ using System.Text;
 
 namespace Missing.Diagnostics
 {
+	/// <summary>
+	/// Convenience methods regarding logging
+	/// </summary>
 	public static class Log
 	{
 		/// <summary>
@@ -68,6 +71,48 @@ namespace Missing.Diagnostics
 		public static void UseConfig(XmlElement configXml)
 		{
 			config = configXml;
+		}
+		
+		/// <summary>
+		/// Add a <logger/> section to the given config
+		/// </summary>
+		/// <returns>
+		/// The updated <paramref name="configXml"/>
+		/// </returns>
+		/// <param name="configXml">
+		/// The XML config to update
+		/// </param>
+		/// <param name="loggerName">
+		/// The name of the logger
+		/// </param>
+		/// <param name="level">
+		/// The log level of the logger
+		/// </param>
+		/// <example>
+		/// This example shows how to use the method to disable logging from NHibernate
+		/// 
+		/// <code>
+		/// Log.UseConfig(
+		/// 	Log.AddLogger(
+		/// 		Log4NetConfigurations.GetMySqlAdoNetAppender("admin", "127.0.0.1", "myschema", "myuser", "mypassword"),
+		/// 		"NHibernate",
+		/// 		"ERROR"
+		/// 	)
+		/// );
+		/// </code>
+		/// </example>
+		public static XmlElement AddLogger(XmlElement configXml, string loggerName, string level)
+		{
+			XmlElement newLogger = configXml.OwnerDocument.CreateElement("logger");
+			newLogger.SetAttribute("name", loggerName);
+			
+			XmlElement newLoggerLevel = configXml.OwnerDocument.CreateElement("level");
+			newLoggerLevel.SetAttribute("value", level);
+			
+			newLogger.AppendChild(newLoggerLevel);
+			configXml.AppendChild(newLogger);
+			
+			return configXml;
 		}
 		#endregion Config
 		
