@@ -243,7 +243,7 @@ namespace Missing.Diagnostics
 			appender.SetAttribute("type", "log4net.Appender.AdoNetAppender");
 			
 			XmlElement connectionType = doc.CreateElement("connectionType");
-			connectionType.SetAttribute("value", "MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=6.2.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d");
+			connectionType.SetAttribute("value", "MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Culture=neutral, PublicKeyToken=c5687fc88969c44d");
 			
 			XmlElement connectionString = doc.CreateElement("connectionString");
 			connectionString.SetAttribute("value", String.Format("data source={0};initial catalog={1};integrated security=false;persist security info=True;User ID={2};Password={3}", host, schema, user, password));
