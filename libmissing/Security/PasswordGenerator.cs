@@ -51,7 +51,7 @@ namespace Missing.Security
 		{
 			return GeneratePassword(
 				passwordLength,
-				PasswordGeneratorParameters.Alpha
+				PasswordGeneratorParameters.AlphaLowercase
 				|
 				PasswordGeneratorParameters.AlphaCapital
 				|
@@ -94,9 +94,21 @@ namespace Missing.Security
 			List<char> pool = new List<char>();
 
 			// copy the alpha chars into the source pool 
-			if (parameters.HasFlag(PasswordGeneratorParameters.Alpha))
+			if (parameters.HasFlag(PasswordGeneratorParameters.AlphaLowercase))
 			{
 				pool.AddRange(alpha);
+			}
+
+			// add the alpha capital to the source pool
+			if (parameters.HasFlag(PasswordGeneratorParameters.AlphaCapital))
+			{
+				pool.AddRange(alphaCaps);
+			}
+
+			// add the numeric values to the source pool
+			if (parameters.HasFlag(PasswordGeneratorParameters.Numeric))
+			{
+				pool.AddRange(numeric);
 			}
 			return pool;
 		}

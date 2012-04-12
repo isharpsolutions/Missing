@@ -18,7 +18,7 @@ namespace Missing.Security
 		[Test]
 		public void TestAlphaLowerPassword()
 		{
-			string pwd = PasswordGenerator.GeneratePassword(8, PasswordGeneratorParameters.Alpha);
+			string pwd = PasswordGenerator.GeneratePassword(8, PasswordGeneratorParameters.AlphaLowercase);
 
 			Assert.AreEqual(8, pwd.Length);
 			Assert.IsTrue(pwd.ContainsOnlyAlphaLowercase());
@@ -82,7 +82,7 @@ namespace Missing.Security
 		{
 			string pwd = PasswordGenerator.GeneratePassword(
 				8,
-				PasswordGeneratorParameters.Alpha
+				PasswordGeneratorParameters.AlphaLowercase
 				|
 				PasswordGeneratorParameters.AlphaCapital
 				|
