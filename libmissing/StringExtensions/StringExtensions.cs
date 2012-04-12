@@ -17,7 +17,6 @@ namespace Missing.StringExtensions
 		/// </returns>
 		public static bool ContainsOnlyAlphaLowercase(this string str)
 		{
-			// CheckExpression will convert y to char array, so check if any elements are outside the bounds.
 			return CheckString(str, y=> y < 'a' || y > 'z');
 		}
 
@@ -42,7 +41,7 @@ namespace Missing.StringExtensions
 		/// </returns>
 		public static bool ContainsOnlyNumbers(this string str)
 		{
-			throw new NotImplementedException();
+			return CheckString(str, y => y < '0' || y > '9');
 		}
 
 		/// <summary>
