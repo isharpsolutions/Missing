@@ -13,12 +13,12 @@ namespace Missing.Security
 	[Flags]
 	public enum PasswordGeneratorParameters
 	{
-		Alpha,
+		AlphaLowercase = 1,
 
-		AlphaCapital,
+		AlphaCapital = 2,
 
-		Numeric,
+		Numeric = 4,
 
-		Symbols
+		Symbols = 8
 	}
 }
