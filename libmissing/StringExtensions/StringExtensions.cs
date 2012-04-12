@@ -17,7 +17,16 @@ namespace Missing.StringExtensions
 		/// </returns>
 		public static bool ContainsOnlyAlphaLowercase(this string str)
 		{
-			throw new NotImplementedException();
+			// convert to char array, then we can check the char values.
+			var elements = (from y in str.ToArray<char>()
+							where y < 97
+							||
+							y > 122
+							select y);
+
+			// if this is not empty, then we had values outside the a-z range
+			return elements.Count() == 0;
+
 		}
 
 		/// <summary>
