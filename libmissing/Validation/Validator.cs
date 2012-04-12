@@ -2,6 +2,7 @@ using System;
 using Missing.Reflection;
 using System.Reflection;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Missing.Validation
 {
@@ -10,42 +11,90 @@ namespace Missing.Validation
 	/// </summary>
 	public static class Validator
 	{
-		#region Validate
-		public static ValidationResult Validate<T>(T input) where T : class
+		/// <summary>
+		/// The score for a given type
+		/// </summary>
+		private class TypeMatchScore
 		{
-			//
-			// find validation specification class
-			//
-			string nameOfBaseValidationSpecification = typeof(ValidationSpecification<String>).Name;
-			nameOfBaseValidationSpecification = nameOfBaseValidationSpecification.Remove(nameOfBaseValidationSpecification.IndexOf('`'));
-			
-			// type name of the actual validation specification
-			string vsTypeName = String.Format("{0}{1}", input.GetType().Name, nameOfBaseValidationSpecification);
-			
-			Type vsType = null;
-			
-			try
-			{
-				// we do not want to search for types in "System...."
-				Assembly[] assemblies = AssemblyHelper.GetAssemblies(y => !y.FullName.StartsWith("System") && !y.FullName.StartsWith("mscorlib"));
-				vsType = TypeHelper.GetType(y => y.FullName.EndsWith(vsTypeName), assemblies);
-			}
-			
-			catch (Exception)
-			{
-				throw new ArgumentException(String.Format("I was unable to find a validation specification for '{0}'. It should be called '{1}'", input.GetType().Name, vsTypeName));
-			}
-			
-			//
-			// get validation specification
-			//
-			ValidationSpecification<T> vs = TypeHelper.CreateInstance<ValidationSpecification<T>>(vsType);
-			
-			return Validate<T>(input, vs);
+			public Type Type { get; set; }
+			public int Score { get; set; }
 		}
 		
 		/// <summary>
-		/// Validate the specified input
+		/// Type match score comparer.
+		/// </summary>
+		private class TypeMatchScoreComparer : IComparer<TypeMatchScore>
+		{
+			#region IComparer[TypeMatchScore] implementation
+			/// <summary>
+			/// Compare the specified x and y.
+			/// </summary>
+			/// <param name='x'>
+			/// X.
+			/// </param>
+			/// <param name='y'>
+			/// Y.
+			/// </param>
+			public int Compare(TypeMatchScore x, TypeMatchScore y)
+			{
+				return x.Score.CompareTo(y.Score);
+			}
+			#endregion
+		}
+		
+		#region Validate
+		/// <summary>
+		/// Get a score for how good a match the given
+		/// specification type is to the given entity type.
+		/// </summary>
+		/// <returns>
+		/// The type match score.
+		/// </returns>
+		/// <param name="entity">
+		/// The entity type
+		/// </param>
+		/// <param name="specification">
+		/// The specification type
+		/// </param>
+		private static TypeMatchScore GetTypeMatchScore(Type entity, Type specification)
+		{
+			TypeMatchScore res = new TypeMatchScore();
+			res.Type = specification;
+			res.Score = 0;
+			
+			//
+			// same namespace is a good clue
+			//
+			if (entity.Namespace.Equals(specification.Namespace))
+			{
+				res.Score += 10;
+			}
+			
+			//
+			// in a sub-namespace is also good
+			//
+			if (specification.Namespace.StartsWith(entity.Namespace))
+			{
+				res.Score += 5;
+			}
+			
+			//
+			// begins with the entity name (as per MS framework design guidelines)
+			// entity: SimpleModel
+			// spec: SimpleModelValidationSpecification
+			//
+			if (specification.Name.StartsWith(entity.Name))
+			{
+				res.Score += 1;
+			}
+			
+			return res;
+		}
+		
+		/// <summary>
+		/// Validate the specified input.
+		/// 
+		/// The validation is performed after finding a proper <see cref="ValidationSpecification"/>
 		/// </summary>
 		/// <param name="input">
 		/// The model that should be validated
@@ -55,14 +104,97 @@ namespace Missing.Validation
 		/// </typeparam>
 		/// <exception cref="ArgumentException">
 		/// Thrown if a proper <see cref="ValidationSpecification"/> cannot be found
+		/// <br/>
+		/// Thrown if multiple <see cref="ValidationSpecification"/> was found and they
+		/// seem equally valid (see remarks)
 		/// </exception>
-		public static ValidationResult Validate<T>(T input, ValidationSpecification<T> vs) where T : class
+		/// <remarks>
+		/// If multiple <see cref="ValidationSpecification"/> are found for the given input type,
+		/// they are scored with the following weight:
+		/// <list type="bullet">
+		/// 	<item><description>Same namespace</description></item>
+		/// 	<item><description>Sub-namespace</description></item>
+		/// 	<item><description>Name starts with the name of the entity (SimpleModel => SimpleModelValidationSpecification)</description></item>
+		/// 	<item><description>Different namespace</description></item>
+		/// </list>
+		/// </remarks>
+		public static ValidationResult Validate<T>(T input) where T : class
+		{
+			Type vsType = null;
+			
+			try
+			{
+				// we do not want to search for types in "System...."
+				Assembly[] assemblies = AssemblyHelper.GetAssemblies(y => !y.FullName.StartsWith("System") && !y.FullName.StartsWith("mscorlib"));
+				
+				// find all possible validation specifications
+				List<Type> possibleMatches = TypeHelper.GetTypes(y => y.IsSubclassOf(typeof(ValidationSpecification<T>)), assemblies);
+			
+				// skip the scoring if there is only 1 match
+				if (possibleMatches.Count == 1)
+				{
+					vsType = possibleMatches[0];
+				}
+			
+				else
+				{
+					List<TypeMatchScore> scores = new List<TypeMatchScore>();
+				
+					// calculate score for all the matches
+					foreach (Type cur in possibleMatches)
+					{
+						scores.Add(GetTypeMatchScore(input.GetType(), cur));
+					}
+				
+					// sort the scores in ascending order
+					scores.Sort(new TypeMatchScoreComparer());
+				
+					// if the two highest scores have the same value, then we
+					// cannot select between them... notify the user
+					if (scores[scores.Count-1].Score == scores[scores.Count-2].Score)
+					{
+						throw new ArgumentException(String.Format("There was multiple equally valid validation specifications for '{0}'. Consider using the Validator.Validate<T>(input, ValidationSpecification<T>) overload.", input.GetType().Name));
+					}
+					
+					// highest scoring type wins :)
+					vsType = scores[scores.Count-1].Type;
+				}
+			}
+			
+			catch (Exception)
+			{
+				throw new ArgumentException(String.Format("I was unable to find a validation specification for '{0}'. It should be called '{0}ValidationSpecification'", input.GetType().Name));
+			}
+			
+			//
+			// get validation specification
+			//
+			ValidationSpecification<T> vs = TypeHelper.CreateInstance<ValidationSpecification<T>>(vsType);
+			
+			// run the actual validation :)
+			return Validate<T>(input, vs);
+		}
+		
+		/// <summary>
+		/// Validate the specified input.
+		/// </summary>
+		/// <param name="input">
+		/// The model that should be validated
+		/// </param>
+		/// <param name="specification">
+		/// The validation specification to use
+		/// </param>
+		/// <typeparam name="T">
+		/// The type of the model
+		/// </typeparam>
+		public static ValidationResult Validate<T>(T input, ValidationSpecification<T> specification) where T : class
 		{
 			ValidationResult result = new ValidationResult();
 			
 			ValidationError error;
+			
 			// run through each element in the specification
-			foreach (FieldSpecification field in vs.Fields)
+			foreach (FieldSpecification field in specification.Fields)
 			{
 				// check the value of the field
 				error = ValidateField<T>(field, input);

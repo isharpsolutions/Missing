@@ -52,7 +52,6 @@ namespace Missing
 		}
 	}
 	
-	
 	public class AlternateSimpleModelValidationSpecification : ValidationSpecification<SimpleModel>
 	{
 		public AlternateSimpleModelValidationSpecification()
