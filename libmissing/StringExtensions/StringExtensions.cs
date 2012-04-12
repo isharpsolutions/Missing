@@ -17,16 +17,8 @@ namespace Missing.StringExtensions
 		/// </returns>
 		public static bool ContainsOnlyAlphaLowercase(this string str)
 		{
-			// convert to char array, then we can check the char values.
-			var elements = (from y in str.ToArray<char>()
-							where y < 97
-							||
-							y > 122
-							select y);
-
-			// if this is not empty, then we had values outside the a-z range
-			return elements.Count() == 0;
-
+			// CheckExpression will convert y to char array, so check if any elements are outside the bounds.
+			return CheckString(str, y=> y < 'a' || y > 'z');
 		}
 
 		/// <summary>
@@ -38,7 +30,7 @@ namespace Missing.StringExtensions
 		/// </returns>
 		public static bool ContainsOnlyAlphaCapital(this string str)
 		{
-			throw new NotImplementedException();
+			return CheckString(str, y => y < 'A' || y > 'Z');
 		}
 
 		/// <summary>
@@ -63,6 +55,25 @@ namespace Missing.StringExtensions
 		public static bool ContainsOnlySymbols(this string str)
 		{
 			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// Checks the expression <paramref name="pred"/> agains <paramref name="str"/> 
+		/// </summary>
+		/// <remarks>
+		/// <paramref name="str"/> is converted to a char array, so the Predicate <paramref name="pred"/>
+		/// should do magic with chars
+		/// </remarks>
+		/// <param name="str">The STR.</param>
+		/// <param name="pred">The pred.</param>
+		/// <returns></returns>
+		private static bool CheckString(string str, Predicate<char> pred)
+		{
+			var elements = (from y in str.ToArray<char>()
+							where pred(y)
+							select y);
+
+			return elements.Count() == 0;
 		}
 	}
 }
