@@ -52,6 +52,16 @@ namespace Missing
 		}
 	}
 	
+	public class AlternateSimpleModelValidationSpecification : ValidationSpecification<SimpleModel>
+	{
+		public AlternateSimpleModelValidationSpecification()
+		{
+			base.Field(y => y.MyString)
+				.Required();
+		}
+	}
+	
+	
 	public class SimpleModelEnforcer : Enforcer
 	{
 		#region implemented abstract members of Missing.Validation.Enforcer
@@ -357,6 +367,19 @@ namespace Missing
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
 			Assert.AreEqual("MyMaxAndMinString", result.Errors[0].PropertyPath, "The property name is wrong");
+		}
+		
+		[Test]
+		public void SimpleModel_AlternateValidationSpecification()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "Something";
+			model.MyInt = 29;
+			model.MyMaxAndMinString = "a";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model, new AlternateSimpleModelValidationSpecification());
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 	}
 }
