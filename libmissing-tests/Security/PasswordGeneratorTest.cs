@@ -69,35 +69,8 @@ namespace Missing.Security
 
 			Assert.AreEqual(8, pwd.Length);
 			// it must not contain symbols and numers
-			Assert.IsTrue( !pwd.ContainsOnlyNumbers() && !pwd.ContainsOnlySymbols() );
+			Assert.IsTrue( !pwd.ContainsOnlyAlphaLowercaseAndUppercase() );
 		}
 		#endregion More complex passwords of two pool sources
-
-		#region Even more compilcated with three pool sources
-		#endregion Even more complidated with three pool sources
-
-		#region Complex with all four pool sources
-		[Test]
-		public void TestAllCharsInPassword()
-		{
-			string pwd = PasswordGenerator.GeneratePassword(
-				8,
-				PasswordGeneratorParameters.AlphaLowercase
-				|
-				PasswordGeneratorParameters.AlphaCapital
-				|
-				PasswordGeneratorParameters.Numeric
-				|
-				PasswordGeneratorParameters.Symbols
-				);
-
-			Assert.AreEqual(8, pwd.Length);
-
-			// it should contain at least one of each char
-			Assert.IsTrue(!pwd.ContainsOnlyAlphaCapital() && !pwd.ContainsOnlyAlphaLowercase() && !pwd.ContainsOnlyNumbers() && !pwd.ContainsOnlySymbols());
-
-		}
-		#endregion Complex with all four pool sources
-
 	}
 }
