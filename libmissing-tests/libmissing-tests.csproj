@@ -71,6 +71,7 @@
     <Compile Include="Validation\Enforcers\EmailEnforcerTests.cs" />
     <Compile Include="Validation\Enforcers\RegExpEnforcerTests.cs" />
     <Compile Include="Reflection\AssemblyHelperTest.cs" />
+    <Compile Include="Validation\ValidationSpecificationTests_MultiplePossibleSpecifications.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
