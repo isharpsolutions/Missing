@@ -54,6 +54,9 @@
     <Compile Include="Network\EasyHttpRequestFactory.cs" />
     <Compile Include="Network\EasyHttpRequest.cs" />
     <Compile Include="Reflection\TypeHelper.cs" />
+    <Compile Include="Security\PasswordGenerator.cs" />
+    <Compile Include="Security\PasswordGeneratorParameters.cs" />
+    <Compile Include="StringExtensions\StringExtensions.cs" />
     <Compile Include="Validation\ValidationResult.cs" />
     <Compile Include="Validation\ValidationSpecification.cs" />
     <Compile Include="Validation\Validator.cs" />

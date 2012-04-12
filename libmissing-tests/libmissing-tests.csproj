@@ -58,6 +58,8 @@
     <Compile Include="Collections\Extensions\NameValueCollectionExtensionsTest.cs" />
     <Compile Include="Security\Cryptography\HashTest.cs" />
     <Compile Include="Reflection\TypeHelperTest.cs" />
+    <Compile Include="Security\PasswordGeneratorTest.cs" />
+    <Compile Include="StringExtensions\StringExtensionTests.cs" />
     <Compile Include="Validation\ValidationSpecificationTests_SimpleModel.cs" />
     <Compile Include="Validation\ValidationSpecification_GetPropertyPathTests.cs" />
     <Compile Include="Validation\Enforcers\EmailEnforcerTests.cs" />
