@@ -23,11 +23,20 @@ namespace Missing.Security
 		private static char[] alphaCaps = (new string(alpha).ToUpper()).ToArray<char>();
 
 		/// <summary>
-		/// Contains a list of capital and non capital chars, along with an even distirbution of numbers from 0-9
+		/// Contains a list of capital and non capital chars
 		/// </summary>
 		private static char[] numeric =
 		{
 			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+		};
+
+		/// <summary>
+		/// Contains a list of the most common symbols
+		/// </summary>
+		private static char[] symbols =
+		{
+			'!', '"', '#', '$','%', '&','\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<','=', '>',
+			'?', '@', '[' ,'\\' ,']', '^', '_', '`', '{', '|', '}', '~'
 		};
 		#endregion Arrays with chars
 
@@ -109,6 +118,12 @@ namespace Missing.Security
 			if (parameters.HasFlag(PasswordGeneratorParameters.Numeric))
 			{
 				pool.AddRange(numeric);
+			}
+
+			// add the symbols to the source pool
+			if (parameters.HasFlag(PasswordGeneratorParameters.Symbols))
+			{
+				pool.AddRange(symbols);
 			}
 			return pool;
 		}
