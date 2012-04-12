@@ -11,22 +11,8 @@ namespace Missing.Validation
 	public static class Validator
 	{
 		#region Validate
-		/// <summary>
-		/// Validate the specified input
-		/// </summary>
-		/// <param name="input">
-		/// The model that should be validated
-		/// </param>
-		/// <typeparam name="T">
-		/// The type of the model
-		/// </typeparam>
-		/// <exception cref="ArgumentException">
-		/// Thrown if a proper <see cref="ValidationSpecification"/> cannot be found
-		/// </exception>
 		public static ValidationResult Validate<T>(T input) where T : class
 		{
-			ValidationResult result = new ValidationResult();
-		
 			//
 			// find validation specification class
 			//
@@ -54,6 +40,25 @@ namespace Missing.Validation
 			// get validation specification
 			//
 			ValidationSpecification<T> vs = TypeHelper.CreateInstance<ValidationSpecification<T>>(vsType);
+			
+			return Validate<T>(input, vs);
+		}
+		
+		/// <summary>
+		/// Validate the specified input
+		/// </summary>
+		/// <param name="input">
+		/// The model that should be validated
+		/// </param>
+		/// <typeparam name="T">
+		/// The type of the model
+		/// </typeparam>
+		/// <exception cref="ArgumentException">
+		/// Thrown if a proper <see cref="ValidationSpecification"/> cannot be found
+		/// </exception>
+		public static ValidationResult Validate<T>(T input, ValidationSpecification<T> vs) where T : class
+		{
+			ValidationResult result = new ValidationResult();
 			
 			ValidationError error;
 			// run through each element in the specification
