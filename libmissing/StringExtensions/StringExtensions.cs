@@ -57,6 +57,18 @@ namespace Missing.StringExtensions
 		}
 
 		/// <summary>
+		/// Determines whether this string contains only alpha lowercase and uppercase chars.
+		/// </summary>
+		/// <param name="str">The STR.</param>
+		/// <returns>
+		///   <c>true</c> if [contains only alpha lowercase and uppercase] [the specified STR]; otherwise, <c>false</c>.
+		/// </returns>
+		public static bool ContainsOnlyAlphaLowercaseAndUppercase(this string str)
+		{
+			return CheckString(str, y => (y < 'a' || y > 'z') && (y < 'A' || y > 'Z'));
+		}
+
+		/// <summary>
 		/// Checks the expression <paramref name="pred"/> agains <paramref name="str"/> 
 		/// </summary>
 		/// <remarks>

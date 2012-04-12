@@ -181,5 +181,32 @@ namespace Missing.StringsExtensions
 			Assert.IsTrue(str.ContainsOnlySymbols());
 		}
 		#endregion Symbols
+
+		#region Alpha lowercase + uppercase
+		[Test]
+		public void TestContainsOnlyAlphaLowerAndUpperPositive()
+		{
+			string str = "thisisLowerAndUpper";
+			Assert.IsTrue(str.ContainsOnlyAlphaLowercaseAndUppercase());
+		}
+		[Test]
+		public void TestContainsOnlyAlphaLowerAndUpperNegative_1()
+		{
+			string str = "thisisLowerAndUpper123";
+			Assert.IsFalse(str.ContainsOnlyAlphaLowercaseAndUppercase());
+		}
+		[Test]
+		public void TestContainsOnlyAlphaLowerAndUpperNegative_2()
+		{
+			string str = "thisisLowerAndUpper¤#%";
+			Assert.IsFalse(str.ContainsOnlyAlphaLowercaseAndUppercase());
+		}
+		[Test]
+		public void TestContainsOnlyAlphaLowerAndUpperNegative_3()
+		{
+			string str = "thisisLowerAndUpper123#/";
+			Assert.IsFalse(str.ContainsOnlyAlphaLowercaseAndUppercase());
+		}
+		#endregion 
 	}
 }
