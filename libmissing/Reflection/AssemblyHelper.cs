@@ -52,6 +52,8 @@ namespace Missing.Reflection
 		/// </param>
 		public static Assembly[] GetAssemblies(Predicate<Assembly> predicate)
 		{
+			PrepareListOfAssemblies();
+
 			IEnumerable<Assembly> assemblies =	from yy in loadedAssemblies
 												where predicate(yy)
 				                  				select yy;
