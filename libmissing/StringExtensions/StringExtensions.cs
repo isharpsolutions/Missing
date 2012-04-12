@@ -53,7 +53,7 @@ namespace Missing.StringExtensions
 		/// </returns>
 		public static bool ContainsOnlySymbols(this string str)
 		{
-			throw new NotImplementedException();
+			return (!str.ContainsOnlyAlphaCapital() && !str.ContainsOnlyAlphaLowercase() && !str.ContainsOnlyNumbers());
 		}
 
 		/// <summary>
