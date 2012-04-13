@@ -8,6 +8,12 @@ It is based on an internal library that we now wish to share with the world and 
 Our goal is to make a lightweight library that is easy to use and understand and does not get in your way.
 
 
+Platform support
+----------
+
+The library works equally well on both Microsoft .NET and Mono.
+
+
 Versioning
 ----------
 
