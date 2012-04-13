@@ -17,8 +17,14 @@ namespace Missing.Security
 		/// </summary>
 		Weak,
 
+		/// <summary>
+		/// The password is okay and will not be craked easily by attackers
+		/// </summary>
 		Okay,
 
+		/// <summary>
+		/// A very good password which is almost impossible to crack by bruteforce
+		/// </summary>
 		Great
 	}
 }
