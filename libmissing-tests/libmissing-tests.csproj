@@ -59,6 +59,7 @@
     <Compile Include="Security\Cryptography\HashTest.cs" />
     <Compile Include="Reflection\TypeHelperTest.cs" />
     <Compile Include="Security\PasswordGeneratorTest.cs" />
+    <Compile Include="Security\PasswordStrengthTests.cs" />
     <Compile Include="StringExtensions\StringExtensionTests.cs" />
     <Compile Include="Validation\ValidationSpecificationTests_SimpleModel.cs" />
     <Compile Include="Validation\ValidationSpecification_GetPropertyPathTests.cs" />
