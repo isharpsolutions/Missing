@@ -78,6 +78,7 @@
     <Compile Include="Diagnostics\EntrySeverity.cs" />
     <Compile Include="Diagnostics\Log4NetAppenders\ManagedColoredConsoleAppender.cs" />
     <Compile Include="Diagnostics\Log4NetAppenders\ColorMapping.cs" />
+    <Compile Include="Collections\OrderedList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
