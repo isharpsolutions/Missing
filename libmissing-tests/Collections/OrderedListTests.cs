@@ -61,9 +61,9 @@ namespace Missing
 				Name = "Three"
 			});
 			
-			Assert.AreEqual("One", list[0], "First element is wrong");
-			Assert.AreEqual("Two", list[1], "Second element is wrong");
-			Assert.AreEqual("Three", list[2], "Third element is wrong");
+			Assert.AreEqual("One", list[0].Name, "First element is wrong");
+			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
+			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		#endregion
 		
@@ -88,9 +88,9 @@ namespace Missing
 				Name = "Three"
 			});
 			
-			Assert.AreEqual("One", list[0], "First element is wrong");
-			Assert.AreEqual("Two", list[1], "Second element is wrong");
-			Assert.AreEqual("Three", list[2], "Third element is wrong");
+			Assert.AreEqual("One", list[0].Name, "First element is wrong");
+			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
+			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		
 		[Test]
@@ -114,9 +114,9 @@ namespace Missing
 				Name = "Three"
 			});
 			
-			Assert.AreEqual("One", list[0], "First element is wrong");
-			Assert.AreEqual("Two", list[1], "Second element is wrong");
-			Assert.AreEqual("Three", list[2], "Third element is wrong");
+			Assert.AreEqual("One", list[0].Name, "First element is wrong");
+			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
+			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		
 		[Test]
@@ -141,9 +141,9 @@ namespace Missing
 				Name = "Three"
 			});
 			
-			Assert.AreEqual("One", list[0], "First element is wrong");
-			Assert.AreEqual("Two", list[1], "Second element is wrong");
-			Assert.AreEqual("Three", list[2], "Third element is wrong");
+			Assert.AreEqual("One", list[0].Name, "First element is wrong");
+			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
+			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		
 		[Test]
@@ -168,9 +168,9 @@ namespace Missing
 			
 			list.Comparer = new ScoreComparer();
 			
-			Assert.AreEqual("One", list[0], "First element is wrong");
-			Assert.AreEqual("Two", list[1], "Second element is wrong");
-			Assert.AreEqual("Three", list[2], "Third element is wrong");
+			Assert.AreEqual("One", list[0].Name, "First element is wrong");
+			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
+			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		#endregion
 		
@@ -195,9 +195,9 @@ namespace Missing
 				Name = "Three"
 			});
 			
-			Assert.AreEqual("One", list[0], "First element is wrong");
-			Assert.AreEqual("Two", list[1], "Second element is wrong");
-			Assert.AreEqual("Three", list[2], "Third element is wrong");
+			Assert.AreEqual("One", list[0].Name, "First element is wrong");
+			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
+			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		
 		[Test]
@@ -221,9 +221,9 @@ namespace Missing
 				Name = "Three"
 			});
 			
-			Assert.AreEqual("One", list[0], "First element is wrong");
-			Assert.AreEqual("Two", list[1], "Second element is wrong");
-			Assert.AreEqual("Three", list[2], "Third element is wrong");
+			Assert.AreEqual("One", list[0].Name, "First element is wrong");
+			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
+			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		
 		[Test]
@@ -248,9 +248,9 @@ namespace Missing
 				Name = "Three"
 			});
 			
-			Assert.AreEqual("One", list[0], "First element is wrong");
-			Assert.AreEqual("Two", list[1], "Second element is wrong");
-			Assert.AreEqual("Three", list[2], "Third element is wrong");
+			Assert.AreEqual("One", list[0].Name, "First element is wrong");
+			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
+			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		
 		[Test]
@@ -275,9 +275,9 @@ namespace Missing
 			
 			list.OrderingKey = PropertyPath.From<Score>(y => y.Match);
 			
-			Assert.AreEqual("One", list[0], "First element is wrong");
-			Assert.AreEqual("Two", list[1], "Second element is wrong");
-			Assert.AreEqual("Three", list[2], "Third element is wrong");
+			Assert.AreEqual("One", list[0].Name, "First element is wrong");
+			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
+			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		#endregion
 		

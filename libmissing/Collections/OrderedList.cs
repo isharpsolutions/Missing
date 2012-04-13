@@ -57,17 +57,26 @@ namespace Missing.Collections
 		#region IList[T] implementation
 		public int IndexOf(T item)
 		{
-			throw new NotImplementedException();
+			if (!this.isSorted)
+			{
+				this.Sort();
+			}
+			
+			return this.items.IndexOf(item);
 		}
 
 		public void Insert(int index, T item)
 		{
-			throw new NotImplementedException();
+			this.items.Insert(index, item);
+			this.isSorted = true;
 		}
 
 		public void RemoveAt(int index)
 		{
-			throw new NotImplementedException();
+			this.items.RemoveAt(index);
+			
+			// removing an item does not
+			// change the order of elements
 		}
 
 		public T this[int index]
@@ -92,53 +101,56 @@ namespace Missing.Collections
 		#region IEnumerable[T] implementation
 		public IEnumerator<T> GetEnumerator()
 		{
-			throw new NotImplementedException();
+			return this.items.GetEnumerator();
 		}
 		#endregion
 
 		#region IEnumerable implementation
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
 		{
-			throw new NotImplementedException();
+			return this.items.GetEnumerator();
 		}
 		#endregion
 
 		#region ICollection[T] implementation
 		public void Add(T item)
 		{
-			throw new NotImplementedException();
+			this.items.Add(item);
+			this.isSorted = false;
 		}
 
 		public void Clear()
 		{
-			throw new NotImplementedException();
+			this.items.Clear();
+			this.isSorted = true;
 		}
 
 		public bool Contains(T item)
 		{
-			throw new NotImplementedException();
+			return this.items.Contains(item);
 		}
 
 		public void CopyTo(T[] array, int arrayIndex)
 		{
-			throw new NotImplementedException();
+			this.items.CopyTo(array, arrayIndex);
 		}
 
 		public bool Remove(T item)
 		{
-			throw new NotImplementedException();
+			return this.items.Remove(item);
+			
+			// removing an item does not
+			// change the order of elements
 		}
 
-		public int Count {
-			get {
-				throw new NotImplementedException();
-			}
+		public int Count
+		{
+			get { return this.items.Count; }
 		}
 
-		public bool IsReadOnly {
-			get {
-				throw new NotImplementedException();
-			}
+		public bool IsReadOnly
+		{
+			get { return false; }
 		}
 		#endregion
 	}
