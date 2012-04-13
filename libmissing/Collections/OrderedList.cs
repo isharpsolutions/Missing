@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Missing.Validation;
+using System.Linq;
 
 namespace Missing.Collections
 {
@@ -27,8 +28,32 @@ namespace Missing.Collections
 		#endregion Constructors
 		
 		#region Sorting
-		public IComparer<T> Comparer { get; set; }
-		public PropertyPath OrderingKey { get; set; }
+		private IComparer<T> comparer = null;
+		
+		public IComparer<T> Comparer
+		{
+			get { return this.comparer; }
+			set
+			{
+				this.comparer = value;
+				this.isSorted = false;
+			}
+		}
+		
+		private PropertyPath orderingKey = default(PropertyPath);
+		
+		public PropertyPath OrderingKey
+		{
+			get { return this.orderingKey; }
+			set
+			{
+				this.comparer = new GenericComparer<T>() {
+					SortExpression = value
+				};
+				this.orderingKey = value;
+				this.isSorted = false;
+			}
+		}
 		
 		protected List<T> items = new List<T>();
 		protected bool isSorted = true;
@@ -39,12 +64,7 @@ namespace Missing.Collections
 			{
 				this.items.Sort(this.Comparer);
 			}
-			
-			else if (this.OrderingKey != default(PropertyPath))
-			{
-				throw new NotImplementedException();
-			}
-			
+
 			else
 			{
 				this.items.Sort();
