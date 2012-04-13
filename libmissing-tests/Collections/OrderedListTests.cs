@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Missing.Collections;
 using System.Collections.Generic;
 using Missing.Validation;
+using System.Text;
 
 namespace Missing
 {
@@ -66,6 +67,69 @@ namespace Missing
 			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
 		#endregion
+		
+		[Test]
+		public void Foreach()
+		{
+			OrderedList<Score> list = new OrderedList<Score>(new ScoreComparer());
+			
+			list.Add(new Score() {
+				Match = 2,
+				Name = "Two"
+			});
+			
+			list.Add(new Score() {
+				Match = 1,
+				Name = "One"
+			});
+			
+			list.Add(new Score() {
+				Match = 3,
+				Name = "Three"
+			});
+			
+			StringBuilder sb = new StringBuilder();
+			
+			foreach (Score s in list)
+			{
+				sb.Append(s.Name);
+			}
+			
+			Assert.AreEqual("OneTwoThree", sb.ToString(), "The elements were not sorted");
+		}
+		
+		[Test]
+		public void CopyTo()
+		{
+			OrderedList<Score> list = new OrderedList<Score>(new ScoreComparer());
+			
+			list.Add(new Score() {
+				Match = 2,
+				Name = "Two"
+			});
+			
+			list.Add(new Score() {
+				Match = 1,
+				Name = "One"
+			});
+			
+			list.Add(new Score() {
+				Match = 3,
+				Name = "Three"
+			});
+			
+			Score[] array = new Score[list.Count];
+			list.CopyTo(array, 0);
+			
+			StringBuilder sb = new StringBuilder();
+			
+			foreach (Score s in array)
+			{
+				sb.Append(s.Name);
+			}
+			
+			Assert.AreEqual("OneTwoThree", sb.ToString(), "The elements were not sorted");
+		}
 		
 		#region Custom comparer
 		[Test]
