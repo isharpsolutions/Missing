@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Missing.Validation;
 using System.Linq;
+using Missing.Reflection;
 
 namespace Missing.Collections
 {
@@ -17,7 +18,7 @@ namespace Missing.Collections
 	/// It has not been tested with large datasets, so it might not
 	/// scale very well.
 	/// </remarks>
-	public class OrderedList<T> : IList<T> where T : class
+	public class OrderedList<T> : IList<T> where T : class, new()
 	{
 		#region Constructors
 		/// <summary>
@@ -50,6 +51,26 @@ namespace Missing.Collections
 		}
 		#endregion Constructors
 		
+		#region Check lambda property
+		/// <summary>
+		/// Verifies that the value behind the property selected with a lambda expression
+		/// implements <see cref="System.IComparable"/>
+		/// </summary>
+		/// <exception cref="ArgumentException">
+		/// Thrown if the property value does not implement the proper interface
+		/// </exception>
+		private void VerifyThatLambdaPropertyIsComparable()
+		{
+			T obj = new T();
+			PropertyData info = TypeHelper.GetPropertyData(obj, this.orderingKey.Parts);
+			
+			if (info.PropertyInfo.PropertyType.GetInterface(typeof(IComparable).FullName) == null)
+			{
+				throw new ArgumentException("The property with which to sort, must implement System.IComparable");
+			}
+		}
+		#endregion Check lambda property
+		
 		#region Sorting
 		/// <summary>
 		/// The comparer.
@@ -77,6 +98,10 @@ namespace Missing.Collections
 		/// <summary>
 		/// Gets or sets the ordering key.
 		/// </summary>
+		/// <exception cref="ArgumentException">
+		/// Thrown if the property value does not implement the proper interface.
+		/// <see cref="OrderedList.VerifyThatLambdaPropertyIsComparable"/>
+		/// </exception>
 		public PropertyPath OrderingKey
 		{
 			get { return this.orderingKey; }
@@ -87,6 +112,8 @@ namespace Missing.Collections
 				};
 				this.orderingKey = value;
 				this.isSorted = false;
+				
+				this.VerifyThatLambdaPropertyIsComparable();
 			}
 		}
 

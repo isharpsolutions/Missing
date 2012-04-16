@@ -343,6 +343,45 @@ namespace Missing
 			Assert.AreEqual("Two", list[1].Name, "Second element is wrong");
 			Assert.AreEqual("Three", list[2].Name, "Third element is wrong");
 		}
+		
+		[Test]
+		public void PropertyBased_InProperty_NotComparable()
+		{
+			OrderedList<Score> list = new OrderedList<Score>();
+			
+			try
+			{
+				list.OrderingKey = PropertyPath.From<Score>(y => y.NonComparable);
+				Assert.Fail("An ArgumentException should have been thrown, as the given sort-key is not IComparable");
+			}
+			
+			catch
+			{
+				// good
+			}
+		}
+		
+		[Test]
+		public void PropertyBased_InConstructor_NotComparable()
+		{
+			try
+			{
+				new OrderedList<Score>(y => y.NonComparable);
+				Assert.Fail("An ArgumentException should have been thrown, as the given sort-key is not IComparable");
+			}
+			
+			catch (ArgumentException)
+			{
+				// good
+			}
+		}
+		
+		[Test]
+		public void PropertyBased_InProperty_CustomComparable()
+		{
+			OrderedList<Score> list = new OrderedList<Score>();
+			list.OrderingKey = PropertyPath.From<Score>(y => y.IAmComparable);
+		}
 		#endregion
 		
 		#region Test class
@@ -350,6 +389,23 @@ namespace Missing
 		{
 			public int Match { get; set; }
 			public string Name { get; set; }
+			public NonComparable NonComparable { get; set; }
+			public IAmComparable IAmComparable { get; set; }
+		}
+		
+		private class NonComparable
+		{
+			public string Airplane { get; set; }
+		}
+		
+		private class IAmComparable : IComparable
+		{
+			public string Car { get; set; }
+
+			public int CompareTo(object obj)
+			{
+				throw new NotImplementedException();
+			}
 		}
 		#endregion
 		
