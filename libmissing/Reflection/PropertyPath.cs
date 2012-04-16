@@ -37,7 +37,7 @@ namespace Missing.Reflection
 		/// </typeparam>
 		public static PropertyPath From<T>(Expression<Func<T, object>> memberExpression) where T : class
 		{
-			return ValidationSpecification.GetPropertyPath<T>(memberExpression);
+			return PropertyPathWorker.GetPropertyPath<T>(memberExpression);
 		}
 		#endregion Static: From<T>
 
