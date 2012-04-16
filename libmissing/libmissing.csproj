@@ -68,7 +68,6 @@
     <Compile Include="Validation\Enforcers\RegExpEnforcer.cs" />
     <Compile Include="Validation\FieldSpecification.cs" />
     <Compile Include="Validation\FieldSpecificationCollection.cs" />
-    <Compile Include="Validation\PropertyPath.cs" />
     <Compile Include="Network\EasyHttpRequestSpecializations\GetEasyHttpRequest.cs" />
     <Compile Include="Network\EasyHttpRequestSpecializations\PostEasyHttpRequest.cs" />
     <Compile Include="Diagnostics\Log.cs" />
@@ -81,6 +80,7 @@
     <Compile Include="Collections\OrderedList.cs" />
     <Compile Include="Collections\GenericComparer.cs" />
     <Compile Include="Collections\SortDirection.cs" />
+    <Compile Include="Reflection\PropertyPath.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

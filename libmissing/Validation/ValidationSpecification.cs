@@ -2,6 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using Missing.Reflection;
 
 namespace Missing.Validation
 {

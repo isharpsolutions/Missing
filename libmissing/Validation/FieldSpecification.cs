@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using Missing.Validation.Enforcers;
 using System.Text.RegularExpressions;
+using Missing.Reflection;
 
 namespace Missing.Validation
 {

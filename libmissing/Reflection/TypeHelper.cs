@@ -263,5 +263,22 @@ namespace Missing.Reflection
 			
 			return result;
 		}
+		
+		/// <summary>
+		/// Get PropertyInfo and value from a given class instance, following the "property path"
+		/// </summary>
+		/// <returns>
+		/// The property data.
+		/// </returns>
+		/// <param name="input">
+		/// The class instance to traverse
+		/// </param>
+		/// <param name="path">
+		/// The property path to follow
+		/// </param>
+		public static PropertyData GetPropertyData(object input, PropertyPath path)
+		{
+			return GetPropertyData(input, path.Parts);
+		}
 	}
 }
