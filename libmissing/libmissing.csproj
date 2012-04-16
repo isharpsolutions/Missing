@@ -68,7 +68,6 @@
     <Compile Include="Validation\Enforcers\RegExpEnforcer.cs" />
     <Compile Include="Validation\FieldSpecification.cs" />
     <Compile Include="Validation\FieldSpecificationCollection.cs" />
-    <Compile Include="Validation\PropertyPath.cs" />
     <Compile Include="Network\EasyHttpRequestSpecializations\GetEasyHttpRequest.cs" />
     <Compile Include="Network\EasyHttpRequestSpecializations\PostEasyHttpRequest.cs" />
     <Compile Include="Diagnostics\Log.cs" />
@@ -78,6 +77,11 @@
     <Compile Include="Diagnostics\EntrySeverity.cs" />
     <Compile Include="Diagnostics\Log4NetAppenders\ManagedColoredConsoleAppender.cs" />
     <Compile Include="Diagnostics\Log4NetAppenders\ColorMapping.cs" />
+    <Compile Include="Collections\OrderedList.cs" />
+    <Compile Include="Collections\GenericComparer.cs" />
+    <Compile Include="Collections\SortDirection.cs" />
+    <Compile Include="Reflection\PropertyPath.cs" />
+    <Compile Include="Reflection\PropertyPathWorker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

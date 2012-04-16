@@ -29,12 +29,11 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\resources\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\resources\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -61,11 +60,12 @@
     <Compile Include="Security\PasswordGeneratorTest.cs" />
     <Compile Include="StringExtensions\StringExtensionTests.cs" />
     <Compile Include="Validation\ValidationSpecificationTests_SimpleModel.cs" />
-    <Compile Include="Validation\ValidationSpecification_GetPropertyPathTests.cs" />
     <Compile Include="Validation\Enforcers\EmailEnforcerTests.cs" />
     <Compile Include="Validation\Enforcers\RegExpEnforcerTests.cs" />
     <Compile Include="Reflection\AssemblyHelperTest.cs" />
     <Compile Include="Validation\ValidationSpecificationTests_MultipleSpecifications.cs" />
+    <Compile Include="Collections\OrderedListTests.cs" />
+    <Compile Include="Reflection\PropertyPathWorkerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
