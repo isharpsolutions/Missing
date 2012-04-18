@@ -61,6 +61,17 @@ namespace Missing
 		}
 	}
 	
+	public class SimpleModelWithInvalidValuesValidationSpecification : ValidationSpecification<SimpleModel>
+	{
+		public SimpleModelWithInvalidValuesValidationSpecification()
+		{
+			base.Field(y => y.MyString)
+				.Required()
+				.Invalid("invalid")
+				.Invalid("also invalid");
+		}
+	}
+	
 	
 	public class SimpleModelEnforcer : Enforcer
 	{
@@ -380,6 +391,43 @@ namespace Missing
 			ValidationResult result = Validator.Validate<SimpleModel>(model, new AlternateSimpleModelValidationSpecification());
 			
 			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void SimpleModel_InvalidValues_ValueOk()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "I am valid";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model, new SimpleModelWithInvalidValuesValidationSpecification());
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void SimpleModel_InvalidValues_Invalid_FirstEntry()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "invalid";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model, new SimpleModelWithInvalidValuesValidationSpecification());
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyString", result.Errors[0].PropertyPath, "The property name is wrong");
+		}
+		
+		[Test]
+		public void SimpleModel_InvalidValues_Invalid_SecondEntry()
+		{
+			SimpleModel model = new SimpleModel();
+			model.MyString = "also invalid";
+			
+			ValidationResult result = Validator.Validate<SimpleModel>(model, new SimpleModelWithInvalidValuesValidationSpecification());
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyString", result.Errors[0].PropertyPath, "The property name is wrong");
 		}
 	}
 }
