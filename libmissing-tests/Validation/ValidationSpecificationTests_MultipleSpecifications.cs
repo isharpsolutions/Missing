@@ -16,6 +16,14 @@ namespace Missing
 		}
 		
 		[Test]
+		public void MultipleSpecifications_SameNamespace_BothNamesBeginWithEntityName()
+		{
+			Missing.Multiple.Five.RepeatedClassName entity = new Missing.Multiple.Five.RepeatedClassName();
+			
+			Assert.IsEmpty(Validator.Validate<Missing.Multiple.Five.RepeatedClassName>(entity).Errors, "There should not be any errors");
+		}
+		
+		[Test]
 		public void MultipleSpecifications_SubNamespace_SameName()
 		{
 			Missing.Multiple.Two.RepeatedClassName entity = new Missing.Multiple.Two.RepeatedClassName();
@@ -168,3 +176,28 @@ namespace Missing.Multiple.FourOther
 	}
 }
 #endregion
+
+#region Five
+namespace Missing.Multiple.Five
+{
+	public class RepeatedClassName
+	{
+		public string MyString { get; set; }
+	}
+	
+	public class RepeatedClassNameValidationSpecification : ValidationSpecification<RepeatedClassName>
+	{
+		public RepeatedClassNameValidationSpecification()
+		{
+		}
+	}
+	
+	public class RepeatedClassNameWithSlightlyDifferentNameValidationSpecification : ValidationSpecification<RepeatedClassName>
+	{
+		public RepeatedClassNameWithSlightlyDifferentNameValidationSpecification()
+		{
+			base.Field(y => y.MyString).Required();
+		}
+	}
+}
+#endregion Five

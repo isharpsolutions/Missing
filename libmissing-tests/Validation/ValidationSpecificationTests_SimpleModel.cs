@@ -60,8 +60,7 @@ namespace Missing
 				.Required();
 		}
 	}
-	
-	
+
 	public class SimpleModelEnforcer : Enforcer
 	{
 		#region implemented abstract members of Missing.Validation.Enforcer

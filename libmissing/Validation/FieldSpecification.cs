@@ -3,6 +3,7 @@ using System.Reflection;
 using Missing.Validation.Enforcers;
 using System.Text.RegularExpressions;
 using Missing.Reflection;
+using System.Collections.Generic;
 
 namespace Missing.Validation
 {
@@ -141,6 +142,7 @@ namespace Missing.Validation
 		}
 		#endregion Enforcer
 		
+		#region Allowed
 		/// <summary>
 		/// The value must be a valid email address
 		/// </summary>
@@ -197,5 +199,37 @@ namespace Missing.Validation
 			
 			return this;
 		}
+		#endregion Allowed
+		
+		#region Invalid values
+		/// <summary>
+		/// The invalid values.
+		/// </summary>
+		private List<object> invalidValues = new List<object>();
+		
+		/// <summary>
+		/// Gets a list of invalid values.
+		/// </summary>
+		internal List<object> InvalidValues
+		{
+			get { return this.invalidValues; }
+		}
+		
+		/// <summary>
+		/// Add a specific value as being invalid even
+		/// though it passes all the other tests.
+		/// </summary>
+		/// <param name="invalidValue">
+		/// The value that is invalid
+		/// </param>
+		/// <remarks>
+		/// You can add as many invalid values as you want
+		/// </remarks>
+		public FieldSpecification Invalid(object invalidValue)
+		{
+			this.InvalidValues.Add(invalidValue);
+			return this;
+		}
+		#endregion Invalid values
 	}
 }
