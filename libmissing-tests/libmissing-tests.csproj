@@ -67,6 +67,7 @@
     <Compile Include="Collections\OrderedListTests.cs" />
     <Compile Include="Reflection\PropertyPathWorkerTests.cs" />
     <Compile Include="Reflection\Extensions\TypeExtensionsTests.cs" />
+    <Compile Include="Validation\ValidatorTests_InvalidValues.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
