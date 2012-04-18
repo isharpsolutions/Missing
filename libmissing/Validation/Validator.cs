@@ -3,6 +3,7 @@ using Missing.Reflection;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
+using Missing.Reflection.Extensions;
 
 namespace Missing.Validation
 {
@@ -84,6 +85,19 @@ namespace Missing.Validation
 			// spec: SimpleModelValidationSpecification
 			//
 			if (specification.Name.StartsWith(entity.Name))
+			{
+				res.Score += 1;
+			}
+			
+			//
+			// matches the default convention name
+			// this is to allow the situation where multiple specifications
+			// are defined in the same namespace and they all follow the
+			// MS framework design guidelines.
+			//
+			Type valSpec = typeof(ValidationSpecification<string>);
+			string defaultConventionName = String.Format("{0}{1}", entity.Name, typeof(ValidationSpecification<string>).GetNonGenericName());
+			if (specification.Name.Equals(defaultConventionName))
 			{
 				res.Score += 1;
 			}
