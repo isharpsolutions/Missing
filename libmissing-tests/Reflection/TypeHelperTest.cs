@@ -163,5 +163,25 @@ namespace Missing
 			Assert.AreEqual("Spock", data.Value, "Value is wrong");
 		}
 		#endregion GetPropertyData
+		
+		#region Get non-generic name
+		[Test]
+		public void GetNonGenericName_NormalType()
+		{
+			Assert.AreEqual("String", TypeHelper.GetNonGenericName(typeof(String)), "The name is wrong");
+		}
+		
+		[Test]
+		public void GetNonGenericName_OneTypeParams()
+		{
+			Assert.AreEqual("List", TypeHelper.GetNonGenericName(typeof(List<string>)), "The name is wrong");
+		}
+		
+		[Test]
+		public void GetNonGenericName_TwoTypeParams()
+		{
+			Assert.AreEqual("Dictionary", TypeHelper.GetNonGenericName(typeof(Dictionary<string, string>)), "The name is wrong");
+		}
+		#endregion
 	}
 }
