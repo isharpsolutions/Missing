@@ -31,5 +31,38 @@ namespace Missing.Reflection.Extensions
 			
 			return type.Name;
 		}
+		
+		/// <summary>
+		/// Check whether the type implements a specific interface
+		/// </summary>
+		/// <returns>
+		/// <c>True</c> if the type implements the given interface, <c>False</c> otherwise
+		/// </returns>
+		/// <param name="type">
+		/// The type instance on which to run the check
+		/// </param>
+		/// <param name="interfaceType">
+		/// The type of the interface to check for
+		/// </param>
+		public static bool ImplementsInterface(this Type type, Type interfaceType)
+		{
+			Type[] faces = type.GetInterfaces();
+			
+			foreach (Type cur in faces)
+			{
+				if (cur == interfaceType)
+				{
+					return true;
+				}
+			}
+			
+			return false;
+			
+			/* We use a loop on GetInterfaces
+			 * instead of GetInterface(string), because
+			 * the latter does not catch generic interfaces
+			 * like IList<String>
+			 */
+		}
 	}
 }
