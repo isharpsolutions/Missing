@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using Missing.Reflection.Extensions;
+using Missing.Validation.Validators;
 
 namespace Missing.Validation
 {
@@ -95,7 +96,6 @@ namespace Missing.Validation
 			// are defined in the same namespace and they all follow the
 			// MS framework design guidelines.
 			//
-			Type valSpec = typeof(ValidationSpecification<string>);
 			string defaultConventionName = String.Format("{0}{1}", entity.Name, typeof(ValidationSpecification<string>).GetNonGenericName());
 			if (specification.Name.Equals(defaultConventionName))
 			{
@@ -248,92 +248,9 @@ namespace Missing.Validation
 		{
 			PropertyData pd = TypeHelper.GetPropertyData(input, field.PropertyPath.Parts);
 			
-			var val = pd.Value;
-			
-			#region Is required
-			if (field.IsRequired)
-			{
-				if (val is string)
-				{
-					if (String.IsNullOrWhiteSpace((string)val))
-					{
-						return new ValidationError(field.PropertyPath.AsString(), "Field is required but was 'null', 'String.Empty' or consisted of only whitespace.");
-					}
-				}
-				
-				else if (val == null)
-				{
-					return new ValidationError(field.PropertyPath.AsString(), "Field is required but was 'null'");
-				}
-			}
-			
-			else
-			{
-				// if the field is not required
-				// and it has no value, skip the rest
-				// of the validation
-				
-				
-				if (val is string)
-				{
-					if (String.IsNullOrWhiteSpace((string)val))
-					{
-						return default(ValidationError);
-					}
-				}
-				
-				else if (val == null)
-				{
-					return default(ValidationError);
-				}
-			}
-			#endregion Is required
-			
-			#region Length
-			if (val is string)
-			{
-				if (field.MaxLength > 0)
-				{
-					if ( ((string)val).Length > field.MaxLength )
-					{
-						return new ValidationError(field.PropertyPath.AsString(), "Value exceeds max length of '{0}'", field.MaxLength);
-					}
-				}
-				
-				if (field.MinLength >= 0)
-				{
-					if ( ((string)val).Length < field.MinLength )
-					{
-						return new ValidationError(field.PropertyPath.AsString(), "Value is shorter than allowed minimum length of '{0}'", field.MinLength);
-					}
-				}
-			}
-			#endregion Length
-			
-			#region Enforcer
-			if (field.Enforcer != default(Enforcer))
-			{
-				string enforcerResult = String.Empty;
-				
-				try
-				{
-					enforcerResult = field.Enforcer.Check(val);
-				}
-				catch (Exception ex)
-				{
-					enforcerResult = ex.Message;
-				}
-				
-				if (!enforcerResult.Equals(String.Empty))
-				{
-					return new ValidationError(field.PropertyPath.AsString(), enforcerResult) {
-						EnforcerName = field.Enforcer.GetType().FullName
-					};
-				}
-			}
-			#endregion Enforcer
-			
-			return default(ValidationError);
+			return ValidatorFactory
+						.GetValidatorFor(pd.PropertyInfo.PropertyType)
+						.ValidateField<T>(field, input, pd);
 		}
 		#endregion Validate field helper
 	}
