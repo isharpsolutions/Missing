@@ -30,5 +30,19 @@ namespace Missing.Validation
 		{
 			return this.Errors.Count > 0;
 		}
+		
+		/// <summary>
+		/// Merge another validation result into this one
+		/// </summary>
+		/// <param name="other">
+		/// Other.
+		/// </param>
+		public void Merge(ValidationResult other)
+		{
+			foreach (ValidationError err in other.Errors)
+			{
+				this.Errors.Add(err);
+			}
+		}
 	}
 }

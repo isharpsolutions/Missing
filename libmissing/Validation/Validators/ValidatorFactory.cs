@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Missing.Reflection.Extensions;
 
 namespace Missing.Validation.Validators
 {
@@ -46,6 +48,11 @@ namespace Missing.Validation.Validators
 				
 				default:
 				{
+					if (fieldValueType.ImplementsInterface(typeof(IEnumerable)))
+					{
+						return new EnumerableValidator();
+					}
+					
 					throw new NotSupportedException(String.Format("There is no known validator for '{0}'", fieldValueType.FullName));
 				}
 			}

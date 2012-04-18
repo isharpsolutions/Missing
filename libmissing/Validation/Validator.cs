@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Missing.Reflection.Extensions;
 using Missing.Validation.Validators;
+using System.Collections;
 
 namespace Missing.Validation
 {
@@ -219,6 +220,33 @@ namespace Missing.Validation
 					
 					result.Errors.Add(error);
 				}
+				
+				//
+				// if the field is a list'ish type, we need to
+				// validate each item
+				//
+				if (field.HasItemValidationSpecification)
+				{
+					PropertyData pd = TypeHelper.GetPropertyData(input, field.PropertyPath);
+					
+					if (pd.PropertyInfo.PropertyType.ImplementsInterface(typeof(IEnumerable)))
+					{
+						object valspec = field.ItemValidationSpecification;
+						
+						foreach (var item in (IEnumerable)pd.Value)
+						{
+							#warning How do we do this?
+							// perhaps we should rewrite Validate (or add an overload) to
+							// Validate(object input, IValidationSpecification spec)
+							//
+							// hmm... ValidateField still needs T
+							// perhaps not... this might be another major refactor :)
+							
+							// result.Merge(Validator.Validate<...>(item, valspec));
+							throw new NotImplementedException();
+						}
+					}
+				}
 			}
 			
 			return result;
@@ -246,7 +274,7 @@ namespace Missing.Validation
 		/// </typeparam>
 		private static ValidationError ValidateField<T>(FieldSpecification field, T input) where T : class
 		{
-			PropertyData pd = TypeHelper.GetPropertyData(input, field.PropertyPath.Parts);
+			PropertyData pd = TypeHelper.GetPropertyData(input, field.PropertyPath);
 			
 			return ValidatorFactory
 						.GetValidatorFor(pd.PropertyInfo.PropertyType)

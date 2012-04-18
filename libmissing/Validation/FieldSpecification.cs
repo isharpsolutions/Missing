@@ -231,5 +231,27 @@ namespace Missing.Validation
 			return this;
 		}
 		#endregion Invalid values
+		
+		private object itemValidationSpecification = null;
+		
+		internal dynamic ItemValidationSpecification
+		{
+			get { return this.itemValidationSpecification; }
+		}
+		
+		internal bool HasItemValidationSpecification
+		{
+			get { return this.itemValidationSpecification != null; }
+		}
+		
+		public FieldSpecification Each<TItem>(Action<ValidationSpecification<TItem>> fieldMapping) where TItem : class
+		{
+			ValidationSpecification<TItem> spec = new ValidationSpecification<TItem>();
+			fieldMapping.Invoke(spec);
+			
+			this.itemValidationSpecification = spec;
+			
+			return this;
+		}
 	}
 }
