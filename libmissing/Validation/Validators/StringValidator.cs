@@ -23,7 +23,7 @@ namespace Missing.Validation.Validators
 			#region Is required
 			if (field.IsRequired && String.IsNullOrWhiteSpace(val))
 			{
-				return new ValidationError(field.PropertyPath.AsString(), "Field is required but was 'null', 'String.Empty' or consisted of only whitespace.");
+				return new ValidationError(field.PropertyPath, "Field is required but was 'null', 'String.Empty' or consisted of only whitespace.");
 			}
 			
 			else
@@ -43,7 +43,7 @@ namespace Missing.Validation.Validators
 			{
 				if (val.Length > field.MaxLength)
 				{
-					return new ValidationError(field.PropertyPath.AsString(), "Value exceeds max length of '{0}'", field.MaxLength);
+					return new ValidationError(field.PropertyPath, "Value exceeds max length of '{0}'", field.MaxLength);
 				}
 			}
 			
@@ -51,7 +51,7 @@ namespace Missing.Validation.Validators
 			{
 				if (val.Length < field.MinLength)
 				{
-					return new ValidationError(field.PropertyPath.AsString(), "Value is shorter than allowed minimum length of '{0}'", field.MinLength);
+					return new ValidationError(field.PropertyPath, "Value is shorter than allowed minimum length of '{0}'", field.MinLength);
 				}
 			}
 			#endregion Length
@@ -61,7 +61,7 @@ namespace Missing.Validation.Validators
 			{
 				if (field.InvalidValues.Contains(val))
 				{
-					return new ValidationError(field.PropertyPath.AsString(), "Value is not allowed");
+					return new ValidationError(field.PropertyPath, "Value is not allowed");
 				}
 			}
 			#endregion Invalid values
@@ -82,7 +82,7 @@ namespace Missing.Validation.Validators
 				
 				if (!enforcerResult.Equals(String.Empty))
 				{
-					return new ValidationError(field.PropertyPath.AsString(), enforcerResult) {
+					return new ValidationError(field.PropertyPath, enforcerResult) {
 						EnforcerName = field.Enforcer.GetType().FullName
 					};
 				}

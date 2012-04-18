@@ -31,7 +31,7 @@ namespace Missing.Validation.Validators
 			{
 				if (field.InvalidValues.Contains(val))
 				{
-					return new ValidationError(field.PropertyPath.AsString(), "Value is not allowed");
+					return new ValidationError(field.PropertyPath, "Value is not allowed");
 				}
 			}
 			#endregion Invalid values
@@ -52,7 +52,7 @@ namespace Missing.Validation.Validators
 				
 				if (!enforcerResult.Equals(String.Empty))
 				{
-					return new ValidationError(field.PropertyPath.AsString(), enforcerResult) {
+					return new ValidationError(field.PropertyPath, enforcerResult) {
 						EnforcerName = field.Enforcer.GetType().FullName
 					};
 				}

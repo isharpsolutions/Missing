@@ -1,4 +1,5 @@
 using System;
+using Missing.Reflection;
 
 namespace Missing.Validation
 {
@@ -7,10 +8,40 @@ namespace Missing.Validation
 	/// </summary>
 	public class ValidationError
 	{
+		#region Constructors
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Missing.Validation.ValidationError"/> class.
 		/// </summary>
 		public ValidationError() : this(String.Empty, String.Empty)
+		{
+		}
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Validation.ValidationError"/> class.
+		/// </summary>
+		/// <param name="propertyPath">
+		/// The path of the field that contains an error
+		/// </param>
+		/// <param name="message">
+		/// A descriptive message of what the error is
+		/// </param>
+		public ValidationError(PropertyPath propertyPath, string message) : this(propertyPath.AsString(), message)
+		{
+		}
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Validation.ValidationError"/> class.
+		/// </summary>
+		/// <param name="propertyPath">
+		/// The path of the field that contains an error
+		/// </param>
+		/// <param name="messageFormat">
+		/// Format of descriptive message
+		/// </param>
+		/// <param name="messageArgs">
+		/// Arguments for descriptive message format
+		/// </param>
+		public ValidationError(PropertyPath propertyPath, string messageFormat, params object[] messageArgs) : this(propertyPath.AsString(), String.Format(messageFormat, messageArgs))
 		{
 		}
 
@@ -44,6 +75,7 @@ namespace Missing.Validation
 		public ValidationError(string propertyPath, string messageFormat, params object[] messageArgs) : this(propertyPath, String.Format(messageFormat, messageArgs))
 		{
 		}
+		#endregion Constructors
 		
 		/// <summary>
 		/// Get/set the path of the property that contains an error
