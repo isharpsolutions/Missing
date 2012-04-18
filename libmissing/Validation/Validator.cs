@@ -96,7 +96,7 @@ namespace Missing.Validation
 			// are defined in the same namespace and they all follow the
 			// MS framework design guidelines.
 			//
-			string defaultConventionName = String.Format("{0}{1}", entity.Name, typeof(ValidationSpecification<string>).GetNonGenericName());
+			string defaultConventionName = String.Format("{0}{1}", entity.Name, typeof(ValidationSpecification<>).GetNonGenericName());
 			if (specification.Name.Equals(defaultConventionName))
 			{
 				res.Score += 1;

@@ -56,6 +56,16 @@ namespace Missing.Validation.Validators
 			}
 			#endregion Length
 			
+			#region Invalid values
+			if (field.InvalidValues.Count != 0)
+			{
+				if (field.InvalidValues.Contains(val))
+				{
+					return new ValidationError(field.PropertyPath.AsString(), "Value is not allowed");
+				}
+			}
+			#endregion Invalid values
+			
 			#region Enforcer
 			if (field.Enforcer != default(Enforcer))
 			{

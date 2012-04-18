@@ -205,12 +205,12 @@ namespace Missing.Validation
 		/// <summary>
 		/// The invalid values.
 		/// </summary>
-		private List<string> invalidValues = new List<string>();
+		private List<object> invalidValues = new List<object>();
 		
 		/// <summary>
 		/// Gets a list of invalid values.
 		/// </summary>
-		internal List<string> InvalidValues
+		internal List<object> InvalidValues
 		{
 			get { return this.invalidValues; }
 		}
@@ -225,7 +225,7 @@ namespace Missing.Validation
 		/// <remarks>
 		/// You can add as many invalid values as you want
 		/// </remarks>
-		public FieldSpecification Invalid(string invalidValue)
+		public FieldSpecification Invalid(object invalidValue)
 		{
 			this.InvalidValues.Add(invalidValue);
 			return this;
