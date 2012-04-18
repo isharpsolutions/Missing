@@ -66,11 +66,15 @@
     <Compile Include="Validation\ValidationSpecificationTests_MultipleSpecifications.cs" />
     <Compile Include="Collections\OrderedListTests.cs" />
     <Compile Include="Reflection\PropertyPathWorkerTests.cs" />
+    <Compile Include="Reflection\Extensions\TypeExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Gettext-ScanForTranslations>false</Gettext-ScanForTranslations>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reflection\Extensions\" />
   </ItemGroup>
 </Project>

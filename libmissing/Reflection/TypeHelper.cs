@@ -280,36 +280,5 @@ namespace Missing.Reflection
 		{
 			return GetPropertyData(input, path.Parts);
 		}
-		
-		/// <summary>
-		/// Get the name of a type without the generic part.
-		/// 
-		/// <example>
-		/// 	<code language="csharp">
-		/// 	Type genericType = typeof(List<String>);
-		/// 	genericType.Name; // => List`1
-		/// 	TypeHelper.GetNonGenericName(genericType); // => List
-		/// 	</code>
-		/// </example>
-		/// </summary>
-		/// <returns>
-		/// The non generic name.
-		/// </returns>
-		/// <param name="input">
-		/// The type of which to get the name
-		/// </param>
-		public static string GetNonGenericName(Type input)
-		{
-			if (input.IsGenericType)
-			{
-				int offset = input.Name.IndexOf("`");
-				return input.Name.Substring(0, offset);
-			}
-			
-			else
-			{
-				return input.Name;
-			}
-		}
 	}
 }

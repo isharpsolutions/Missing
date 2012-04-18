@@ -82,6 +82,7 @@
     <Compile Include="Collections\SortDirection.cs" />
     <Compile Include="Reflection\PropertyPath.cs" />
     <Compile Include="Reflection\PropertyPathWorker.cs" />
+    <Compile Include="Reflection\Extensions\TypeExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -92,4 +93,7 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Reflection\Extensions\" />
+  </ItemGroup>
 </Project>
