@@ -253,5 +253,15 @@ namespace Missing.Validation
 			
 			return this;
 		}
+		
+		public FieldSpecification EachPrimitive<TItem>(Action<PrimitiveValidationSpecification<TItem>> valueMapping) where TItem : class
+		{
+			PrimitiveValidationSpecification<TItem> spec = new PrimitiveValidationSpecification<TItem>();
+			valueMapping.Invoke(spec);
+			
+			this.itemValidationSpecification = spec;
+			
+			return this;
+		}
 	}
 }

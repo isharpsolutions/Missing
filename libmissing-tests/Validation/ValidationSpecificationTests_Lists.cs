@@ -42,7 +42,7 @@ namespace Missing
 		#endregion
 		
 		#region Primitive value
-		[Test, Ignore("Not implemented yet")]
+		[Test]
 		public void PrimitiveValue_Valid()
 		{
 			Missing.ValidationSpecificationTests.Lists.ListModel model = new Missing.ValidationSpecificationTests.Lists.ListModel();
@@ -53,7 +53,7 @@ namespace Missing
 			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 		
-		[Test, Ignore("Not implemented yet")]
+		[Test]
 		public void PrimitiveValue_Invalid()
 		{
 			Missing.ValidationSpecificationTests.Lists.ListModel model = new Missing.ValidationSpecificationTests.Lists.ListModel();
@@ -99,7 +99,7 @@ namespace Missing
 			Assert.AreEqual("MyList[0].MyString", result.Errors[1].PropertyPath, "Second: property name is wrong");
 		}
 		
-		[Test, Ignore("Not implemented yet")]
+		[Test]
 		public void DerivedList_Primitive_Valid()
 		{
 			Missing.ValidationSpecificationTests.DerivedLists.ListModel model = new Missing.ValidationSpecificationTests.DerivedLists.ListModel();
@@ -110,7 +110,7 @@ namespace Missing
 			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 		
-		[Test, Ignore("Not implemented yet")]
+		[Test]
 		public void DerivedList_Primitive_Invalid()
 		{
 			Missing.ValidationSpecificationTests.DerivedLists.ListModel model = new Missing.ValidationSpecificationTests.DerivedLists.ListModel();
@@ -192,12 +192,12 @@ namespace Missing.ValidationSpecificationTests.Lists
 						.Invalid("invalid");
 				});
 			
-			/*
 			base.Field(y => y.Strings)
-				.Each<string>(x => {
-					
+				.EachPrimitive<string>(x => {
+					x.Value()
+						.Required()
+						.Invalid("invalid");
 				});
-			*/
 		}
 	}
 }
@@ -258,6 +258,13 @@ namespace Missing.ValidationSpecificationTests.DerivedLists
 						.Invalid(5);
 					
 					x.Field(y => y.MyString)
+						.Required()
+						.Invalid("invalid");
+				});
+			
+			base.Field(y => y.MyStrings)
+				.EachPrimitive<string>(x => {
+					x.Value()
 						.Required()
 						.Invalid("invalid");
 				});

@@ -18,7 +18,12 @@ namespace Missing.Validation.Validators
 		#region IValidator implementation
 		public ValidationError ValidateField<T>(FieldSpecification field, T input, PropertyData pd) where T : class
 		{
-			string val = (string)pd.Value;
+			return this.ValidatePrimitive(field, pd.Value);
+		}
+
+		public ValidationError ValidatePrimitive(FieldSpecification field, object input)
+		{
+			string val = (string)input;
 			
 			#region Is required
 			if (field.IsRequired && String.IsNullOrWhiteSpace(val))
@@ -31,7 +36,7 @@ namespace Missing.Validation.Validators
 				// if the field is not required
 				// and it has no value, skip the rest
 				// of the validation
-				if (String.IsNullOrWhiteSpace((string)val))
+				if (String.IsNullOrWhiteSpace(val))
 				{
 					return default(ValidationError);
 				}

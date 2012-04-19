@@ -49,7 +49,11 @@ namespace Missing.Validation
 		{
 			foreach (ValidationError err in this.Errors)
 			{
-				err.PropertyPath = String.Format("{0}.{1}", prepend, err.PropertyPath);
+				err.PropertyPath = String.Format("{0}.{1}", prepend, err.PropertyPath)
+										.Replace(
+											String.Format(".{0}", Validator.PrimitiveFieldName),
+											String.Empty
+										);
 			}
 		}
 	}

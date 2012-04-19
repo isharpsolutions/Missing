@@ -61,7 +61,11 @@ namespace Missing.Validation.Validators
 			
 			return default(ValidationError);
 		}
+
+		public ValidationError ValidatePrimitive(FieldSpecification field, object input)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 	}
 }
-

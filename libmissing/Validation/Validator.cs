@@ -318,6 +318,13 @@ namespace Missing.Validation
 		/// </typeparam>
 		private static ValidationError ValidateField<T>(FieldSpecification field, T input) where T : class
 		{
+			if (field.PropertyPath.FieldName.Equals(Validator.PrimitiveFieldName))
+			{
+				return ValidatorFactory
+						.GetValidatorFor(input.GetType())
+						.ValidatePrimitive(field, input);
+			}
+			
 			PropertyData pd = TypeHelper.GetPropertyData(input, field.PropertyPath);
 			
 			return ValidatorFactory
@@ -325,5 +332,7 @@ namespace Missing.Validation
 						.ValidateField<T>(field, input, pd);
 		}
 		#endregion Validate field helper
+		
+		internal static readonly string PrimitiveFieldName = "--PRIMITIVE--";
 	}
 }

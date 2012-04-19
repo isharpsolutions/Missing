@@ -90,6 +90,7 @@
     <Compile Include="Validation\Validators\LongValidator.cs" />
     <Compile Include="Validation\Validators\DecimalValidator.cs" />
     <Compile Include="Validation\Validators\EnumerableValidator.cs" />
+    <Compile Include="Validation\PrimitiveValidationSpecification.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

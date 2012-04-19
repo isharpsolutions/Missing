@@ -30,5 +30,7 @@ namespace Missing.Validation.Validators
 		/// The model type
 		/// </typeparam>
 		ValidationError ValidateField<T>(FieldSpecification field, T input, PropertyData pd) where T : class;
+		
+		ValidationError ValidatePrimitive(FieldSpecification field, object input);
 	}
 }
