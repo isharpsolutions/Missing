@@ -28,7 +28,7 @@ using System.Runtime.CompilerServices;
  * Additions in existing namespaces bumps the minor
  * Bug fixes and misc that does not change the public API bump the patch
  */
-[assembly: AssemblyVersion("0.8.1")]
+[assembly: AssemblyVersion("0.8.2")]
 
 [assembly: InternalsVisibleTo("libmissing-tests")]
 
