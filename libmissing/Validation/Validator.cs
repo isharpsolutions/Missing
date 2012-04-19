@@ -241,6 +241,28 @@ namespace Missing.Validation
 		}
 		#endregion Validate
 		
+		/// <summary>
+		/// Run validation on an <see cref="IEnumerable"/> field
+		/// </summary>
+		/// <returns>
+		/// The combined <see cref="ValidationResult"/> for all entries in
+		/// the list
+		/// </returns>
+		/// <param name="input">
+		/// The model that is being validated
+		/// </param>
+		/// <param name="specification">
+		/// The validation specification being used
+		/// </param>
+		/// <param name="field">
+		/// The field specification
+		/// </param>
+		/// <param name="pd">
+		/// Info about the property
+		/// </param>
+		/// <typeparam name="T">
+		/// The type of the model
+		/// </typeparam>
 		private static ValidationResult ValidateIEnumerable<T>(T input, ValidationSpecification<T> specification, FieldSpecification field, PropertyData pd) where T : class
 		{
 			ValidationResult result = new ValidationResult();
@@ -280,6 +302,24 @@ namespace Missing.Validation
 			return result;
 		}
 		
+		/// <summary>
+		/// Get a generic reflection invoke-ready <see cref="MethodInfo"/>
+		/// for <see cref="Validator.Validate(T)"/>
+		/// </summary>
+		/// <returns>
+		/// Generic invoke-ready validate method
+		/// </returns>
+		/// <param name="typeToValidate">
+		/// The instance type to validate
+		/// </param>
+		/// <example>
+		/// <code lang="csharp">
+		/// 	ValidationSpecification<T> valSpec = .....;
+		/// 	string myValue = "Something";
+		/// 	MethodInfo validate = GetValidateMethod(myValue.GetType());
+		/// 	ValidationResult valResult = validate.Invoke(null, new Type[] { myValue, valSpec });
+		/// </code>
+		/// </example>
 		private static MethodInfo GetValidateMethod(Type typeToValidate)
 		{
 			MethodInfo result = null;
@@ -333,6 +373,10 @@ namespace Missing.Validation
 		}
 		#endregion Validate field helper
 		
+		/// <summary>
+		/// The value used for <see cref="FieldSpecification.FieldName"/> for 
+		/// primitive fields
+		/// </summary>
 		internal static readonly string PrimitiveFieldName = "--PRIMITIVE--";
 	}
 }

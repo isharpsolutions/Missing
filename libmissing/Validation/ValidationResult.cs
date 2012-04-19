@@ -45,6 +45,15 @@ namespace Missing.Validation
 			}
 		}
 		
+		/// <summary>
+		/// Prepend a string to all property paths in the result.
+		/// 
+		/// This is used when validating IEnumerable fields, to
+		/// output the property name with index.
+		/// </summary>
+		/// <param name="prepend">
+		/// The text to prepend. It should NOT have a dot at the end.
+		/// </param>
 		public void PrependAllPropertyPathsWith(string prepend)
 		{
 			foreach (ValidationError err in this.Errors)
