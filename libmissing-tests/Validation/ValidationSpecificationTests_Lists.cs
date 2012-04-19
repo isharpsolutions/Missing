@@ -35,9 +35,10 @@ namespace Missing
 			
 			ValidationResult result = Validator.Validate<ListModel>(model);
 			
-			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			Assert.AreEqual(2, result.Errors.Count, "There should be 2 errors");
 			
-			Assert.AreEqual("ListItems", result.Errors[0].PropertyPath, "The property name is wrong");
+			Assert.AreEqual("ListItems[0].MyInt", result.Errors[0].PropertyPath, "First: property name is wrong");
+			Assert.AreEqual("ListItems[0].MyString", result.Errors[1].PropertyPath, "Second: property name is wrong");
 		}
 		#endregion
 		
@@ -63,7 +64,7 @@ namespace Missing
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
-			Assert.AreEqual("Strings", result.Errors[0].PropertyPath, "The property name is wrong");
+			Assert.AreEqual("Strings[0]", result.Errors[0].PropertyPath, "The property name is wrong");
 		}
 		#endregion
 	}

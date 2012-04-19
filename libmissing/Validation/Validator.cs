@@ -231,20 +231,7 @@ namespace Missing.Validation
 					
 					if (pd.PropertyInfo.PropertyType.ImplementsInterface(typeof(IEnumerable)))
 					{
-						object valspec = field.ItemValidationSpecification;
-						
-						foreach (var item in (IEnumerable)pd.Value)
-						{
-							#warning How do we do this?
-							// perhaps we should rewrite Validate (or add an overload) to
-							// Validate(object input, IValidationSpecification spec)
-							//
-							// hmm... ValidateField still needs T
-							// perhaps not... this might be another major refactor :)
-							
-							// result.Merge(Validator.Validate<...>(item, valspec));
-							throw new NotImplementedException();
-						}
+						result.Merge(ValidateIEnumerable<T>(input, specification, field, pd));
 					}
 				}
 			}
@@ -252,6 +239,62 @@ namespace Missing.Validation
 			return result;
 		}
 		#endregion Validate
+		
+		private static ValidationResult ValidateIEnumerable<T>(T input, ValidationSpecification<T> specification, FieldSpecification field, PropertyData pd) where T : class
+		{
+			ValidationResult result = new ValidationResult();
+			
+			object valspec = field.ItemValidationSpecification;
+			
+			IEnumerable enumerable = ((IEnumerable)pd.Value);
+			
+			IEnumerator enumerator = enumerable.GetEnumerator();
+			
+			// list is empty... no need to do more
+			if (!enumerator.MoveNext())
+			{
+				return result;
+			}
+			
+			object curItemFromProperty = enumerator.Current;
+			
+			Type curItemType = curItemFromProperty.GetType();
+			
+			MethodInfo generic = GetValidateMethod(curItemType);
+			
+			string fieldPropertyPath = field.PropertyPath.AsString();
+			
+			int itemIndex = -1;
+			foreach (var item in (IEnumerable)pd.Value)
+			{
+				itemIndex++;
+				object subResObject = generic.Invoke(null, new object[] { item, valspec });
+				ValidationResult subRes = (ValidationResult)subResObject;
+				
+				subRes.PrependAllPropertyPathsWith(String.Format("{0}[{1}]", fieldPropertyPath, itemIndex));
+				
+				result.Merge(subRes);
+			}
+			
+			return result;
+		}
+		
+		private static MethodInfo GetValidateMethod(Type typeToValidate)
+		{
+			MethodInfo result = null;
+			
+			var allMethods = typeof(Validator).GetMethods(BindingFlags.Public | BindingFlags.Static);
+			MethodInfo foundMi = allMethods.FirstOrDefault(
+				mi => mi.Name == "Validate" && mi.GetParameters().Count() == 2
+			);
+			
+			if (foundMi != null)
+			{
+				result = foundMi.MakeGenericMethod(new Type[] { typeToValidate });
+			}
+			
+			return result;
+		}
 		
 		#region Validate field helper
 		/// <summary>

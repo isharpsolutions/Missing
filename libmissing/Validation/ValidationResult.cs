@@ -44,5 +44,13 @@ namespace Missing.Validation
 				this.Errors.Add(err);
 			}
 		}
+		
+		public void PrependAllPropertyPathsWith(string prepend)
+		{
+			foreach (ValidationError err in this.Errors)
+			{
+				err.PropertyPath = String.Format("{0}.{1}", prepend, err.PropertyPath);
+			}
+		}
 	}
 }
