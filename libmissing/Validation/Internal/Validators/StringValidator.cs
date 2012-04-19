@@ -1,7 +1,7 @@
 using System;
 using Missing.Reflection;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
 	/// Knows how to validate <see cref="System.String"/>
@@ -9,7 +9,7 @@ namespace Missing.Validation.Validators
 	internal class StringValidator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Validators.StringValidator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.StringValidator"/> class.
 		/// </summary>
 		public StringValidator()
 		{

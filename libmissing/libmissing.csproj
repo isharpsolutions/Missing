@@ -83,14 +83,17 @@
     <Compile Include="Reflection\PropertyPath.cs" />
     <Compile Include="Reflection\PropertyPathWorker.cs" />
     <Compile Include="Reflection\Extensions\TypeExtensions.cs" />
-    <Compile Include="Validation\Validators\StringValidator.cs" />
-    <Compile Include="Validation\Validators\IValidator.cs" />
-    <Compile Include="Validation\Validators\ValidatorFactory.cs" />
-    <Compile Include="Validation\Validators\Int32Validator.cs" />
-    <Compile Include="Validation\Validators\LongValidator.cs" />
-    <Compile Include="Validation\Validators\DecimalValidator.cs" />
-    <Compile Include="Validation\Validators\EnumerableValidator.cs" />
     <Compile Include="Validation\PrimitiveValidationSpecification.cs" />
+    <Compile Include="Validation\Internal\Validators\StringValidator.cs" />
+    <Compile Include="Validation\Internal\Validators\IValidator.cs" />
+    <Compile Include="Validation\Internal\Validators\ValidatorFactory.cs" />
+    <Compile Include="Validation\Internal\Validators\Int32Validator.cs" />
+    <Compile Include="Validation\Internal\Validators\LongValidator.cs" />
+    <Compile Include="Validation\Internal\Validators\DecimalValidator.cs" />
+    <Compile Include="Validation\Internal\Validators\EnumerableValidator.cs" />
+    <Compile Include="Validation\Internal\InternalValidator.cs" />
+    <Compile Include="Validation\Internal\TypeMatchScore.cs" />
+    <Compile Include="Validation\Internal\TypeMatchScoreCalculator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -103,6 +106,6 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="Reflection\Extensions\" />
-    <Folder Include="Validation\Validators\" />
+    <Folder Include="Validation\Internal\" />
   </ItemGroup>
 </Project>

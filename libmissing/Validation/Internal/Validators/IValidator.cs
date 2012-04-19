@@ -1,7 +1,7 @@
 using System;
 using Missing.Reflection;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
 	/// Defines a validator

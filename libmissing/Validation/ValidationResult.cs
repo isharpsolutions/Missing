@@ -60,7 +60,7 @@ namespace Missing.Validation
 			{
 				err.PropertyPath = String.Format("{0}.{1}", prepend, err.PropertyPath)
 										.Replace(
-											String.Format(".{0}", Validator.PrimitiveFieldName),
+											String.Format(".{0}", Missing.Validation.Internal.InternalValidator.PrimitiveFieldName),
 											String.Empty
 										);
 			}

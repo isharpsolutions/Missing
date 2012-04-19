@@ -1,27 +1,27 @@
 using System;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
-	/// Knows how to validate <see cref="System.Int32"/>
+	/// Knows how to validate <see cref="System.Decimal"/>
 	/// </summary>
-	public class Int32Validator : IValidator
+	public class DecimalValidator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Validators.Int32Validator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.DecimalValidator"/> class.
 		/// </summary>
-		public Int32Validator()
+		public DecimalValidator()
 		{
 		}
 		
 		#region IValidator implementation
 		public ValidationError ValidateField<T>(FieldSpecification field, T input, Missing.Reflection.PropertyData pd) where T : class
 		{
-			int val = (int)pd.Value;
+			decimal val = (decimal)pd.Value;
 			
 			//
 			// we cant check for IsRequired
-			// as an int is not able to be null
+			// as a decimal is not able to be null
 			//
 			
 			// length does not make sense to check

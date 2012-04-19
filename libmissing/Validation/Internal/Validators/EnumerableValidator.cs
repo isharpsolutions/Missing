@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
 	/// Knows how to validate <see cref="System.Collections.IEnumerable"/>
@@ -9,7 +9,7 @@ namespace Missing.Validation.Validators
 	public class EnumerableValidator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Validators.EnumerableValidator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.EnumerableValidator"/> class.
 		/// </summary>
 		public EnumerableValidator()
 		{
