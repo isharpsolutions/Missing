@@ -131,6 +131,7 @@ namespace Missing.Validation
 		/// 	<item><description>Sub-namespace</description></item>
 		/// 	<item><description>Name starts with the name of the entity (SimpleModel => SimpleModelValidationSpecification)</description></item>
 		/// 	<item><description>Different namespace</description></item>
+		/// 	<item><description>Name follows the default convention "<ModelName>ValidationSpecification"</description></item>
 		/// </list>
 		/// </remarks>
 		public static ValidationResult Validate<T>(T input) where T : class
