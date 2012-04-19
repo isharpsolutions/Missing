@@ -272,8 +272,20 @@ namespace Missing.Validation
 		/// <typeparam name="TItem">
 		/// The type of the list item
 		/// </typeparam>
+		/// <exception cref="ArgumentException">
+		/// Thrown if <typeparamref name="TItem"/> is considered a primitive type.
+		/// </exception>
 		public FieldSpecification Each<TItem>(Action<ValidationSpecification<TItem>> fieldMapping) where TItem : class
 		{
+			Type type = typeof(TItem);
+			if (this.IsPrimitive(type))
+			{
+				throw new ArgumentException(String.Format("The specified type, '{0}', is recognized as a primitive type. You should therefore use 'EachPrimitive<TItem>' instead." +
+					"The following are considered primitive: {1}",
+				                                          type.FullName,
+				                                          this.PrimitivesAsString()));
+			}
+			
 			ValidationSpecification<TItem> spec = new ValidationSpecification<TItem>();
 			fieldMapping.Invoke(spec);
 			
@@ -296,6 +308,9 @@ namespace Missing.Validation
 		/// <typeparam name="TItem">
 		/// The type of the list item
 		/// </typeparam>
+		/// <exception cref="ArgumentException">
+		/// Thrown if <typeparamref name="TItem"/> is not considered a primitive type.
+		/// </exception>
 		public FieldSpecification EachPrimitive<TItem>(Action<PrimitiveValidationSpecification<TItem>> valueMapping) where TItem : class
 		{
 			Type type = typeof(TItem);
