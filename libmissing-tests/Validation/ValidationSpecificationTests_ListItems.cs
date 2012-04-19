@@ -6,7 +6,7 @@ using Missing.Validation;
 namespace Missing
 {
 	[TestFixture]
-	public class ValidationSpecificationTests_Lists
+	public class ValidationSpecificationTests_ListItems
 	{
 		#region Custom items
 		[Test]
