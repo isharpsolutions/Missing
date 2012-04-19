@@ -1,6 +1,5 @@
 using System;
 using NUnit.Framework;
-using Missing.ValidationSpecificationTests.Lists;
 using System.Collections.Generic;
 using Missing.Validation;
 
@@ -13,13 +12,13 @@ namespace Missing
 		[Test]
 		public void CustomItem_Valid()
 		{
-			ListModel model = new ListModel();
-			model.ListItems.Add(new ListItem() {
+			Missing.ValidationSpecificationTests.Lists.ListModel model = new Missing.ValidationSpecificationTests.Lists.ListModel();
+			model.ListItems.Add(new Missing.ValidationSpecificationTests.Lists.ListItem() {
 				MyInt = 1,
 				MyString = "something valid"
 			});
 			
-			ValidationResult result = Validator.Validate<ListModel>(model);
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.Lists.ListModel>(model);
 			
 			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
@@ -27,13 +26,13 @@ namespace Missing
 		[Test]
 		public void CustomItem_Invalid()
 		{
-			ListModel model = new ListModel();
-			model.ListItems.Add(new ListItem() {
+			Missing.ValidationSpecificationTests.Lists.ListModel model = new Missing.ValidationSpecificationTests.Lists.ListModel();
+			model.ListItems.Add(new Missing.ValidationSpecificationTests.Lists.ListItem() {
 				MyInt = 5,
 				MyString = "invalid"
 			});
 			
-			ValidationResult result = Validator.Validate<ListModel>(model);
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.Lists.ListModel>(model);
 			
 			Assert.AreEqual(2, result.Errors.Count, "There should be 2 errors");
 			
@@ -43,34 +42,122 @@ namespace Missing
 		#endregion
 		
 		#region Primitive value
-		[Test]
+		[Test, Ignore("Not implemented yet")]
 		public void PrimitiveValue_Valid()
 		{
-			ListModel model = new ListModel();
+			Missing.ValidationSpecificationTests.Lists.ListModel model = new Missing.ValidationSpecificationTests.Lists.ListModel();
 			model.Strings.Add("something valid");
 			
-			ValidationResult result = Validator.Validate<ListModel>(model);
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.Lists.ListModel>(model);
 			
 			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
 		
-		[Test]
+		[Test, Ignore("Not implemented yet")]
 		public void PrimitiveValue_Invalid()
 		{
-			ListModel model = new ListModel();
+			Missing.ValidationSpecificationTests.Lists.ListModel model = new Missing.ValidationSpecificationTests.Lists.ListModel();
 			model.Strings.Add("invalid");
 			
-			ValidationResult result = Validator.Validate<ListModel>(model);
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.Lists.ListModel>(model);
 			
 			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
 			
 			Assert.AreEqual("Strings[0]", result.Errors[0].PropertyPath, "The property name is wrong");
 		}
 		#endregion
+		
+		#region Derived list
+		[Test]
+		public void DerivedList_CustomItem_Valid()
+		{
+			Missing.ValidationSpecificationTests.DerivedLists.ListModel model = new Missing.ValidationSpecificationTests.DerivedLists.ListModel();
+			model.MyList.Add(new Missing.ValidationSpecificationTests.DerivedLists.ListItem() {
+				MyInt = 1,
+				MyString = "something valid"
+			});
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.DerivedLists.ListModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void DerivedList_CustomItem_Invalid()
+		{
+			Missing.ValidationSpecificationTests.DerivedLists.ListModel model = new Missing.ValidationSpecificationTests.DerivedLists.ListModel();
+			model.MyList.Add(new Missing.ValidationSpecificationTests.DerivedLists.ListItem() {
+				MyInt = 5,
+				MyString = "invalid"
+			});
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.DerivedLists.ListModel>(model);
+			
+			Assert.AreEqual(2, result.Errors.Count, "There should be 2 errors");
+			
+			Assert.AreEqual("MyList[0].MyInt", result.Errors[0].PropertyPath, "First: property name is wrong");
+			Assert.AreEqual("MyList[0].MyString", result.Errors[1].PropertyPath, "Second: property name is wrong");
+		}
+		
+		[Test, Ignore("Not implemented yet")]
+		public void DerivedList_Primitive_Valid()
+		{
+			Missing.ValidationSpecificationTests.DerivedLists.ListModel model = new Missing.ValidationSpecificationTests.DerivedLists.ListModel();
+			model.MyStrings.Add("valid");
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.DerivedLists.ListModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test, Ignore("Not implemented yet")]
+		public void DerivedList_Primitive_Invalid()
+		{
+			Missing.ValidationSpecificationTests.DerivedLists.ListModel model = new Missing.ValidationSpecificationTests.DerivedLists.ListModel();
+			model.MyStrings.Add("invalid");
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.DerivedLists.ListModel>(model);
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("MyStrings[0]", result.Errors[0].PropertyPath, "The property name is wrong");
+		}
+		
+		[Test]
+		public void DerivedCollection_CustomItem_Valid()
+		{
+			Missing.ValidationSpecificationTests.DerivedLists.ListModel model = new Missing.ValidationSpecificationTests.DerivedLists.ListModel();
+			model.MyCollection.Add(new Missing.ValidationSpecificationTests.DerivedLists.ListItem() {
+				MyInt = 1,
+				MyString = "something valid"
+			});
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.DerivedLists.ListModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void DerivedCollection_CustomItem_Invalid()
+		{
+			Missing.ValidationSpecificationTests.DerivedLists.ListModel model = new Missing.ValidationSpecificationTests.DerivedLists.ListModel();
+			model.MyCollection.Add(new Missing.ValidationSpecificationTests.DerivedLists.ListItem() {
+				MyInt = 5,
+				MyString = "invalid"
+			});
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.DerivedLists.ListModel>(model);
+			
+			Assert.AreEqual(2, result.Errors.Count, "There should be 2 errors");
+			
+			Assert.AreEqual("MyCollection[0].MyInt", result.Errors[0].PropertyPath, "First: property name is wrong");
+			Assert.AreEqual("MyCollection[0].MyString", result.Errors[1].PropertyPath, "Second: property name is wrong");
+		}
+		#endregion
 	}
 }
 
-#region Classes
+#region Lists
 namespace Missing.ValidationSpecificationTests.Lists
 {
 	public class ListModel
@@ -114,4 +201,67 @@ namespace Missing.ValidationSpecificationTests.Lists
 		}
 	}
 }
-#endregion Classes
+#endregion
+
+#region Derived Lists
+namespace Missing.ValidationSpecificationTests.DerivedLists
+{
+	public class ListModel
+	{
+		public ListModel()
+		{
+			this.MyList = new DerivedList();
+			this.MyStrings = new DerivedListPrimitive();
+			this.MyCollection = new ListItemCollection();
+		}
+		
+		public DerivedList MyList { get; set; }
+		public DerivedListPrimitive MyStrings { get; set; }
+		public ListItemCollection MyCollection { get; set; }
+	}
+	
+	public class DerivedList : List<ListItem>
+	{
+	}
+	
+	public class DerivedListPrimitive : List<string>
+	{
+	}
+	
+	public class ListItemCollection : System.Collections.ObjectModel.Collection<ListItem>
+	{
+	}
+	
+	public class ListItem
+	{
+		public int MyInt { get; set; }
+		public string MyString { get; set; }
+	}
+	
+	public class ListModelValidationSpecification : ValidationSpecification<ListModel>
+	{
+		public ListModelValidationSpecification()
+		{
+			base.Field(y => y.MyList)
+				.Each<ListItem>(x => {
+					x.Field(y => y.MyInt)
+						.Invalid(5);
+					
+					x.Field(y => y.MyString)
+						.Required()
+						.Invalid("invalid");
+				});
+			
+			base.Field(y => y.MyCollection)
+				.Each<ListItem>(x => {
+					x.Field(y => y.MyInt)
+						.Invalid(5);
+					
+					x.Field(y => y.MyString)
+						.Required()
+						.Invalid("invalid");
+				});
+		}
+	}
+}
+#endregion
