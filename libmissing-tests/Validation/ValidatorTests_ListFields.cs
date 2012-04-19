@@ -281,7 +281,8 @@ namespace Missing.ValidatorTests.ListFields.ComplexList
 		{
 			base.Field(y => y.MyList)
 					.Required()
-					.Length(2, 1);
+					.Length(2)
+					.NotEmpty();
 		}
 	}
 }
@@ -301,7 +302,8 @@ namespace Missing.ValidatorTests.ListFields.PrimitiveList
 		{
 			base.Field(y => y.MyPrimitiveList)
 					.Required()
-					.Length(2, 1);
+					.Length(2)
+					.NotEmpty();
 		}
 	}
 }
@@ -321,7 +323,8 @@ namespace Missing.ValidatorTests.ListFields.ComplexArray
 		{
 			base.Field(y => y.MyListItemArray)
 					.Required()
-					.Length(2, 1);
+					.Length(2)
+					.NotEmpty();
 		}
 	}
 }
@@ -341,7 +344,8 @@ namespace Missing.ValidatorTests.ListFields.PrimitiveArray
 		{
 			base.Field(y => y.MyPrimitiveArray)
 					.Required()
-					.Length(2, 1);
+					.Length(2)
+					.NotEmpty();
 		}
 	}
 }

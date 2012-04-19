@@ -44,6 +44,16 @@ namespace Missing.Validation.Internal.Validators
 				valCount++;
 			}
 			
+			#region Not empty
+			if (!field.EmptyIsAllowed)
+			{
+				if (valCount == 0)
+				{
+					return new ValidationError(field.PropertyPath, "The list/array may not be empty");
+				}
+			}
+			#endregion Not empty
+			
 			#region Length
 			if (field.MaxLength > 0)
 			{

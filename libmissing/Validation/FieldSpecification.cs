@@ -237,6 +237,34 @@ namespace Missing.Validation
 		}
 		#endregion Invalid values
 		
+		#region Not empty
+		/// <summary>
+		/// Whether the field is allowed to be empty
+		/// </summary>
+		private bool emptyIsAllowed = true;
+		
+		/// <summary>
+		/// Get whether the field is allowed to be empty
+		/// </summary>
+		internal bool EmptyIsAllowed
+		{
+			get { return this.emptyIsAllowed; }
+		}
+		
+		/// <summary>
+		/// Specify that the field may not be empty.
+		/// </summary>
+		/// <remarks>
+		/// This is currently only used when validating lists/arrays
+		/// </remarks>
+		public FieldSpecification NotEmpty()
+		{
+			this.emptyIsAllowed = false;
+			
+			return this;
+		}
+		#endregion Not empty
+		
 		#region IEnumerable
 		/// <summary>
 		/// The <see cref="ValidationSpecification"/> to use
