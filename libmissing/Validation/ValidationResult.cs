@@ -30,5 +30,40 @@ namespace Missing.Validation
 		{
 			return this.Errors.Count > 0;
 		}
+		
+		/// <summary>
+		/// Merge another validation result into this one
+		/// </summary>
+		/// <param name="other">
+		/// Other.
+		/// </param>
+		public void Merge(ValidationResult other)
+		{
+			foreach (ValidationError err in other.Errors)
+			{
+				this.Errors.Add(err);
+			}
+		}
+		
+		/// <summary>
+		/// Prepend a string to all property paths in the result.
+		/// 
+		/// This is used when validating IEnumerable fields, to
+		/// output the property name with index.
+		/// </summary>
+		/// <param name="prepend">
+		/// The text to prepend. It should NOT have a dot at the end.
+		/// </param>
+		public void PrependAllPropertyPathsWith(string prepend)
+		{
+			foreach (ValidationError err in this.Errors)
+			{
+				err.PropertyPath = String.Format("{0}.{1}", prepend, err.PropertyPath)
+										.Replace(
+											String.Format(".{0}", Missing.Validation.Internal.InternalValidator.PrimitiveFieldName),
+											String.Empty
+										);
+			}
+		}
 	}
 }

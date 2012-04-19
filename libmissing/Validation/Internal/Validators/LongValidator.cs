@@ -1,6 +1,6 @@
 using System;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
 	/// Knows how to validate <see cref="System.Int64"/> aka "long"
@@ -8,7 +8,7 @@ namespace Missing.Validation.Validators
 	public class LongValidator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Validators.LongValidator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.LongValidator"/> class.
 		/// </summary>
 		public LongValidator()
 		{
@@ -61,7 +61,11 @@ namespace Missing.Validation.Validators
 			
 			return default(ValidationError);
 		}
+
+		public ValidationError ValidatePrimitive(FieldSpecification field, object input)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 	}
 }
-

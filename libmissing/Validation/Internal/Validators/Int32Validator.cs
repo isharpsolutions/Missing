@@ -1,6 +1,6 @@
 using System;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
 	/// Knows how to validate <see cref="System.Int32"/>
@@ -8,7 +8,7 @@ namespace Missing.Validation.Validators
 	public class Int32Validator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Validators.Int32Validator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.Int32Validator"/> class.
 		/// </summary>
 		public Int32Validator()
 		{
@@ -61,7 +61,11 @@ namespace Missing.Validation.Validators
 			
 			return default(ValidationError);
 		}
+
+		public ValidationError ValidatePrimitive(FieldSpecification field, object input)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 	}
 }
-

@@ -1,7 +1,7 @@
 using System;
 using Missing.Reflection;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
 	/// Defines a validator
@@ -30,5 +30,21 @@ namespace Missing.Validation.Validators
 		/// The model type
 		/// </typeparam>
 		ValidationError ValidateField<T>(FieldSpecification field, T input, PropertyData pd) where T : class;
+		
+		/// <summary>
+		/// Validates a primitive value
+		/// </summary>
+		/// <returns>
+		/// An instance of <see cref="ValidationError"/> if field's value
+		/// in the model does not correspond with the field specification.
+		/// If the value is valid, then default(ValidationError) is returned.
+		/// </returns>
+		/// <param name="field">
+		/// The field specification
+		/// </param>
+		/// <param name="input">
+		/// The primitive value to validate
+		/// </param>
+		ValidationError ValidatePrimitive(FieldSpecification field, object input);
 	}
 }

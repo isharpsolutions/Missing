@@ -1,7 +1,7 @@
 using System;
 using Missing.Reflection;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
 	/// Knows how to validate <see cref="System.String"/>
@@ -9,7 +9,7 @@ namespace Missing.Validation.Validators
 	internal class StringValidator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Validators.StringValidator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.StringValidator"/> class.
 		/// </summary>
 		public StringValidator()
 		{
@@ -18,7 +18,12 @@ namespace Missing.Validation.Validators
 		#region IValidator implementation
 		public ValidationError ValidateField<T>(FieldSpecification field, T input, PropertyData pd) where T : class
 		{
-			string val = (string)pd.Value;
+			return this.ValidatePrimitive(field, pd.Value);
+		}
+
+		public ValidationError ValidatePrimitive(FieldSpecification field, object input)
+		{
+			string val = (string)input;
 			
 			#region Is required
 			if (field.IsRequired && String.IsNullOrWhiteSpace(val))
@@ -31,7 +36,7 @@ namespace Missing.Validation.Validators
 				// if the field is not required
 				// and it has no value, skip the rest
 				// of the validation
-				if (String.IsNullOrWhiteSpace((string)val))
+				if (String.IsNullOrWhiteSpace(val))
 				{
 					return default(ValidationError);
 				}

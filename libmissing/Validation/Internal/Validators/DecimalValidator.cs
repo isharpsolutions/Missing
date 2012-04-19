@@ -1,6 +1,6 @@
 using System;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
 	/// Knows how to validate <see cref="System.Decimal"/>
@@ -8,7 +8,7 @@ namespace Missing.Validation.Validators
 	public class DecimalValidator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Validators.DecimalValidator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.DecimalValidator"/> class.
 		/// </summary>
 		public DecimalValidator()
 		{
@@ -61,7 +61,11 @@ namespace Missing.Validation.Validators
 			
 			return default(ValidationError);
 		}
+
+		public ValidationError ValidatePrimitive(FieldSpecification field, object input)
+		{
+			throw new NotImplementedException();
+		}
 		#endregion
 	}
 }
-
