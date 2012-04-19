@@ -154,6 +154,67 @@ namespace Missing
 			Assert.AreEqual("MyCollection[0].MyString", result.Errors[1].PropertyPath, "Second: property name is wrong");
 		}
 		#endregion
+		
+		#region Arrays
+		[Test]
+		public void Arrays_ComplexType_Valid()
+		{
+			Missing.ValidationSpecificationTests.Arrays.ArrayModel model = new Missing.ValidationSpecificationTests.Arrays.ArrayModel();
+			model.ComplexTypeArray = new Missing.ValidationSpecificationTests.Arrays.ArrayItem[] {
+				new Missing.ValidationSpecificationTests.Arrays.ArrayItem() {
+					MyInt = 1,
+					MyString = "something valid"
+				}
+			};
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.Arrays.ArrayModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void Arrays_ComplexType_Invalid()
+		{
+			Missing.ValidationSpecificationTests.Arrays.ArrayModel model = new Missing.ValidationSpecificationTests.Arrays.ArrayModel();
+			model.ComplexTypeArray = new Missing.ValidationSpecificationTests.Arrays.ArrayItem[] {
+				new Missing.ValidationSpecificationTests.Arrays.ArrayItem() {
+					MyInt = 5,
+					MyString = "invalid"
+				}
+			};
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.Arrays.ArrayModel>(model);
+			
+			Assert.AreEqual(2, result.Errors.Count, "There should be 2 errors");
+			
+			Assert.AreEqual("ComplexTypeArray[0].MyInt", result.Errors[0].PropertyPath, "First: property name is wrong");
+			Assert.AreEqual("ComplexTypeArray[0].MyString", result.Errors[1].PropertyPath, "Second: property name is wrong");
+		}
+		
+		[Test]
+		public void Arrays_Primitive_Valid()
+		{
+			Missing.ValidationSpecificationTests.Arrays.ArrayModel model = new Missing.ValidationSpecificationTests.Arrays.ArrayModel();
+			model.Strings = new string[] { "valid" };
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.Arrays.ArrayModel>(model);
+			
+			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
+		}
+		
+		[Test]
+		public void Arrays_Primitive_Invalid()
+		{
+			Missing.ValidationSpecificationTests.Arrays.ArrayModel model = new Missing.ValidationSpecificationTests.Arrays.ArrayModel();
+			model.Strings = new string[] { "invalid" };
+			
+			ValidationResult result = Validator.Validate<Missing.ValidationSpecificationTests.Arrays.ArrayModel>(model);
+			
+			Assert.AreEqual(1, result.Errors.Count, "There should be 1 error");
+			
+			Assert.AreEqual("Strings[0]", result.Errors[0].PropertyPath, "First: property name is wrong");
+		}
+		#endregion
 	}
 }
 
@@ -263,6 +324,52 @@ namespace Missing.ValidationSpecificationTests.DerivedLists
 				});
 			
 			base.Field(y => y.MyStrings)
+				.EachPrimitive<string>(x => {
+					x.Value()
+						.Required()
+						.Invalid("invalid");
+				});
+		}
+	}
+}
+#endregion
+
+#region Arrays
+namespace Missing.ValidationSpecificationTests.Arrays
+{
+	public class ArrayItem
+	{
+		public int MyInt { get; set; }
+		public string MyString { get; set; }
+	}
+	
+	public class ArrayModel
+	{
+		public ArrayModel()
+		{
+			this.ComplexTypeArray = new ArrayItem[1];
+			this.Strings = new string[1];
+		}
+		
+		public ArrayItem[] ComplexTypeArray { get; set; }
+		public string[] Strings { get; set; }
+	}
+	
+	public class ArrayModelValidationSpecification : ValidationSpecification<ArrayModel>
+	{
+		public ArrayModelValidationSpecification()
+		{
+			base.Field(y => y.ComplexTypeArray)
+				.Each<ArrayItem>(x => {
+					x.Field(y => y.MyInt)
+						.Invalid(5);
+					
+					x.Field(y => y.MyString)
+						.Required()
+						.Invalid("invalid");
+				});
+			
+			base.Field(y => y.Strings)
 				.EachPrimitive<string>(x => {
 					x.Value()
 						.Required()

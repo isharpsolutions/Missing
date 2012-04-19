@@ -193,6 +193,13 @@ namespace Missing.Validation.Internal
 			
 			object curItemFromProperty = enumerator.Current;
 			
+			// this occurs for arrays that initialized like so
+			// string[] strings = new string[3]; => all items are null (or more correct; default(T))
+			if (curItemFromProperty == null)
+			{
+				return result;
+			}
+			
 			Type curItemType = curItemFromProperty.GetType();
 			
 			MethodInfo generic = this.GetValidateMethod(curItemType);
