@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Missing.Reflection.Extensions;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
 	/// Factory class for <see cref="IValidator"/>

@@ -1,27 +1,27 @@
 using System;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
-	/// Knows how to validate <see cref="System.Int64"/> aka "long"
+	/// Knows how to validate <see cref="System.Int32"/>
 	/// </summary>
-	public class LongValidator : IValidator
+	public class Int32Validator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Validators.LongValidator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.Int32Validator"/> class.
 		/// </summary>
-		public LongValidator()
+		public Int32Validator()
 		{
 		}
-
+		
 		#region IValidator implementation
 		public ValidationError ValidateField<T>(FieldSpecification field, T input, Missing.Reflection.PropertyData pd) where T : class
 		{
-			long val = (long)pd.Value;
+			int val = (int)pd.Value;
 			
 			//
 			// we cant check for IsRequired
-			// as a long is not able to be null
+			// as an int is not able to be null
 			//
 			
 			// length does not make sense to check

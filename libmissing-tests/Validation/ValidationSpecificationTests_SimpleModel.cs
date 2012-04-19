@@ -380,5 +380,37 @@ namespace Missing
 			
 			Assert.IsFalse(result.HasErrors(), "There should not be any errors");
 		}
+		
+		[Test]
+		public void EachPrimitive_Valid()
+		{
+			ValidationSpecification<SimpleModel> spec = new ValidationSpecification<SimpleModel>();
+			
+			spec.Field(y => y.MyEmail)
+				.EachPrimitive<string>(x => {
+					x.Value();
+				});
+		}
+		
+		[Test]
+		public void EachPrimitive_Invalid()
+		{
+			ValidationSpecification<SimpleModel> spec = new ValidationSpecification<SimpleModel>();
+			
+			try
+			{
+				spec.Field(y => y.MyEmail)
+					.EachPrimitive<Type>(x => {
+						x.Value();
+					});
+				
+				Assert.Fail("An ArgumentException should have been thrown, as the given item type is not primitive.");
+			}
+			
+			catch (Exception)
+			{
+				// good
+			}
+		}
 	}
 }

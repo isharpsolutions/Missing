@@ -1,27 +1,27 @@
 using System;
 
-namespace Missing.Validation.Validators
+namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
-	/// Knows how to validate <see cref="System.Decimal"/>
+	/// Knows how to validate <see cref="System.Int64"/> aka "long"
 	/// </summary>
-	public class DecimalValidator : IValidator
+	public class LongValidator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Validators.DecimalValidator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.LongValidator"/> class.
 		/// </summary>
-		public DecimalValidator()
+		public LongValidator()
 		{
 		}
-		
+
 		#region IValidator implementation
 		public ValidationError ValidateField<T>(FieldSpecification field, T input, Missing.Reflection.PropertyData pd) where T : class
 		{
-			decimal val = (decimal)pd.Value;
+			long val = (long)pd.Value;
 			
 			//
 			// we cant check for IsRequired
-			// as a decimal is not able to be null
+			// as a long is not able to be null
 			//
 			
 			// length does not make sense to check
