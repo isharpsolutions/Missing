@@ -6,7 +6,7 @@ namespace Missing.Validation.Internal.Validators
 	/// <summary>
 	/// Knows how to validate <see cref="System.Collections.IEnumerable"/>
 	/// </summary>
-	public class EnumerableValidator : IValidator
+	internal class EnumerableValidator : IValidator
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.EnumerableValidator"/> class.

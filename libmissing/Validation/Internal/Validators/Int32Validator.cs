@@ -5,7 +5,7 @@ namespace Missing.Validation.Internal.Validators
 	/// <summary>
 	/// Knows how to validate <see cref="System.Int32"/>
 	/// </summary>
-	public class Int32Validator : IValidator
+	internal class Int32Validator : IValidator
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.Int32Validator"/> class.

@@ -5,7 +5,7 @@ namespace Missing.Validation.Internal.Validators
 	/// <summary>
 	/// Knows how to validate <see cref="System.Decimal"/>
 	/// </summary>
-	public class DecimalValidator : IValidator
+	internal class DecimalValidator : IValidator
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.DecimalValidator"/> class.

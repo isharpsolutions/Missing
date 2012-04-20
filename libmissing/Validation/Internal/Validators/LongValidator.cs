@@ -5,7 +5,7 @@ namespace Missing.Validation.Internal.Validators
 	/// <summary>
 	/// Knows how to validate <see cref="System.Int64"/> aka "long"
 	/// </summary>
-	public class LongValidator : IValidator
+	internal class LongValidator : IValidator
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.LongValidator"/> class.
