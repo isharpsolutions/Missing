@@ -26,6 +26,21 @@ namespace Missing.Validation.Internal.Validators
 			
 			// length does not make sense to check
 			
+			#region Range
+			if (field.DecimalRange.Min != null)
+			{
+				if (val < field.DecimalRange.Min)
+				{
+					return new ValidationError(field.PropertyPath, "The value is too low - it must be at least {0}", field.DecimalRange.Min);
+				}
+				
+				else if (val > field.DecimalRange.Max)
+				{
+					return new ValidationError(field.PropertyPath, "The value is too high - it must be at {0} the most", field.DecimalRange.Max);
+				}
+			}
+			#endregion Range
+			
 			#region Invalid values
 			if (field.InvalidValues.Count != 0)
 			{

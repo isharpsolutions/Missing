@@ -94,6 +94,9 @@
     <Compile Include="Validation\Internal\InternalValidator.cs" />
     <Compile Include="Validation\Internal\TypeMatchScore.cs" />
     <Compile Include="Validation\Internal\TypeMatchScoreCalculator.cs" />
+    <Compile Include="Validation\Internal\Range.cs" />
+    <Compile Include="Validation\Internal\Validators\FloatValidator.cs" />
+    <Compile Include="Validation\Internal\Validators\DoubleValidator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

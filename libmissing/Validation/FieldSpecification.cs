@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Missing.Reflection;
 using System.Collections.Generic;
 using System.Text;
+using Missing.Validation.Internal;
 
 namespace Missing.Validation
 {
@@ -32,10 +33,8 @@ namespace Missing.Validation
 		/// <summary>
 		/// Get the name of the underlying property
 		/// </summary>
-		internal string Name
-		{
-			get
-			{
+		internal string Name {
+			get {
 				return this.PropertyPath.FieldName;
 			}
 		}
@@ -47,8 +46,7 @@ namespace Missing.Validation
 		/// <summary>
 		/// Get/set whether this field is required
 		/// </summary>
-		internal bool IsRequired
-		{
+		internal bool IsRequired {
 			get { return this.isRequired; }
 			set { this.isRequired = value; }
 		}
@@ -75,8 +73,7 @@ namespace Missing.Validation
 		/// <summary>
 		/// Get/set maximum allowed length of the value
 		/// </summary>
-		internal int MaxLength
-		{
+		internal int MaxLength {
 			get { return this.maxLength; }
 			set { this.maxLength = value; }
 		}
@@ -84,8 +81,7 @@ namespace Missing.Validation
 		/// <summary>
 		/// Get/set minimum allowed length of the value
 		/// </summary>
-		internal int MinLength
-		{
+		internal int MinLength {
 			get { return this.minLength; }
 			set { this.minLength = value; }
 		}
@@ -140,8 +136,7 @@ namespace Missing.Validation
 		/// If the value is default(Enforcer) then
 		/// an enforcer should not be used
 		/// </remarks>
-		internal Enforcer Enforcer
-		{
+		internal Enforcer Enforcer {
 			get { return this.enforcer; }
 			set { this.enforcer = value; }
 		}
@@ -215,8 +210,7 @@ namespace Missing.Validation
 		/// <summary>
 		/// Gets a list of invalid values.
 		/// </summary>
-		internal List<object> InvalidValues
-		{
+		internal List<object> InvalidValues {
 			get { return this.invalidValues; }
 		}
 		
@@ -246,8 +240,7 @@ namespace Missing.Validation
 		/// <summary>
 		/// Get whether the field is allowed to be empty
 		/// </summary>
-		internal bool EmptyIsAllowed
-		{
+		internal bool EmptyIsAllowed {
 			get { return this.emptyIsAllowed; }
 		}
 		
@@ -276,8 +269,7 @@ namespace Missing.Validation
 		/// Gets <see cref="ValidationSpecification"/> to use
 		/// for each item in the list
 		/// </summary>
-		internal dynamic ItemValidationSpecification
-		{
+		internal dynamic ItemValidationSpecification {
 			get { return this.itemValidationSpecification; }
 		}
 		
@@ -285,8 +277,7 @@ namespace Missing.Validation
 		/// Get whether this instance has an item-specific
 		/// <see cref="ValidationSpecification"/>
 		/// </summary>
-		internal bool HasItemValidationSpecification
-		{
+		internal bool HasItemValidationSpecification {
 			get { return this.itemValidationSpecification != null; }
 		}
 		
@@ -306,8 +297,7 @@ namespace Missing.Validation
 		public FieldSpecification Each<TItem>(Action<ValidationSpecification<TItem>> fieldMapping) where TItem : class
 		{
 			Type type = typeof(TItem);
-			if (this.IsPrimitive(type))
-			{
+			if (this.IsPrimitive(type)) {
 				throw new ArgumentException(String.Format("The specified type, '{0}', is recognized as a primitive type. You should therefore use 'EachPrimitive<TItem>' instead." +
 					"The following are considered primitive: {1}",
 				                                          type.FullName,
@@ -342,8 +332,7 @@ namespace Missing.Validation
 		public FieldSpecification EachPrimitive<TItem>(Action<PrimitiveValidationSpecification<TItem>> valueMapping) where TItem : class
 		{
 			Type type = typeof(TItem);
-			if (!this.IsPrimitive(type))
-			{
+			if (!this.IsPrimitive(type)) {
 				throw new ArgumentException(String.Format("The specified type, '{0}', is not recognized as a primitive type. The following are considered primitive: {1}",
 				                                          type.FullName,
 				                                          this.PrimitivesAsString()));
@@ -356,8 +345,6 @@ namespace Missing.Validation
 			
 			return this;
 		}
-		
-		
 		#endregion IEnumerable
 		
 		#region Primitives
@@ -377,7 +364,8 @@ namespace Missing.Validation
 				typeof(sbyte),
 				typeof(UInt16),
 				typeof(UInt32),
-				typeof(UInt64)
+				typeof(UInt64),
+				typeof(char)
 			};
 		
 		/// <summary>
@@ -390,8 +378,7 @@ namespace Missing.Validation
 		{
 			StringBuilder sb = new StringBuilder();
 			
-			foreach (Type t in this.primitives)
-			{
+			foreach (Type t in this.primitives) {
 				sb.Append(t.FullName);
 				sb.Append(",");
 			}
@@ -399,7 +386,7 @@ namespace Missing.Validation
 			string res = sb.ToString();
 			
 			// remove last comma
-			res = res.Remove(res.Length-1);
+			res = res.Remove(res.Length - 1);
 			
 			return res;
 		}
@@ -418,5 +405,147 @@ namespace Missing.Validation
 			return this.primitives.Contains(type);
 		}
 		#endregion Primitives
+		
+		#region Number ranges
+		/// <summary>
+		/// Valid range for int
+		/// </summary>
+		private Range<int> intRange = new Range<int>();
+		
+		/// <summary>
+		/// Valid range for long
+		/// </summary>
+		private Range<long> longRange = new Range<long>();
+		
+		/// <summary>
+		/// Valid range for float
+		/// </summary>
+		private Range<float> floatRange = new Range<float>();
+		
+		/// <summary>
+		/// Valid range for double
+		/// </summary>
+		private Range<double> doubleRange = new Range<double>();
+		
+		/// <summary>
+		/// Valid range for decimal
+		/// </summary>
+		private Range<decimal> decimalRange = new Range<decimal>();
+		
+		/// <summary>
+		/// Get valid range for decimal
+		/// </summary>
+		internal Range<decimal> DecimalRange {
+			get { return this.decimalRange; }
+		}
+		
+		/// <summary>
+		/// Get valid range for double
+		/// </summary>
+		internal Range<double> DoubleRange {
+			get { return this.doubleRange; }
+		}
+		
+		/// <summary>
+		/// Get valid range for float
+		/// </summary>
+		internal Range<float> FloatRange {
+			get { return this.floatRange; }
+		}
+		
+		/// <summary>
+		/// Get valid range for int
+		/// </summary>
+		internal Range<int> IntRange {
+			get { return this.intRange; }
+		}
+		
+		/// <summary>
+		/// Get valid range for long
+		/// </summary>
+		internal Range<long> LongRange {
+			get { return this.longRange; }
+		}
+		
+		/// <summary>
+		/// Define the valid range for an integer field
+		/// </summary>
+		/// <param name="min">
+		/// The lowest accepted value
+		/// </param>
+		/// <param name="max">
+		/// The highest accepted value
+		/// </param>
+		public FieldSpecification Range(int min, int max)
+		{
+			this.intRange.Min = min;
+			this.intRange.Max = max;
+			return this;
+		}
+		
+		/// <summary>
+		/// Define the valid range for a long field
+		/// </summary>
+		/// <param name="min">
+		/// The lowest accepted value
+		/// </param>
+		/// <param name="max">
+		/// The highest accepted value
+		/// </param>
+		public FieldSpecification Range(long min, long max)
+		{
+			this.longRange.Min = min;
+			this.longRange.Max = max;
+			return this;
+		}
+		
+		/// <summary>
+		/// Define the valid range for a float field
+		/// </summary>
+		/// <param name="min">
+		/// The lowest accepted value
+		/// </param>
+		/// <param name="max">
+		/// The highest accepted value
+		/// </param>
+		public FieldSpecification Range(float min, float max)
+		{
+			this.floatRange.Min = min;
+			this.floatRange.Max = max;
+			return this;
+		}
+		
+		/// <summary>
+		/// Define the valid range for a double field
+		/// </summary>
+		/// <param name="min">
+		/// The lowest accepted value
+		/// </param>
+		/// <param name="max">
+		/// The highest accepted value
+		/// </param>
+		public FieldSpecification Range(double min, double max)
+		{
+			this.doubleRange.Min = min;
+			this.doubleRange.Max = max;
+			return this;
+		}
+		
+		/// <summary>
+		/// Define the valid range for a decimal field
+		/// </summary>
+		/// <param name="min">
+		/// The lowest accepted value
+		/// </param>
+		/// <param name="max">
+		/// The highest accepted value
+		/// </param>
+		public FieldSpecification Range(decimal min, decimal max)
+		{
+			this.decimalRange.Min = min;
+			this.decimalRange.Max = max;
+			return this;
+		}
+		#endregion Number ranges
 	}
 }

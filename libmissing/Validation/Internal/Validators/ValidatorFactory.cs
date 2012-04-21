@@ -45,6 +45,16 @@ namespace Missing.Validation.Internal.Validators
 				{
 					return new DecimalValidator();
 				}
+					
+				case "System.Single":
+				{
+					return new FloatValidator();
+				}
+					
+				case "System.Double":
+				{
+					return new DoubleValidator();
+				}
 				
 				default:
 				{

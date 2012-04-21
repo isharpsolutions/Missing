@@ -26,6 +26,21 @@ namespace Missing.Validation.Internal.Validators
 			
 			// length does not make sense to check
 			
+			#region Range
+			if (field.LongRange.Min != null)
+			{
+				if (val < field.LongRange.Min)
+				{
+					return new ValidationError(field.PropertyPath, "The value is too low - it must be at least {0}", field.LongRange.Min);
+				}
+				
+				else if (val > field.LongRange.Max)
+				{
+					return new ValidationError(field.PropertyPath, "The value is too high - it must be at {0} the most", field.LongRange.Max);
+				}
+			}
+			#endregion Range
+			
 			#region Invalid values
 			if (field.InvalidValues.Count != 0)
 			{

@@ -70,6 +70,7 @@
     <Compile Include="Validation\ValidatorTests_InvalidValues.cs" />
     <Compile Include="Validation\ValidationSpecificationTests_ListItems.cs" />
     <Compile Include="Validation\ValidatorTests_ListFields.cs" />
+    <Compile Include="Validation\ValidatorTests_NumberRanges.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">

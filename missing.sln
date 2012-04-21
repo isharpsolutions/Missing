@@ -50,6 +50,12 @@ Global
 		$0.CSharpFormattingPolicy = $6
 		$6.IndentSwitchBody = True
 		$6.BeforeMethodDeclarationParentheses = False
+		$6.BeforeMethodCallParentheses = False
+		$6.BeforeConstructorDeclarationParentheses = False
+		$6.BeforeIndexerDeclarationBracket = False
+		$6.BeforeDelegateDeclarationParentheses = False
+		$6.NewParentheses = False
+		$6.SpacesBeforeBrackets = False
 		$6.inheritsSet = Mono
 		$6.inheritsScope = text/x-csharp
 		$6.scope = text/x-csharp

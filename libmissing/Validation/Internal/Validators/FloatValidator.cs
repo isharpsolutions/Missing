@@ -3,40 +3,40 @@ using System;
 namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
-	/// Knows how to validate <see cref="System.Int32"/>
+	/// Knows how to validate <see cref="System.Single"/> aka "float"
 	/// </summary>
-	internal class Int32Validator : IValidator
+	internal class FloatValidator : IValidator
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.Int32Validator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.FloatValidator"/> class.
 		/// </summary>
-		public Int32Validator()
+		public FloatValidator()
 		{
 		}
 		
 		#region IValidator implementation
 		public ValidationError ValidateField<T>(FieldSpecification field, T input, Missing.Reflection.PropertyData pd) where T : class
 		{
-			int val = (int)pd.Value;
+			float val = (float)pd.Value;
 			
 			//
 			// we cant check for IsRequired
-			// as an int is not able to be null
+			// as a float is not able to be null
 			//
 			
 			// length does not make sense to check
 			
 			#region Range
-			if (field.IntRange.Min != null)
+			if (field.FloatRange.Min != null)
 			{
-				if (val < field.IntRange.Min)
+				if (val < field.FloatRange.Min)
 				{
-					return new ValidationError(field.PropertyPath, "The value is too low - it must be at least {0}", field.IntRange.Min);
+					return new ValidationError(field.PropertyPath, "The value is too low - it must be at least {0}", field.FloatRange.Min);
 				}
 				
-				else if (val > field.IntRange.Max)
+				else if (val > field.FloatRange.Max)
 				{
-					return new ValidationError(field.PropertyPath, "The value is too high - it must be at {0} the most", field.IntRange.Max);
+					return new ValidationError(field.PropertyPath, "The value is too high - it must be at {0} the most", field.FloatRange.Max);
 				}
 			}
 			#endregion Range
