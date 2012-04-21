@@ -87,16 +87,13 @@
     <Compile Include="Validation\Internal\Validators\StringValidator.cs" />
     <Compile Include="Validation\Internal\Validators\IValidator.cs" />
     <Compile Include="Validation\Internal\Validators\ValidatorFactory.cs" />
-    <Compile Include="Validation\Internal\Validators\Int32Validator.cs" />
-    <Compile Include="Validation\Internal\Validators\LongValidator.cs" />
-    <Compile Include="Validation\Internal\Validators\DecimalValidator.cs" />
     <Compile Include="Validation\Internal\Validators\EnumerableValidator.cs" />
     <Compile Include="Validation\Internal\InternalValidator.cs" />
     <Compile Include="Validation\Internal\TypeMatchScore.cs" />
     <Compile Include="Validation\Internal\TypeMatchScoreCalculator.cs" />
     <Compile Include="Validation\Internal\Range.cs" />
-    <Compile Include="Validation\Internal\Validators\FloatValidator.cs" />
-    <Compile Include="Validation\Internal\Validators\DoubleValidator.cs" />
+    <Compile Include="Validation\Internal\Validators\NumberValidator.cs" />
+    <Compile Include="Validation\Internal\IRange.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

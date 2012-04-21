@@ -3,40 +3,52 @@ using System;
 namespace Missing.Validation.Internal.Validators
 {
 	/// <summary>
-	/// Knows how to validate <see cref="System.Single"/> aka "float"
+	/// Knows how to validate number types (int, long, float, decimal etc).
 	/// </summary>
-	internal class FloatValidator : IValidator
+	/// <typeparam name="TNumber">
+	/// The number type to validate
+	/// </typeparam>
+	internal class NumberValidator<TNumber> : IValidator where TNumber : struct, IComparable<TNumber>
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.FloatValidator"/> class.
+		/// Initializes a new instance of the <see cref="Missing.Validation.Internal.Validators.NumberValidator`1"/> class.
 		/// </summary>
-		public FloatValidator()
+		public NumberValidator()
 		{
 		}
 		
 		#region IValidator implementation
 		public ValidationError ValidateField<T>(FieldSpecification field, T input, Missing.Reflection.PropertyData pd) where T : class
 		{
-			float val = (float)pd.Value;
+			TNumber val = (TNumber)pd.Value;
 			
 			//
 			// we cant check for IsRequired
-			// as a float is not able to be null
+			// as number is not able to be null
 			//
 			
 			// length does not make sense to check
 			
 			#region Range
-			if (field.FloatRange.Min != null)
+			if (field.DefinedRange != null)
 			{
-				if (val < field.FloatRange.Min)
+				Range<TNumber> range = (Range<TNumber>)field.DefinedRange;
+				
+				// unfortunately I have not been able to find a way
+				// to use the "<" operator, so we have to do the
+				// comparison "by hand"
+				int compare = val.CompareTo(range.Min);
+				
+				if (compare == -1)
 				{
-					return new ValidationError(field.PropertyPath, "The value is too low - it must be at least {0}", field.FloatRange.Min);
+					return new ValidationError(field.PropertyPath, "The value is too low - it must be at least {0}", range.Min);
 				}
 				
-				else if (val > field.FloatRange.Max)
+				compare = val.CompareTo(range.Max);
+				
+				if (compare == 1)
 				{
-					return new ValidationError(field.PropertyPath, "The value is too high - it must be at {0} the most", field.FloatRange.Max);
+					return new ValidationError(field.PropertyPath, "The value is too high - it must be at {0} the most", range.Max);
 				}
 			}
 			#endregion Range

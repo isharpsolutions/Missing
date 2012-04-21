@@ -407,65 +407,13 @@ namespace Missing.Validation
 		#endregion Primitives
 		
 		#region Number ranges
-		/// <summary>
-		/// Valid range for int
-		/// </summary>
-		private Range<int> intRange = new Range<int>();
+		private IRange range = null;
 		
-		/// <summary>
-		/// Valid range for long
-		/// </summary>
-		private Range<long> longRange = new Range<long>();
-		
-		/// <summary>
-		/// Valid range for float
-		/// </summary>
-		private Range<float> floatRange = new Range<float>();
-		
-		/// <summary>
-		/// Valid range for double
-		/// </summary>
-		private Range<double> doubleRange = new Range<double>();
-		
-		/// <summary>
-		/// Valid range for decimal
-		/// </summary>
-		private Range<decimal> decimalRange = new Range<decimal>();
-		
-		/// <summary>
-		/// Get valid range for decimal
-		/// </summary>
-		internal Range<decimal> DecimalRange {
-			get { return this.decimalRange; }
+		internal IRange DefinedRange
+		{
+			get { return this.range; }
 		}
 		
-		/// <summary>
-		/// Get valid range for double
-		/// </summary>
-		internal Range<double> DoubleRange {
-			get { return this.doubleRange; }
-		}
-		
-		/// <summary>
-		/// Get valid range for float
-		/// </summary>
-		internal Range<float> FloatRange {
-			get { return this.floatRange; }
-		}
-		
-		/// <summary>
-		/// Get valid range for int
-		/// </summary>
-		internal Range<int> IntRange {
-			get { return this.intRange; }
-		}
-		
-		/// <summary>
-		/// Get valid range for long
-		/// </summary>
-		internal Range<long> LongRange {
-			get { return this.longRange; }
-		}
 		
 		/// <summary>
 		/// Define the valid range for an integer field
@@ -478,8 +426,11 @@ namespace Missing.Validation
 		/// </param>
 		public FieldSpecification Range(int min, int max)
 		{
-			this.intRange.Min = min;
-			this.intRange.Max = max;
+			this.range = new Range<int>() {
+				Min = min,
+				Max = max
+			};
+			
 			return this;
 		}
 		
@@ -494,8 +445,11 @@ namespace Missing.Validation
 		/// </param>
 		public FieldSpecification Range(long min, long max)
 		{
-			this.longRange.Min = min;
-			this.longRange.Max = max;
+			this.range = new Range<long>() {
+				Min = min,
+				Max = max
+			};
+			
 			return this;
 		}
 		
@@ -510,8 +464,11 @@ namespace Missing.Validation
 		/// </param>
 		public FieldSpecification Range(float min, float max)
 		{
-			this.floatRange.Min = min;
-			this.floatRange.Max = max;
+			this.range = new Range<float>() {
+				Min = min,
+				Max = max
+			};
+			
 			return this;
 		}
 		
@@ -526,8 +483,11 @@ namespace Missing.Validation
 		/// </param>
 		public FieldSpecification Range(double min, double max)
 		{
-			this.doubleRange.Min = min;
-			this.doubleRange.Max = max;
+			this.range = new Range<double>() {
+				Min = min,
+				Max = max
+			};
+			
 			return this;
 		}
 		
@@ -542,8 +502,11 @@ namespace Missing.Validation
 		/// </param>
 		public FieldSpecification Range(decimal min, decimal max)
 		{
-			this.decimalRange.Min = min;
-			this.decimalRange.Max = max;
+			this.range = new Range<decimal>() {
+				Min = min,
+				Max = max
+			};
+			
 			return this;
 		}
 		#endregion Number ranges

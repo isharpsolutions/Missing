@@ -33,27 +33,27 @@ namespace Missing.Validation.Internal.Validators
 					
 				case "System.Int32":
 				{
-					return new Int32Validator();
+					return new NumberValidator<int>();
 				}
 					
 				case "System.Int64":
 				{
-					return new LongValidator();
+					return new NumberValidator<long>();
 				}
 					
 				case "System.Decimal":
 				{
-					return new DecimalValidator();
+					return new NumberValidator<decimal>();
 				}
 					
 				case "System.Single":
 				{
-					return new FloatValidator();
+					return new NumberValidator<float>();
 				}
 					
 				case "System.Double":
 				{
-					return new DoubleValidator();
+					return new NumberValidator<double>();
 				}
 				
 				default:
