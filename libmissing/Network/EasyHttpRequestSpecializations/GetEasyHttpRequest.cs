@@ -31,12 +31,15 @@ namespace Missing.Network.EasyHttpRequestSpecializations
 			}
 			else
 			{
-				b.Query = String.Format("{0}&{1}", b.Query, base.encodedData);
+				// b.Query.Substring(1) ... because we would otherwise end up with something
+				// like "??var=val"
+				b.Query = String.Format("{0}&{1}", b.Query.Substring(1), base.encodedData);
 			}
 			
 			base.url = b.Uri.ToString();
 			
 			base.request = (HttpWebRequest)WebRequest.Create(base.url);
+			base.request.AllowAutoRedirect = true;
 			
 			base.request.Method = "GET";
 		}

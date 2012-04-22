@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleTesters", "ConsoleTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log4net-console-test", "log4net-console-test\log4net-console-test.csproj", "{1704ADEF-ED3E-40DF-94E5-98A9377D13A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easyhttprequest-console-test", "log4net-console-test\easyhttprequest-console-test\easyhttprequest-console-test.csproj", "{6C55F64A-1C69-40AD-9299-74D8B04AF0BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{1704ADEF-ED3E-40DF-94E5-98A9377D13A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1704ADEF-ED3E-40DF-94E5-98A9377D13A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1704ADEF-ED3E-40DF-94E5-98A9377D13A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C55F64A-1C69-40AD-9299-74D8B04AF0BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C55F64A-1C69-40AD-9299-74D8B04AF0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C55F64A-1C69-40AD-9299-74D8B04AF0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C55F64A-1C69-40AD-9299-74D8B04AF0BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,9 +36,10 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1704ADEF-ED3E-40DF-94E5-98A9377D13A9} = {FD6E48B8-2073-457E-92CE-686498205771}
+		{6C55F64A-1C69-40AD-9299-74D8B04AF0BF} = {FD6E48B8-2073-457E-92CE-686498205771}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = log4net-console-test\log4net-console-test.csproj
+		StartupItem = log4net-console-test\easyhttprequest-console-test\easyhttprequest-console-test.csproj
 		Policies = $0
 		$0.StandardHeader = $1
 		$1.Text = 
