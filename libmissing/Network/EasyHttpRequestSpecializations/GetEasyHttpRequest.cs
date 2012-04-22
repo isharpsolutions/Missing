@@ -31,7 +31,7 @@ namespace Missing.Network.EasyHttpRequestSpecializations
 			}
 			else
 			{
-				b.Query = String.Format("{0}&{1}", base.encodedData);
+				b.Query = String.Format("{0}&{1}", b.Query, base.encodedData);
 			}
 			
 			base.url = b.Uri.ToString();
