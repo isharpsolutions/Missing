@@ -55,6 +55,7 @@
     <Compile Include="Data\Persistance\DomainSignatureAttribute.cs" />
     <Compile Include="Data\Persistance\Entity.cs" />
     <Compile Include="Data\Persistance\IEntityWithTypedId.cs" />
+    <Compile Include="Data\Persistance\RepositoryFactory.cs" />
     <Compile Include="Data\Persistance\RepositoryRetriever.cs" />
     <Compile Include="Options\Options.cs" />
     <Compile Include="Security\Cryptography\Hash.cs" />
