@@ -9,6 +9,30 @@ namespace Missing.Data.Persistance
 {
     public static class RepositoryRetriever
     {
+        /// <summary>
+        /// Creates an IRepository{entityType}
+        /// </summary>
+        /// <param name="entityType"></param>
+        /// <returns></returns>
+        public static object CreateEntityRepositoryFor(Type entityType)
+        {
+            Type concreteRepositoryType = typeof(IRepository<>)
+                .MakeGenericType(new[] { entityType});
+
+            object repository = ServiceLocator.Current.GetService(concreteRepositoryType);
+
+            if (repository == null)
+                throw new TypeLoadException(concreteRepositoryType.ToString() + " has not been registered with IoC");
+
+            return repository;
+        }
+
+        /// <summary>
+        /// Creates an IRepositoryWithTypedId{entityType, idType}
+        /// </summary>
+        /// <param name="entityType"></param>
+        /// <param name="idType"></param>
+        /// <returns></returns>
         public static object CreateEntityRepositoryFor(Type entityType, Type idType)
         {
             Type concreteRepositoryType = typeof(IRepositoryWithTypedId<,>)
