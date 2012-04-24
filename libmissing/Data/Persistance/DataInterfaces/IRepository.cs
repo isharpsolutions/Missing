@@ -37,7 +37,7 @@ namespace Missing.Data.Persistance.DataInterfaces
         /// Updating also allows you to commit changes to a detached object.  More info may be found at:
         /// http://www.hibernate.org/hib_docs/nhibernate/html_single/#manipulatingdata-updating-detached
         /// </summary>
-        T SaveOrUpdate(T entity);
+        T Commit(T entity);
 
         /// <summary>
         /// I'll let you guess what this does.

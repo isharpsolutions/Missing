@@ -47,7 +47,7 @@ namespace Missing.NhibernateProvider
             return Session.Query<T>();
         }
 
-        public virtual T SaveOrUpdate(T entity)
+        public virtual T Commit(T entity)
         {
             Session.SaveOrUpdate(entity);
             return entity;
