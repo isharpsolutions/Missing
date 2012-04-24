@@ -7,14 +7,14 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace Missing.Data.Persistance
 {
-    public static class RepositoryRetriever
+    internal static class RepositoryRetriever
     {
         /// <summary>
         /// Creates an IRepository{entityType}
         /// </summary>
         /// <param name="entityType"></param>
         /// <returns></returns>
-        public static object CreateEntityRepositoryFor(Type entityType)
+        internal static object CreateEntityRepositoryFor(Type entityType)
         {
             Type concreteRepositoryType = typeof(IRepository<>)
                 .MakeGenericType(new[] { entityType});
@@ -33,7 +33,7 @@ namespace Missing.Data.Persistance
         /// <param name="entityType"></param>
         /// <param name="idType"></param>
         /// <returns></returns>
-        public static object CreateEntityRepositoryFor(Type entityType, Type idType)
+        internal static object CreateEntityRepositoryFor(Type entityType, Type idType)
         {
             Type concreteRepositoryType = typeof(IRepositoryWithTypedId<,>)
                 .MakeGenericType(new[] { entityType, idType });
