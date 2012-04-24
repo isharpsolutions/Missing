@@ -50,6 +50,12 @@ namespace Missing.Data.Persistance
         [XmlIgnore]
         public virtual TId Id { get; protected set; }
 
+        /// <summary>
+        /// Version property. Useful when using NHibernate with concurrency handling
+        /// </summary>
+        public virtual int Version { get; set; }
+
+
         public override bool Equals(object obj)
         {
             var compareTo = obj as EntityWithTypedId<TId>;
