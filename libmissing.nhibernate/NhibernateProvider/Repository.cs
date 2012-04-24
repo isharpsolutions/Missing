@@ -66,5 +66,32 @@ namespace Missing.NhibernateProvider
         }
 
         private readonly ISessionFactory _sessionFactory;
+
+        /// <summary>
+        /// Return entity by a given predicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IQueryable<T> GetByPredicate(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        {
+            //
+            // I think that it would be more correct to take
+            // a Predicate<T> as input rather than the Expression<..> - 
+            // simply because Pred.. is more semantically correct.
+            //
+            // However the comments for the following answers have some
+            // good points about overloads to Where.
+            //
+            // http://stackoverflow.com/a/9905365
+            // and
+            // http://stackoverflow.com/a/665525
+            //
+            // Currently I see no easy way to convert a Predicate to
+            // an Expression.
+            //
+
+            return this.Session.Query<T>()
+                        .Where(predicate);
+        }
     }
 }

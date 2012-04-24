@@ -38,4 +38,4 @@ using System.Runtime.InteropServices;
  * Additions in existing namespaces bumps the minor
  * Bug fixes and misc that does not change the public API bump the patch
  */
-[assembly: AssemblyVersion("0.10.0")]
+[assembly: AssemblyVersion("0.10.1")]

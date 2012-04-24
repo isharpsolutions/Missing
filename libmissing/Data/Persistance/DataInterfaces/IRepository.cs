@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Linq.Expressions;
 
 namespace Missing.Data.Persistance.DataInterfaces
 {
@@ -28,6 +29,8 @@ namespace Missing.Data.Persistance.DataInterfaces
         T Get(TId id);
 
         IQueryable<T> GetAll();
+
+        IQueryable<T> GetByPredicate(Expression<Func<T, bool>> predicate);
 
         /// <summary>
         /// For entities with automatically generated Ids, such as identity or Hi/Lo, SaveOrUpdate may 
