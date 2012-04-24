@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("libmissing.nhibernate")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Missing.NhibernateProvider")]
+[assembly: AssemblyDescription("Implements Nhibernate specific stuff for Missing.Data.Persistance")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("libmissing.nhibernate")]
+[assembly: AssemblyProduct("Missing.NhibernateProvider")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -22,15 +22,20 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("32f3c060-84da-4055-8ac0-bece767f78f5")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+
+// The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
+// The form "{Major}.{Minor}.*" will automatically update the build and revision,
+// and "{Major}.{Minor}.{Build}.*" will update just the revision.
+
+
+/**
+ * Releases will be numbered with the follow format:
+ * <major>.<minor>.<patch>
+ *
+ * And constructed with the following guidelines:
+ *
+ * Addition of new namespaces bumps the major
+ * Additions in existing namespaces bumps the minor
+ * Bug fixes and misc that does not change the public API bump the patch
+ */
+[assembly: AssemblyVersion("0.9.0")]
