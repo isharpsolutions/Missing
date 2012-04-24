@@ -31,6 +31,9 @@
     <GenerateDocumentation>true</GenerateDocumentation>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\resources\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
@@ -45,6 +48,13 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Collections\Extensions\NameValueCollectionExtensions.cs" />
     <Compile Include="Data\Extensions\DataRowExtension.cs" />
+    <Compile Include="Data\Persistance\ComparableObject.cs" />
+    <Compile Include="Data\Persistance\DataInterfaces\IDbContext.cs" />
+    <Compile Include="Data\Persistance\DataInterfaces\IEntityDuplicateChecker.cs" />
+    <Compile Include="Data\Persistance\DataInterfaces\IRepository.cs" />
+    <Compile Include="Data\Persistance\DomainSignatureAttribute.cs" />
+    <Compile Include="Data\Persistance\Entity.cs" />
+    <Compile Include="Data\Persistance\IEntityWithTypedId.cs" />
     <Compile Include="Options\Options.cs" />
     <Compile Include="Security\Cryptography\Hash.cs" />
     <Compile Include="Security\Cryptography\HashFactory.cs" />
@@ -104,8 +114,5 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Reflection\Extensions\" />
-    <Folder Include="Validation\Internal\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

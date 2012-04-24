@@ -1,0 +1,73 @@
+﻿using System;
+using System.Web;
+using NHibernate;
+using System.Collections.Generic;
+using Microsoft.Practices.ServiceLocation;
+using System.Linq;
+
+namespace Missing.NhibernateProvider.Web
+{
+    /// <summary>
+    /// Taken from http://nhforge.org/blogs/nhibernate/archive/2011/03/03/effective-nhibernate-session-management-for-web-apps.aspx
+    /// </summary>
+    public class SessionPerRequestModule : IHttpModule
+    {
+        public void Init(HttpApplication context)
+        {
+            context.BeginRequest += ContextBeginRequest;
+            context.EndRequest += ContextEndRequest;
+        }
+
+        private void ContextBeginRequest(object sender, EventArgs e)
+        {
+            foreach (var sessionFactory in GetSessionFactories())
+            {
+                var localFactory = sessionFactory;
+
+                LazySessionContext.Bind(new Lazy<ISession>(() => BeginSession(localFactory)), sessionFactory);
+            }
+        }
+
+        private static ISession BeginSession(ISessionFactory sessionFactory)
+        {
+            var session = sessionFactory.OpenSession();
+            session.BeginTransaction();
+            return session;
+        }
+
+        private void ContextEndRequest(object sender, EventArgs e)
+        {
+            foreach (var sessionfactory in GetSessionFactories())
+            {
+                var session = LazySessionContext.UnBind(sessionfactory);
+                if (session == null) continue;
+                EndSession(session);
+            }
+        }
+
+        private static void EndSession(ISession session)
+        {
+            if (session.Transaction != null && session.Transaction.IsActive)
+            {
+                session.Transaction.Commit();
+            }
+
+            session.Dispose();
+        }
+
+        public void Dispose() { }
+
+        /// <summary>
+        /// Retrieves all ISessionFactory instances via IoC
+        /// </summary>
+        private IEnumerable<ISessionFactory> GetSessionFactories()
+        {
+            var sessionFactories = ServiceLocator.Current.GetAllInstances<ISessionFactory>();
+
+            if (sessionFactories == null || !sessionFactories.Any())
+                throw new TypeLoadException("At least one ISessionFactory has not been registered with IoC");
+
+            return sessionFactories;
+        }
+    }
+}
