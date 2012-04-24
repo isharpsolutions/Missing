@@ -36,3 +36,10 @@ we learn that no one is using them.
 **The APIs should be considered unstable until we reach version 1.0.0**
 
 Until we reach version 1.0.0 namespace additions will bump the minor.
+
+
+Missing.Data.Persistance
+----------
+All of the code in here has been ported from the S#arp lite project. We have "replaced" the dependency on 
+System.Web.Mvc with a dependency on Common Service Locator. All credits go the original developers of the
+S#arp lite project!
