@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Missing.Security;
+using Missing.Security.KeyDerivation;
 
 namespace Missing.Security
 {
@@ -13,7 +14,7 @@ namespace Missing.Security
 		[Test]
 		public void TestGetSalt()
 		{
-			byte[]salt = KeyDerivation.RandomSalt();
+			byte[]salt = KeyDeriver.RandomSalt();
 			// default get salt uses 128 bits, that's 16 bytes
 			Assert.IsTrue(salt.Length == 128/8, "Incorrect salt length");
 		}
@@ -21,7 +22,7 @@ namespace Missing.Security
 		[Test]
 		public void TestGetSaltLargeBitSize()
 		{
-			byte[] salt = KeyDerivation.RandomSalt(1024);
+			byte[] salt = KeyDeriver.RandomSalt(1024);
 			Assert.IsTrue(salt.Length == 1024 / 8, "Incorrect salt length");
 		}
 
@@ -29,14 +30,14 @@ namespace Missing.Security
 		[ExpectedException(typeof(ArgumentException))]
 		public void TestGetSaltIncorrectBitSize()
 		{
-			byte[] salt = KeyDerivation.RandomSalt(801);
+			byte[] salt = KeyDeriver.RandomSalt(801);
 			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
 		}
 		[Test]
 		[ExpectedException(typeof(ArgumentException))]
 		public void TestGetSaltWithZeroBits()
 		{
-			byte[] salt = KeyDerivation.RandomSalt(0);
+			byte[] salt = KeyDeriver.RandomSalt(0);
 			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
 		}
 
@@ -44,7 +45,7 @@ namespace Missing.Security
 		[ExpectedException(typeof(ArgumentException))]
 		public void TestGetSaltWithNegativeBits()
 		{
-			byte[] salt = KeyDerivation.RandomSalt(-5);
+			byte[] salt = KeyDeriver.RandomSalt(-5);
 			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
 		}
 	}

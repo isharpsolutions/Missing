@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace Missing.Security
+namespace Missing.Security.KeyDerivation
 {
 	/// <summary>
 	/// Implements the rfc2898 key derivation function PBKDF2
 	/// </summary>
-	public static class KeyDerivation
+	public static class KeyDeriver
 	{
 		#region RandomSalt
 		/// <summary>

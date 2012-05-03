@@ -67,7 +67,7 @@
     <Compile Include="Network\EasyHttpRequest.cs" />
     <Compile Include="Reflection\TypeHelper.cs" />
     <Compile Include="Security\KeyDerivation\DerivedKey.cs" />
-    <Compile Include="Security\KeyDerivation\KeyDerivation.cs" />
+    <Compile Include="Security\KeyDerivation\KeyDeriver.cs" />
     <Compile Include="Security\KeyDerivation\KeyDerivationAlgorithm.cs" />
     <Compile Include="Security\KeyDerivation\KeyDerivationOptions.cs" />
     <Compile Include="Security\PasswordGenerator.cs" />

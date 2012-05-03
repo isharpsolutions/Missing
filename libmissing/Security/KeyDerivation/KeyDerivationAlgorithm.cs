@@ -7,7 +7,7 @@ namespace Missing.Security.KeyDerivation
 {
 	/// <summary>
 	/// Enumerates the possible key derivation algorithm that 
-	/// the functions of <see cref="KeyDerivation"/> supports
+	/// the functions of <see cref="KeyDeriver"/> supports
 	/// </summary>
 	public enum KeyDerivationAlgorithm
 	{
