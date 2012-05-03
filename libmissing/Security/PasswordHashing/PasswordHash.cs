@@ -17,7 +17,7 @@ namespace Missing.Security.PasswordHashing
 
 		public string KeyHex { get; set; }
 
-		public int Iterations { get; set; }
+		public uint Iterations { get; set; }
 
 		public PasswordHasherAlgorithm Algorithm { get; set; }
 	}
