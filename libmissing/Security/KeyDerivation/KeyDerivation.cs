@@ -44,5 +44,9 @@ namespace Missing.Security
 			return salt;
 		}
 		#endregion RandomSalt
+
+		#region Key derivation
+		
+		#endregion Key derivation
 	}
 }
