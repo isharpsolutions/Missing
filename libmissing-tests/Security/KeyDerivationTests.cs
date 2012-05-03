@@ -17,26 +17,19 @@ namespace Missing.Security
 		{
 			byte[]salt = KeyDeriver.RandomSalt();
 			// default get salt uses 128 bits, that's 16 bytes
-			Assert.IsTrue(salt.Length == 128/8, "Incorrect salt length");
+			Assert.IsTrue(salt.Length == 16, "Incorrect salt length");
 		}
 
 		[Test]
-		public void TestGetSaltLargeBitSize()
+		public void TestGetSaltLargeByteSize()
 		{
-			byte[] salt = KeyDeriver.RandomSalt(1024);
-			Assert.IsTrue(salt.Length == 1024 / 8, "Incorrect salt length");
+			byte[] salt = KeyDeriver.RandomSalt(128);
+			Assert.IsTrue(salt.Length == 128, "Incorrect salt length");
 		}
 
 		[Test]
 		[ExpectedException(typeof(ArgumentException))]
-		public void TestGetSaltIncorrectBitSize()
-		{
-			byte[] salt = KeyDeriver.RandomSalt(801);
-			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
-		}
-		[Test]
-		[ExpectedException(typeof(ArgumentException))]
-		public void TestGetSaltWithZeroBits()
+		public void TestGetSaltWithZeroBytes()
 		{
 			byte[] salt = KeyDeriver.RandomSalt(0);
 			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
@@ -59,8 +52,8 @@ namespace Missing.Security
 
 			Assert.IsTrue(key.Iterations >= 8000, "Too few iterations was done by the deriver");
 			Assert.IsTrue(key.Iterations <= 9000, "Too many iterations was done by the deriver");
-			Assert.IsTrue(key.Key.Length == 256 / 8, "Returned key is too small");
-			Assert.IsTrue(key.Salt.Length == 128 / 8, "Salt is too small");
+			Assert.IsTrue(key.Key.Length == 32, "Returned key is too small");
+			Assert.IsTrue(key.Salt.Length == 16, "Salt is too small");
 		}
 		[Test]
 		public void TestKeyDeriverWithOptions()
@@ -69,13 +62,13 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA512,
 				Iterations = 16854,
-				KeySize = 512,
-				Salt = KeyDeriver.RandomSalt(256)
+				KeySize = 64,
+				Salt = KeyDeriver.RandomSalt(32)
 			};
 			DerivedKey key = KeyDeriver.Derive("thisisapassword", options);
 
 			Assert.IsTrue(key.Iterations == options.Iterations, "Wrong number of iterations was used");
-			Assert.IsTrue(key.Key.Length == options.KeySize / 8, "Derived key is of incorrect length");
+			Assert.IsTrue(key.Key.Length == options.KeySize, "Derived key is of incorrect length");
 			Assert.AreEqual(options.Salt, key.Salt, "returned salt did not equal the salt that was input");
 		}
 		#endregion KeyDeriver tests
@@ -88,7 +81,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 1,
-				KeySize = 20 * 8 /* 20 ocets, we need it in bits */,
+				KeySize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
 			string password = "password";
@@ -110,7 +103,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 2,
-				KeySize = 20 * 8 /* 20 ocets, we need it in bits */,
+				KeySize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
 			string password = "password";
@@ -132,7 +125,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 4096,
-				KeySize = 20 * 8 /* 20 ocets, we need it in bits */,
+				KeySize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
 			string password = "password";
@@ -154,7 +147,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 16777216,
-				KeySize = 20 * 8 /* 20 ocets, we need it in bits */,
+				KeySize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
 			string password = "password";
@@ -176,7 +169,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 4096,
-				KeySize = 25 * 8 /* 20 ocets, we need it in bits */,
+				KeySize = 25,
 				Salt = Encoding.ASCII.GetBytes("saltSALTsaltSALTsaltSALTsaltSALTsalt")
 			};
 			string password = "passwordPASSWORDpassword";
@@ -199,7 +192,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 4096,
-				KeySize = 16 * 8 /* 20 ocets, we need it in bits */,
+				KeySize = 16,
 				Salt = Encoding.ASCII.GetBytes("sa\0lt")
 			};
 			string password = "pass\0word";

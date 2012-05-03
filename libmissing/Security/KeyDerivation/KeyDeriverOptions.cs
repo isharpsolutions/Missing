@@ -13,7 +13,7 @@ namespace Missing.Security.KeyDerivation
 			Algorithm = KeyDeriverAlgorithm.PBKDF2;
 			Salt = KeyDeriver.RandomSalt();
 			HashType = Cryptography.HashType.SHA256;
-			KeySize = 256;
+			KeySize = 32;
 			Random rng = new Random();
 			Iterations = rng.Next(8000, 9000);
 		}
@@ -34,7 +34,7 @@ namespace Missing.Security.KeyDerivation
 		public HashType HashType { get; set; }
 
 		/// <summary>
-		/// Size of the returned key, in bits
+		/// Size of the returned key, in bytes / octets
 		/// </summary>
 		public int KeySize { get; set; }
 

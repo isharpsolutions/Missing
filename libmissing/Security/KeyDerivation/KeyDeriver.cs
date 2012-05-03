@@ -15,31 +15,31 @@ namespace Missing.Security.KeyDerivation
 	{
 		#region RandomSalt
 		/// <summary>
-		/// Gets a new randomly generated salt of length 128 bits
+		/// Gets a new randomly generated salt of length 16 bytes
 		/// </summary>
 		/// <returns></returns>
 		public static byte[] RandomSalt()
 		{
-			return RandomSalt(128);
+			return RandomSalt(16);
 		}
 
 
 		/// <summary>
-		/// Gets a new randomly generated salt of the given bit length
+		/// Gets a new randomly generated salt of the given byte length
 		/// <paramref name="length"/>
 		/// </summary>
-		/// <param name="length">The length, in bits, of the returned salt. Must be a multiple of 8</param>
+		/// <param name="length">The length, in bytes, of the returned salt.</param>
 		/// <returns></returns>
-		/// <exception cref="ArgumentException">If <paramref name="length"/> is not a multiple of 8</exception>
+		/// <exception cref="ArgumentException">If <paramref name="length"/> is smaller than 1</exception>
 		public static byte[] RandomSalt(int length)
 		{
-			if ( (length % 8 != 0) || length < 8)
+			if (length < 1)
 			{
-				throw new ArgumentException("Length must be a multiple of 8");
+				throw new ArgumentException("Length must be at least 1");
 			}
 
 			RNGCryptoServiceProvider crng = new RNGCryptoServiceProvider();
-			byte[] salt = new byte[length / 8];
+			byte[] salt = new byte[length];
 			crng.GetBytes(salt);
 			crng = null;
 
@@ -53,7 +53,7 @@ namespace Missing.Security.KeyDerivation
 		/// </summary>
 		/// <remarks>
 		/// This method is using the PBKDF2 algorithm underneath, with random salts
-		/// of size 128 bits, and an interation count in the interval [8000;9000].
+		/// of size 16 bytes, and an interation count in the interval [8000;9000].
 		/// 
 		/// The SHA2 hash is used for the HMAC algorithm
 		/// </remarks>
