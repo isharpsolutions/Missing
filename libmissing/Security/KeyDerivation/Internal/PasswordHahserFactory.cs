@@ -5,20 +5,20 @@ using System.Text;
 
 namespace Missing.Security.KeyDerivation.Internal
 {
-	internal class KeyDeriverFactory
+	internal class PasswordHahserFactory
 	{
 		/// <summary>
 		/// Gets the an instance specified by <paramref name="algo"/>
 		/// </summary>
 		/// <param name="algo">The algorithm to get an implementation for.</param>
 		/// <returns></returns>
-		public static KeyDeriverBase GetInstance(KeyDeriverAlgorithm algo)
+		public static PasswordHasherBase GetInstance(PasswordHasherAlgorithm algo)
 		{
 			switch (algo)
 			{
-				case KeyDeriverAlgorithm.PBKDF2:
+				case PasswordHasherAlgorithm.PBKDF2:
 					{
-						return new PBKDF2KeyDeriver();
+						return new PBKDF2PasswordHasher();
 					}
 				default:
 					{

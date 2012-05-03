@@ -6,12 +6,12 @@ using Missing.Security.Cryptography;
 
 namespace Missing.Security.KeyDerivation
 {
-	public class KeyDeriverOptions
+	public class PasswordHasherOptions
 	{
-		public KeyDeriverOptions()
+		public PasswordHasherOptions()
 		{
-			Algorithm = KeyDeriverAlgorithm.PBKDF2;
-			Salt = KeyDeriver.RandomSalt();
+			Algorithm = PasswordHasherAlgorithm.PBKDF2;
+			Salt = PasswordHasher.RandomSalt();
 			HashType = Cryptography.HashType.SHA256;
 			KeySize = 32;
 			Random rng = new Random();
@@ -21,7 +21,7 @@ namespace Missing.Security.KeyDerivation
 		/// <summary>
 		/// Determines which underlying algorithm that should be used during key derivation
 		/// </summary>
-		public KeyDeriverAlgorithm Algorithm { get; set; }
+		public PasswordHasherAlgorithm Algorithm { get; set; }
 
 		/// <summary>
 		/// The salt to use during the derivation

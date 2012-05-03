@@ -15,7 +15,7 @@ namespace Missing.Security
 		[Test]
 		public void TestGetSalt()
 		{
-			byte[]salt = KeyDeriver.RandomSalt();
+			byte[]salt = PasswordHasher.RandomSalt();
 			// default get salt uses 128 bits, that's 16 bytes
 			Assert.IsTrue(salt.Length == 16, "Incorrect salt length");
 		}
@@ -23,7 +23,7 @@ namespace Missing.Security
 		[Test]
 		public void TestGetSaltLargeByteSize()
 		{
-			byte[] salt = KeyDeriver.RandomSalt(128);
+			byte[] salt = PasswordHasher.RandomSalt(128);
 			Assert.IsTrue(salt.Length == 128, "Incorrect salt length");
 		}
 
@@ -31,7 +31,7 @@ namespace Missing.Security
 		[ExpectedException(typeof(ArgumentException))]
 		public void TestGetSaltWithZeroBytes()
 		{
-			byte[] salt = KeyDeriver.RandomSalt(0);
+			byte[] salt = PasswordHasher.RandomSalt(0);
 			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
 		}
 
@@ -39,7 +39,7 @@ namespace Missing.Security
 		[ExpectedException(typeof(ArgumentException))]
 		public void TestGetSaltWithNegativeBits()
 		{
-			byte[] salt = KeyDeriver.RandomSalt(-5);
+			byte[] salt = PasswordHasher.RandomSalt(-5);
 			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
 		}
 		#endregion RandomSalt tests
@@ -48,7 +48,7 @@ namespace Missing.Security
 		[Test]
 		public void TestKeyDeriverDefaultOptions()
 		{
-			DerivedKey key = KeyDeriver.Derive("thisisapassword");
+			PasswordHash key = PasswordHasher.Derive("thisisapassword");
 
 			Assert.IsTrue(key.Iterations >= 8000, "Too few iterations was done by the deriver");
 			Assert.IsTrue(key.Iterations <= 9000, "Too many iterations was done by the deriver");
@@ -58,14 +58,14 @@ namespace Missing.Security
 		[Test]
 		public void TestKeyDeriverWithOptions()
 		{
-			KeyDeriverOptions options = new KeyDeriverOptions()
+			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA512,
 				Iterations = 16854,
 				KeySize = 64,
-				Salt = KeyDeriver.RandomSalt(32)
+				Salt = PasswordHasher.RandomSalt(32)
 			};
-			DerivedKey key = KeyDeriver.Derive("thisisapassword", options);
+			PasswordHash key = PasswordHasher.Derive("thisisapassword", options);
 
 			Assert.IsTrue(key.Iterations == options.Iterations, "Wrong number of iterations was used");
 			Assert.IsTrue(key.Key.Length == options.KeySize, "Derived key is of incorrect length");
@@ -77,7 +77,7 @@ namespace Missing.Security
 		[Test]
 		public void Vector1()
 		{
-			KeyDeriverOptions options = new KeyDeriverOptions()
+			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 1,
@@ -92,14 +92,14 @@ namespace Missing.Security
 				0x2f, 0xe0, 0x37, 0xa6
 			};
 
-			DerivedKey derivedKey = KeyDeriver.Derive(password, options);
+			PasswordHash derivedKey = PasswordHasher.Derive(password, options);
 			Assert.AreEqual(expectedKey, derivedKey.Key, "The derived key does not match the test vector");
 		}
 
 		[Test]
 		public void Vector2()
 		{
-			KeyDeriverOptions options = new KeyDeriverOptions()
+			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 2,
@@ -114,14 +114,14 @@ namespace Missing.Security
 				0xd8, 0xde, 0x89, 0x57
 			};
 
-			DerivedKey derivedKey = KeyDeriver.Derive(password, options);
+			PasswordHash derivedKey = PasswordHasher.Derive(password, options);
 			Assert.AreEqual(expectedKey, derivedKey.Key, "The derived key does not match the test vector");
 		}
 
 		[Test]
 		public void Vector3()
 		{
-			KeyDeriverOptions options = new KeyDeriverOptions()
+			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 4096,
@@ -136,14 +136,14 @@ namespace Missing.Security
 				0x65, 0xa4, 0x29, 0xc1
 			};
 
-			DerivedKey derivedKey = KeyDeriver.Derive(password, options);
+			PasswordHash derivedKey = PasswordHasher.Derive(password, options);
 			Assert.AreEqual(expectedKey, derivedKey.Key, "The derived key does not match the test vector");
 		}
 
 		[Test]
 		public void Vector4()
 		{
-			KeyDeriverOptions options = new KeyDeriverOptions()
+			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 16777216,
@@ -158,14 +158,14 @@ namespace Missing.Security
 				0x65, 0xa4, 0x29, 0xc1
 			};
 
-			DerivedKey derivedKey = KeyDeriver.Derive(password, options);
+			PasswordHash derivedKey = PasswordHasher.Derive(password, options);
 			Assert.AreEqual(expectedKey, derivedKey.Key, "The derived key does not match the test vector");
 		}
 
 		[Test]
 		public void Vector5()
 		{
-			KeyDeriverOptions options = new KeyDeriverOptions()
+			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 4096,
@@ -181,14 +181,14 @@ namespace Missing.Security
 				0x38
 			};
 
-			DerivedKey derivedKey = KeyDeriver.Derive(password, options);
+			PasswordHash derivedKey = PasswordHasher.Derive(password, options);
 			Assert.AreEqual(expectedKey, derivedKey.Key, "The derived key does not match the test vector");
 		}
 
 		[Test]
 		public void Vector6()
 		{
-			KeyDeriverOptions options = new KeyDeriverOptions()
+			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 4096,
@@ -202,7 +202,7 @@ namespace Missing.Security
 				0xcc, 0x37, 0xd7, 0xf0, 0x34, 0x25, 0xe0, 0xc3
 			};
 
-			DerivedKey derivedKey = KeyDeriver.Derive(password, options);
+			PasswordHash derivedKey = PasswordHasher.Derive(password, options);
 			Assert.AreEqual(expectedKey, derivedKey.Key, "The derived key does not match the test vector");
 		}
 		#endregion rfc6070 test vectors

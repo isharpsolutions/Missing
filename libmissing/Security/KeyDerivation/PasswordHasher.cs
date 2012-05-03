@@ -11,7 +11,7 @@ namespace Missing.Security.KeyDerivation
 	/// <summary>
 	/// Implements the rfc2898 key derivation function PBKDF2
 	/// </summary>
-	public static class KeyDeriver
+	public static class PasswordHasher
 	{
 		#region RandomSalt
 		/// <summary>
@@ -59,10 +59,10 @@ namespace Missing.Security.KeyDerivation
 		/// </remarks>
 		/// <param name="password">The master password to derive a key from</param>
 		/// <returns></returns>
-		public static DerivedKey Derive(string password)
+		public static PasswordHash Derive(string password)
 		{
 			// default settings are good..
-			KeyDeriverOptions options = new KeyDeriverOptions();
+			PasswordHasherOptions options = new PasswordHasherOptions();
 			return Derive(password, options);
 		}
 
@@ -73,9 +73,9 @@ namespace Missing.Security.KeyDerivation
 		/// <param name="password">The password.</param>
 		/// <param name="options">The options.</param>
 		/// <returns></returns>
-		public static DerivedKey Derive(string password, KeyDeriverOptions options)
+		public static PasswordHash Derive(string password, PasswordHasherOptions options)
 		{
-			KeyDeriverBase kdb = KeyDeriverFactory.GetInstance(options.Algorithm);
+			PasswordHasherBase kdb = PasswordHahserFactory.GetInstance(options.Algorithm);
 			return kdb.Derive(password, options);
 		}
 		#endregion Key derivation

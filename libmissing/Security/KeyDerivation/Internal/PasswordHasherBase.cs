@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Missing.Security.KeyDerivation.Internal
 {
-	internal class PBKDF2KeyDeriver : KeyDeriverBase
+
+	/// <summary>
+	/// Shared base class for all implemented key derivers
+	/// </summary>
+	internal abstract class PasswordHasherBase
 	{
 		/// <summary>
 		/// Derives a key from the specified password.
@@ -13,9 +17,6 @@ namespace Missing.Security.KeyDerivation.Internal
 		/// <param name="password">The password.</param>
 		/// <param name="options">The options.</param>
 		/// <returns></returns>
-		public override DerivedKey Derive(string password, KeyDeriverOptions options)
-		{
-			throw new NotImplementedException();
-		}
+		public abstract PasswordHash Derive(string password, PasswordHasherOptions options);
 	}
 }

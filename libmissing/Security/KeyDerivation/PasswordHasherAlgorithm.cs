@@ -7,9 +7,9 @@ namespace Missing.Security.KeyDerivation
 {
 	/// <summary>
 	/// Enumerates the possible key derivation algorithm that 
-	/// the functions of <see cref="KeyDeriver"/> supports
+	/// the functions of <see cref="PasswordHasher"/> supports
 	/// </summary>
-	public enum KeyDeriverAlgorithm
+	public enum PasswordHasherAlgorithm
 	{
 		/// <summary>
 		/// Use the RFC2898 PBKDF2 algorithm for deriving keys

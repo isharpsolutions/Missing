@@ -9,7 +9,7 @@ namespace Missing.Security.KeyDerivation
 	/// Contains all neccesary information about a key that has been derived using
 	/// the <see cref="KeyDerivation"/> functions
 	/// </summary>
-	public class DerivedKey
+	public class PasswordHash
 	{
 		public byte[] Salt { get; set; }
 
@@ -19,6 +19,6 @@ namespace Missing.Security.KeyDerivation
 
 		public int Iterations { get; set; }
 
-		public KeyDeriverAlgorithm Algorithm { get; set; }
+		public PasswordHasherAlgorithm Algorithm { get; set; }
 	}
 }
