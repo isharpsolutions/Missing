@@ -67,6 +67,9 @@
     <Compile Include="Network\EasyHttpRequest.cs" />
     <Compile Include="Reflection\TypeHelper.cs" />
     <Compile Include="Security\KeyDerivation\DerivedKey.cs" />
+    <Compile Include="Security\KeyDerivation\Internal\KeyDeriverBase.cs" />
+    <Compile Include="Security\KeyDerivation\Internal\KeyDeriverFactory.cs" />
+    <Compile Include="Security\KeyDerivation\Internal\PBKDF2KeyDeriver.cs" />
     <Compile Include="Security\KeyDerivation\KeyDeriver.cs" />
     <Compile Include="Security\KeyDerivation\KeyDerivationAlgorithm.cs" />
     <Compile Include="Security\KeyDerivation\KeyDerivationOptions.cs" />
@@ -119,8 +122,6 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
-  <ItemGroup>
-    <Folder Include="Security\KeyDerivation\Internal\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
 </Project>
