@@ -97,7 +97,6 @@ namespace Missing.Security.PasswordHashing.Internal
 		{
 			HMAC hmac = HMACFactory.CreateInstance(hmacType);
 
-			hmac.Key = System.Text.Encoding.UTF8.GetBytes(password);
 			IList<byte[]> components = new List<byte[]>();
 			
 			// get INT(currentIteration)
@@ -107,16 +106,18 @@ namespace Missing.Security.PasswordHashing.Internal
 			bCurrentIteration[2] = (byte)(currentIteration << 24);
 			bCurrentIteration[3] = (byte)(currentIteration << 32);
 			// get U_1
-			byte[] tmp = new byte[hLen + 4];
+			byte[] tmp = new byte[salt.Length + 4];
 			salt.CopyTo(tmp, 0);
 			bCurrentIteration.CopyTo(tmp, salt.Length);
+			hmac.Key = System.Text.Encoding.UTF8.GetBytes(password);
 			hmac.ComputeHash(tmp);
 			components.Add(hmac.Hash);
 
 			
 			// get the remaining U's
 			for (uint i = 0; i < iterationCount; i++)
-			{				
+			{
+				hmac.Key = System.Text.Encoding.UTF8.GetBytes(password);
 				hmac.ComputeHash(components[(int)i]);
 				components.Add(hmac.Hash);
 			}
