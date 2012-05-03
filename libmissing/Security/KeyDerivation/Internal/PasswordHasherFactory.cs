@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Missing.Security.KeyDerivation.Internal
 {
-	internal class PasswordHahserFactory
+	internal class PasswordHasherFactory
 	{
 		/// <summary>
 		/// Gets the an instance specified by <paramref name="algo"/>
