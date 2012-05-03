@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Missing.Security.Cryptography;
 
-namespace Missing.Security.KeyDerivation
+namespace Missing.Security.PasswordHashing
 {
 	public class PasswordHasherOptions
 	{

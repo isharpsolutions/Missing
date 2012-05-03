@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Missing.Security.KeyDerivation.Internal
+namespace Missing.Security.PasswordHashing.Internal
 {
 
 	/// <summary>

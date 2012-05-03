@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Missing.Security;
-using Missing.Security.KeyDerivation;
+using Missing.Security.PasswordHashing;
 
 namespace Missing.Security
 {

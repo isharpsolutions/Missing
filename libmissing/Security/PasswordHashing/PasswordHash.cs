@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Missing.Security.KeyDerivation
+namespace Missing.Security.PasswordHashing
 {
 	/// <summary>
 	/// Contains all neccesary information about a key that has been derived using

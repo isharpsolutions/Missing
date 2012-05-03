@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
-using Missing.Security.KeyDerivation;
-using Missing.Security.KeyDerivation.Internal;
+using Missing.Security.PasswordHashing;
+using Missing.Security.PasswordHashing.Internal;
 
-namespace Missing.Security.KeyDerivation
+namespace Missing.Security.PasswordHashing
 {
 	/// <summary>
 	/// Implements the rfc2898 key derivation function PBKDF2

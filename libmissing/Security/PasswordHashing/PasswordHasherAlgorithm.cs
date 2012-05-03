@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Missing.Security.KeyDerivation
+namespace Missing.Security.PasswordHashing
 {
 	/// <summary>
 	/// Enumerates the possible key derivation algorithm that 
