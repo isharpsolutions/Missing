@@ -17,6 +17,6 @@ namespace Missing.Security.KeyDerivation.Internal
 		/// <param name="password">The password.</param>
 		/// <param name="options">The options.</param>
 		/// <returns></returns>
-		public abstract DerivedKey Derive(string password, KeyDerivationOptions options);
+		public abstract DerivedKey Derive(string password, KeyDeriverOptions options);
 	}
 }

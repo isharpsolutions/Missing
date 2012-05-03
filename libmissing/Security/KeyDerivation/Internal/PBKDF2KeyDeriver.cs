@@ -13,7 +13,7 @@ namespace Missing.Security.KeyDerivation.Internal
 		/// <param name="password">The password.</param>
 		/// <param name="options">The options.</param>
 		/// <returns></returns>
-		public override DerivedKey Derive(string password, KeyDerivationOptions options)
+		public override DerivedKey Derive(string password, KeyDeriverOptions options)
 		{
 			throw new NotImplementedException();
 		}

@@ -6,12 +6,12 @@ using Missing.Security.Cryptography;
 
 namespace Missing.Security.KeyDerivation
 {
-	public class KeyDerivationOptions
+	public class KeyDeriverOptions
 	{
-		public KeyDerivationOptions()
+		public KeyDeriverOptions()
 		{
-			Algorithm = KeyDerivationAlgorithm.PBKDF2;
-			SaltSize = 128;
+			Algorithm = KeyDeriverAlgorithm.PBKDF2;
+			Salt = KeyDeriver.RandomSalt();
 			HashType = Cryptography.HashType.SHA256;
 			KeySize = 256;
 			Random rng = new Random();
@@ -21,12 +21,12 @@ namespace Missing.Security.KeyDerivation
 		/// <summary>
 		/// Determines which underlying algorithm that should be used during key derivation
 		/// </summary>
-		public KeyDerivationAlgorithm Algorithm { get; set; }
+		public KeyDeriverAlgorithm Algorithm { get; set; }
 
 		/// <summary>
-		/// Size of the salt in bits, must be a multiple of 8
+		/// The salt to use during the derivation
 		/// </summary>
-		public int SaltSize { get; set; }
+		public byte[] Salt { get; set; }
 
 		/// <summary>
 		/// Determines which type of HMAC that should be used.

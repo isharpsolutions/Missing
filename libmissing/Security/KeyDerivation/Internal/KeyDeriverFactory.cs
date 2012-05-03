@@ -12,11 +12,11 @@ namespace Missing.Security.KeyDerivation.Internal
 		/// </summary>
 		/// <param name="algo">The algorithm to get an implementation for.</param>
 		/// <returns></returns>
-		public static KeyDeriverBase GetInstance(KeyDerivationAlgorithm algo)
+		public static KeyDeriverBase GetInstance(KeyDeriverAlgorithm algo)
 		{
 			switch (algo)
 			{
-				case KeyDerivationAlgorithm.PBKDF2:
+				case KeyDeriverAlgorithm.PBKDF2:
 					{
 						return new PBKDF2KeyDeriver();
 					}
