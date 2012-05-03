@@ -11,6 +11,7 @@ namespace Missing.Security
 	[TestFixture]
 	public class KeyDerivationTests
 	{
+		#region RandomSalt tests
 		[Test]
 		public void TestGetSalt()
 		{
@@ -48,5 +49,19 @@ namespace Missing.Security
 			byte[] salt = KeyDeriver.RandomSalt(-5);
 			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
 		}
+		#endregion RandomSalt tests
+
+		#region KeyDeriver tests
+		[Test]
+		public void TestDefaultKeyDeriver()
+		{
+			DerivedKey key = KeyDeriver.Derive("thisisapassword");
+
+			Assert.IsTrue(key.Iterations >= 8000, "Too few iterations was done by the deriver");
+			Assert.IsTrue(key.Iterations <= 9000, "Too many iterations was done by the deriver");
+			Assert.IsTrue(key.Key.Length == 256 / 8, "Returned key is too small");
+			Assert.IsTrue(key.Salt.Length == 128 / 8, "Salt is too small");
+		}
+		#endregion KeyDeriver tests
 	}
 }

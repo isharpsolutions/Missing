@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using Missing.Security.KeyDerivation;
+using Missing.Security.KeyDerivation.Internal;
 
 namespace Missing.Security.KeyDerivation
 {
@@ -46,7 +48,36 @@ namespace Missing.Security.KeyDerivation
 		#endregion RandomSalt
 
 		#region Key derivation
-		
+		/// <summary>
+		/// Derives a key from the given password, using sane defaults.
+		/// </summary>
+		/// <remarks>
+		/// This method is using the PBKDF2 algorithm underneath, with random salts
+		/// of size 128 bits, and an interation count in the interval [8000;9000].
+		/// 
+		/// The SHA2 hash is used for the HMAC algorithm
+		/// </remarks>
+		/// <param name="password">The master password to derive a key from</param>
+		/// <returns></returns>
+		public static DerivedKey Derive(string password)
+		{
+			// default settings are good..
+			KeyDeriverOptions options = new KeyDeriverOptions();
+			return Derive(password, options);
+		}
+
+		/// <summary>
+		/// Derives the specified password by applying the given <paramref name="options"/> to
+		/// the underlying implementations.
+		/// </summary>
+		/// <param name="password">The password.</param>
+		/// <param name="options">The options.</param>
+		/// <returns></returns>
+		public static DerivedKey Derive(string password, KeyDeriverOptions options)
+		{
+			KeyDeriverBase kdb = KeyDeriverFactory.GetInstance(options.Algorithm);
+			return kdb.Derive(password, options);
+		}
 		#endregion Key derivation
 	}
 }
