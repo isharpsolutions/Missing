@@ -32,5 +32,20 @@ namespace Missing.Security
 			byte[] salt = KeyDerivation.RandomSalt(801);
 			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
 		}
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void TestGetSaltWithZeroBits()
+		{
+			byte[] salt = KeyDerivation.RandomSalt(0);
+			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentException))]
+		public void TestGetSaltWithNegativeBits()
+		{
+			byte[] salt = KeyDerivation.RandomSalt(-5);
+			Assert.Fail("Exception of type ArgumentException was not thrown, which is an error");
+		}
 	}
 }

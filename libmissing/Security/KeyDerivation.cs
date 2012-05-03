@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace Missing.Security
 {
@@ -10,7 +11,7 @@ namespace Missing.Security
 	/// </summary>
 	public static class KeyDerivation
 	{
-
+		#region RandomSalt
 		/// <summary>
 		/// Gets a new randomly generated salt of length 128 bits
 		/// </summary>
@@ -30,7 +31,18 @@ namespace Missing.Security
 		/// <exception cref="ArgumentException">If <paramref name="length"/> is not a multiple of 8</exception>
 		public static byte[] RandomSalt(int length)
 		{
-			throw new NotImplementedException();
+			if ( (length % 8 != 0) || length < 8)
+			{
+				throw new ArgumentException("Length must be a multiple of 8");
+			}
+
+			RNGCryptoServiceProvider crng = new RNGCryptoServiceProvider();
+			byte[] salt = new byte[length / 8];
+			crng.GetBytes(salt);
+			crng = null;
+
+			return salt;
 		}
+		#endregion RandomSalt
 	}
 }
