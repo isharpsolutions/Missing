@@ -71,8 +71,8 @@
     <Compile Include="Security\KeyDerivation\Internal\KeyDeriverFactory.cs" />
     <Compile Include="Security\KeyDerivation\Internal\PBKDF2KeyDeriver.cs" />
     <Compile Include="Security\KeyDerivation\KeyDeriver.cs" />
-    <Compile Include="Security\KeyDerivation\KeyDerivationAlgorithm.cs" />
-    <Compile Include="Security\KeyDerivation\KeyDerivationOptions.cs" />
+    <Compile Include="Security\KeyDerivation\KeyDeriverAlgorithm.cs" />
+    <Compile Include="Security\KeyDerivation\KeyDeriverOptions.cs" />
     <Compile Include="Security\PasswordGenerator.cs" />
     <Compile Include="Security\PasswordGeneratorParameters.cs" />
     <Compile Include="StringExtensions\StringExtensions.cs" />
