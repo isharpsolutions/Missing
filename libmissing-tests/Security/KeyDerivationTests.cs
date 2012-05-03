@@ -62,13 +62,13 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA512,
 				Iterations = 16854,
-				KeySize = 64,
+				HashSize = 64,
 				Salt = PasswordHasher.RandomSalt(32)
 			};
 			PasswordHash key = PasswordHasher.Derive("thisisapassword", options);
 
 			Assert.IsTrue(key.Iterations == options.Iterations, "Wrong number of iterations was used");
-			Assert.IsTrue(key.Key.Length == options.KeySize, "Derived key is of incorrect length");
+			Assert.IsTrue(key.Key.Length == Convert.ToInt32(options.HashSize), "Derived key is of incorrect length");
 			Assert.AreEqual(options.Salt, key.Salt, "returned salt did not equal the salt that was input");
 		}
 		#endregion KeyDeriver tests
@@ -81,7 +81,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 1,
-				KeySize = 20,
+				HashSize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
 			string password = "password";
@@ -103,7 +103,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 2,
-				KeySize = 20,
+				HashSize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
 			string password = "password";
@@ -125,7 +125,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 4096,
-				KeySize = 20,
+				HashSize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
 			string password = "password";
@@ -147,7 +147,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 16777216,
-				KeySize = 20,
+				HashSize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
 			string password = "password";
@@ -169,7 +169,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 4096,
-				KeySize = 25,
+				HashSize = 25,
 				Salt = Encoding.ASCII.GetBytes("saltSALTsaltSALTsaltSALTsaltSALTsalt")
 			};
 			string password = "passwordPASSWORDpassword";
@@ -192,7 +192,7 @@ namespace Missing.Security
 			{
 				HashType = Cryptography.HashType.SHA1,
 				Iterations = 4096,
-				KeySize = 16,
+				HashSize = 16,
 				Salt = Encoding.ASCII.GetBytes("sa\0lt")
 			};
 			string password = "pass\0word";

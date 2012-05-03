@@ -13,9 +13,9 @@ namespace Missing.Security.PasswordHashing
 			Algorithm = PasswordHasherAlgorithm.PBKDF2;
 			Salt = PasswordHasher.RandomSalt();
 			HashType = Cryptography.HashType.SHA256;
-			KeySize = 32;
+			HashSize = 32;
 			Random rng = new Random();
-			Iterations = rng.Next(8000, 9000);
+			Iterations = Convert.ToUInt32(rng.Next(8000, 9000));
 		}
 
 		/// <summary>
@@ -36,12 +36,12 @@ namespace Missing.Security.PasswordHashing
 		/// <summary>
 		/// Size of the returned key, in bytes / octets
 		/// </summary>
-		public int KeySize { get; set; }
+		public ulong HashSize { get; set; }
 
 		/// <summary>
 		/// Determines the number of iterations the underlying algorithm should use
 		/// Defaults to a random value between 8000 and 9000
 		/// </summary>
-		public int Iterations { get; set; }
+		public uint Iterations { get; set; }
 	}
 }
