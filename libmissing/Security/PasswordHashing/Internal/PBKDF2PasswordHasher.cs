@@ -13,7 +13,7 @@ namespace Missing.Security.PasswordHashing.Internal
 		/// <param name="password">The password.</param>
 		/// <param name="options">The options.</param>
 		/// <returns></returns>
-		public override PasswordHash Derive(string password, PasswordHasherOptions options)
+		public override PasswordHash Compute(string password, PasswordHasherOptions options)
 		{
 			throw new NotImplementedException();
 		}

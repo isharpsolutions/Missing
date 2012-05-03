@@ -17,6 +17,6 @@ namespace Missing.Security.PasswordHashing.Internal
 		/// <param name="password">The password.</param>
 		/// <param name="options">The options.</param>
 		/// <returns></returns>
-		public abstract PasswordHash Derive(string password, PasswordHasherOptions options);
+		public abstract PasswordHash Compute(string password, PasswordHasherOptions options);
 	}
 }

@@ -76,7 +76,7 @@ namespace Missing.Security.PasswordHashing
 		public static PasswordHash Derive(string password, PasswordHasherOptions options)
 		{
 			PasswordHasherBase kdb = PasswordHasherFactory.GetInstance(options.Algorithm);
-			return kdb.Derive(password, options);
+			return kdb.Compute(password, options);
 		}
 		#endregion Key derivation
 	}
