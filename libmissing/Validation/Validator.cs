@@ -67,5 +67,50 @@ namespace Missing.Validation
 			
 			return val.Validate<TModel>(input, specification);
 		}
+		
+		/// <summary>
+		/// Validate the specified input.
+		/// 
+		/// This method is merely a convenience wrapper for the generic versions.
+		/// 
+		/// It imposes a runtime overhead, by using reflection to determine the type
+		/// of the input model and to call the generic validate method to perform
+		/// the actual validation.
+		/// 
+		/// <remarks>
+		/// This method should only be used in cases where you do not know the type
+		/// of the model at compile time.
+		/// </remarks>
+		/// </summary>
+		/// <param name="input">
+		/// The input model instance to validate
+		/// </param>
+		/// <exception cref="InvalidOperationException">
+		/// Thrown if the underlying reflection fails
+		/// </exception>
+		public static ValidationResult Validate(object input)
+		{
+			ValidationResult val = null;
+			
+			#region Make generic validate method
+			MethodInfo result = null;
+			
+			var allMethods = typeof(Validator).GetMethods();
+			MethodInfo foundMi = allMethods.FirstOrDefault(
+				mi => mi.Name == "Validate" && mi.GetParameters().Count() == 1
+			);
+			
+			if (foundMi == null)
+			{
+				throw new InvalidOperationException("I was unable to find the validation method");
+			}
+			
+			result = foundMi.MakeGenericMethod(new Type[] { input.GetType() });
+			#endregion
+			
+			val = (ValidationResult)result.Invoke(null, new object[] { input });
+			
+			return val;
+		}
 	}
 }

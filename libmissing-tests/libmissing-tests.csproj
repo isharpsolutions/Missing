@@ -71,6 +71,7 @@
     <Compile Include="Validation\ValidationSpecificationTests_ListItems.cs" />
     <Compile Include="Validation\ValidatorTests_ListFields.cs" />
     <Compile Include="Validation\ValidatorTests_NumberRanges.cs" />
+    <Compile Include="Validation\ValidatorTests_NonGenericValidate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
