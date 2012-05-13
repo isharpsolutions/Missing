@@ -72,14 +72,19 @@
     <Compile Include="Validation\ValidatorTests_ListFields.cs" />
     <Compile Include="Validation\ValidatorTests_NumberRanges.cs" />
     <Compile Include="Validation\ValidatorTests_NonGenericValidate.cs" />
+    <Compile Include="Network\EasyHttpRequest_GetTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Gettext-ScanForTranslations>false</Gettext-ScanForTranslations>
     </None>
+    <None Include="app.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reflection\Extensions\" />
+    <Folder Include="Network\" />
   </ItemGroup>
 </Project>
