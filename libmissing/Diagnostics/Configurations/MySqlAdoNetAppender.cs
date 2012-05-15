@@ -40,7 +40,7 @@ namespace Missing.Diagnostics.Configurations
 		/// 		) ENGINE=InnoDB DEFAULT CHARSET=utf8
 		/// 	</code>
 		/// </remarks>
-		public LogImplementation GetMySqlAdoNetAppender(string tableName, string host, string schema, string user, string password)
+		public LogImplementation MySqlAdoNetAppender(string tableName, string host, string schema, string user, string password)
 		{
 			XmlDocument doc = new XmlDocument();
 			
