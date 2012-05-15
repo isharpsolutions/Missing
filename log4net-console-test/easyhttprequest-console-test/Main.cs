@@ -8,7 +8,7 @@ namespace easyhttprequestconsoletest
 	{
 		public static void Main(string[] args)
 		{
-			Log.UseConfig(Log4NetConfigurations.GetSimpleConsoleColored());
+			Log.Use().SimpleConsoleColored();
 			
 			EasyHttpRequest req = EasyHttpRequestFactory.GetInstance(HttpRequestMethod.Get);
 			req.Url = "http://lorebook.lotro.com/wiki/Special:LotroResource?id=1879145635";
