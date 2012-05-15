@@ -74,14 +74,8 @@ namespace Missing.Diagnostics
 		}
 		
 		/// <summary>
-		/// Add a <logger/> section to the given config
+		/// Add a <logger/> section to the current config
 		/// </summary>
-		/// <returns>
-		/// The updated <paramref name="configXml"/>
-		/// </returns>
-		/// <param name="configXml">
-		/// The XML config to update
-		/// </param>
 		/// <param name="loggerName">
 		/// The name of the logger
 		/// </param>
@@ -92,30 +86,29 @@ namespace Missing.Diagnostics
 		/// This example shows how to use the method to disable logging from NHibernate
 		/// 
 		/// <code>
-		/// Log.UseConfig(
-		/// 	Log.AddLogger(
-		/// 		Log4NetConfigurations.GetMySqlAdoNetAppender("admin", "127.0.0.1", "myschema", "myuser", "mypassword"),
-		/// 		"NHibernate",
-		/// 		"ERROR"
-		/// 	)
-		/// );
+		/// Log.UseConfig(Log4NetConfigurations.GetMySqlAdoNetAppender("admin", "127.0.0.1", "myschema", "myuser", "mypassword"));
+		///	Log.AddLogger("NHibernate", "ERROR");
 		/// </code>
 		/// </example>
-		public static XmlElement AddLogger(XmlElement configXml, string loggerName, string level)
+		public static void AddLogger(string loggerName, string level)
 		{
-			XmlElement newLogger = configXml.OwnerDocument.CreateElement("logger");
+			if (config == null)
+			{
+				throw new InvalidOperationException("You must call Log.UseConfig(..) before calling AddLogger(..)");
+			}
+			
+			XmlElement newLogger = config.OwnerDocument.CreateElement("logger");
 			newLogger.SetAttribute("name", loggerName);
 			
-			XmlElement newLoggerLevel = configXml.OwnerDocument.CreateElement("level");
+			XmlElement newLoggerLevel = config.OwnerDocument.CreateElement("level");
 			newLoggerLevel.SetAttribute("value", level);
 			
 			newLogger.AppendChild(newLoggerLevel);
-			configXml.AppendChild(newLogger);
-			
-			return configXml;
+			config.AppendChild(newLogger);
 		}
 		#endregion Config
 		
+		#region Set caller in context
 		private static void SetCallerInContext()
 		{
 			string caller = String.Empty;
@@ -128,6 +121,7 @@ namespace Missing.Diagnostics
 			
 			log4net.ThreadContext.Properties[Log.CallerContextName] = String.Format("{0}.{1}.{2}", callerName, callerClass, caller);
 		}
+		#endregion Set caller in context
 		
 		#region Trace
 		/// <summary>
