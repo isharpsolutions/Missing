@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using log4net.Appender;
 using log4net.Core;
 
-namespace Missing.Diagnostics.Log4NetAppenders
+namespace Missing.Diagnostics.Internal.Log4NetAppenders
 {
 	/// <summary>
 	/// Appends logging events to the console with color

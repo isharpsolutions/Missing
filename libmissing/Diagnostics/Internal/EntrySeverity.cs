@@ -1,6 +1,6 @@
 using System;
 
-namespace Missing.Diagnostics
+namespace Missing.Diagnostics.Internal
 {
 	/// <summary>
 	/// Defines how critical a log entry is

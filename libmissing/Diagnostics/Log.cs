@@ -6,6 +6,7 @@ using System.Data;
 using System.Collections.Specialized;
 using System.Text;
 using Missing.Diagnostics.Configurations;
+using Missing.Diagnostics.Internal;
 
 namespace Missing.Diagnostics
 {

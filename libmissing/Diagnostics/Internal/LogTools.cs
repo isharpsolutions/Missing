@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Diagnostics;
 
-namespace Missing.Diagnostics
+namespace Missing.Diagnostics.Internal
 {
 	/// <summary>
 	/// Provides nifty methods which the log writers can use

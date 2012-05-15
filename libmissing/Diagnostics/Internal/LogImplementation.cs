@@ -7,7 +7,7 @@ using System.Collections.Specialized;
 using System.Text;
 using Missing.Diagnostics.Configurations;
 
-namespace Missing.Diagnostics
+namespace Missing.Diagnostics.Internal
 {
 	/// <summary>
 	/// The implementation beneath <see cref="Log"/>

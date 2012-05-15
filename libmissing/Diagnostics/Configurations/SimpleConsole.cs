@@ -1,5 +1,6 @@
 using System;
 using System.Xml;
+using Missing.Diagnostics.Internal;
 
 namespace Missing.Diagnostics.Configurations
 {

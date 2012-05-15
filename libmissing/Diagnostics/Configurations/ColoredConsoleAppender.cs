@@ -1,6 +1,7 @@
 using System;
 using System.Xml;
-using Missing.Diagnostics.Log4NetAppenders;
+using Missing.Diagnostics.Internal.Log4NetAppenders;
+using Missing.Diagnostics.Internal;
 
 namespace Missing.Diagnostics.Configurations
 {
