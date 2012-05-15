@@ -11,8 +11,8 @@ namespace log4netconsoletest
 		{
 			Console.WriteLine("Missing Log4Net Console Test");
 			
-			//Log.UseConfig(Log4NetConfigurations.GetSimpleConsole());
-			//Log.UseConfig(Log4NetConfigurations.GetSimpleConsoleColored());
+			//Log.Use().SimpleConsole();
+			Log.Use().SimpleConsoleColored();
 			
 			/*****************************************************************
 			 CREATE SCHEMA `missing` DEFAULT CHARACTER SET utf8;
@@ -30,7 +30,8 @@ namespace log4netconsoletest
 			 grant insert on missing.* to 'missing'@'localhost';
 			 flush privileges;
 			 ******************************************************************/
-			Log.UseConfig(Log4NetConfigurations.GetMySqlAdoNetAppender("mysqladonetappender", "127.0.0.1", "missing", "missing", "123456"));
+			
+			//Log.Use().MySqlAdoNetAppender("mysqladonetappender", "127.0.0.1", "missing", "missing", "123456");
 			
 			//
 			// trace

@@ -82,13 +82,7 @@
     <Compile Include="Validation\FieldSpecificationCollection.cs" />
     <Compile Include="Network\EasyHttpRequestSpecializations\GetEasyHttpRequest.cs" />
     <Compile Include="Network\EasyHttpRequestSpecializations\PostEasyHttpRequest.cs" />
-    <Compile Include="Diagnostics\Log.cs" />
     <Compile Include="Reflection\AssemblyHelper.cs" />
-    <Compile Include="Diagnostics\LogTools.cs" />
-    <Compile Include="Diagnostics\Log4NetConfigurations.cs" />
-    <Compile Include="Diagnostics\EntrySeverity.cs" />
-    <Compile Include="Diagnostics\Log4NetAppenders\ManagedColoredConsoleAppender.cs" />
-    <Compile Include="Diagnostics\Log4NetAppenders\ColorMapping.cs" />
     <Compile Include="Collections\OrderedList.cs" />
     <Compile Include="Collections\GenericComparer.cs" />
     <Compile Include="Collections\SortDirection.cs" />
@@ -106,6 +100,16 @@
     <Compile Include="Validation\Internal\Range.cs" />
     <Compile Include="Validation\Internal\Validators\NumberValidator.cs" />
     <Compile Include="Validation\Internal\IRange.cs" />
+    <Compile Include="Diagnostics\Log.cs" />
+    <Compile Include="Diagnostics\Configurations\SimpleConsole.cs" />
+    <Compile Include="Diagnostics\Configurations\ColoredConsoleAppender.cs" />
+    <Compile Include="Diagnostics\Configurations\MySqlAdoNetAppender.cs" />
+    <Compile Include="Diagnostics\Configurations\AppenderConfigurations.cs" />
+    <Compile Include="Diagnostics\Internal\EntrySeverity.cs" />
+    <Compile Include="Diagnostics\Internal\LogImplementation.cs" />
+    <Compile Include="Diagnostics\Internal\LogTools.cs" />
+    <Compile Include="Diagnostics\Internal\Log4NetAppenders\ManagedColoredConsoleAppender.cs" />
+    <Compile Include="Diagnostics\Internal\Log4NetAppenders\ColorMapping.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -117,4 +121,8 @@
   </ProjectExtensions>
   <ItemGroup />
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Diagnostics\Configurations\" />
+    <Folder Include="Diagnostics\Internal\" />
+  </ItemGroup>
 </Project>

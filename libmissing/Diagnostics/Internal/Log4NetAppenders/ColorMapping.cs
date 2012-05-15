@@ -1,7 +1,7 @@
 using System;
 using log4net.Core;
 
-namespace Missing.Diagnostics.Log4NetAppenders
+namespace Missing.Diagnostics.Internal.Log4NetAppenders
 {
 	/// <summary>
 	/// A mapping between log level and color
