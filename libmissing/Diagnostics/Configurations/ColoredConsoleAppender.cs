@@ -2,9 +2,9 @@ using System;
 using System.Xml;
 using Missing.Diagnostics.Log4NetAppenders;
 
-namespace Missing.Diagnostics.Loggers
+namespace Missing.Diagnostics.Configurations
 {
-	public partial class Loggers
+	public partial class AppenderConfigurations
 	{
 		/// <summary>
 		/// Colored version of "Simple console configuration".

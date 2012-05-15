@@ -105,11 +105,11 @@
     <Compile Include="Validation\Internal\Validators\NumberValidator.cs" />
     <Compile Include="Validation\Internal\IRange.cs" />
     <Compile Include="Diagnostics\LogImplementation.cs" />
-    <Compile Include="Diagnostics\Loggers\Loggers.cs" />
-    <Compile Include="Diagnostics\Loggers\SimpleConsole.cs" />
-    <Compile Include="Diagnostics\Loggers\ColoredConsoleAppender.cs" />
-    <Compile Include="Diagnostics\Loggers\MySqlAdoNetAppender.cs" />
     <Compile Include="Diagnostics\Log.cs" />
+    <Compile Include="Diagnostics\Configurations\SimpleConsole.cs" />
+    <Compile Include="Diagnostics\Configurations\ColoredConsoleAppender.cs" />
+    <Compile Include="Diagnostics\Configurations\MySqlAdoNetAppender.cs" />
+    <Compile Include="Diagnostics\Configurations\AppenderConfigurations.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -122,6 +122,6 @@
   <ItemGroup />
   <ItemGroup />
   <ItemGroup>
-    <Folder Include="Diagnostics\Loggers\" />
+    <Folder Include="Diagnostics\Configurations\" />
   </ItemGroup>
 </Project>

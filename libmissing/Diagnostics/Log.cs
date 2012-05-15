@@ -5,6 +5,7 @@ using System.Xml;
 using System.Data;
 using System.Collections.Specialized;
 using System.Text;
+using Missing.Diagnostics.Configurations;
 
 namespace Missing.Diagnostics
 {
@@ -46,7 +47,7 @@ namespace Missing.Diagnostics
 		/// <summary>
 		/// Start the configuration DSL
 		/// </summary>
-		public static Loggers.Loggers Use()
+		public static AppenderConfigurations Use()
 		{
 			return impl.Use();
 		}

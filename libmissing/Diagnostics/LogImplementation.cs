@@ -5,6 +5,7 @@ using System.Xml;
 using System.Data;
 using System.Collections.Specialized;
 using System.Text;
+using Missing.Diagnostics.Configurations;
 
 namespace Missing.Diagnostics
 {
@@ -56,9 +57,9 @@ namespace Missing.Diagnostics
 		/// <summary>
 		/// Define which Logger/Appender to use
 		/// </summary>
-		public Loggers.Loggers Use()
+		public AppenderConfigurations Use()
 		{
-			return new Loggers.Loggers(this);
+			return new AppenderConfigurations(this);
 		}
 		
 		/// <summary>

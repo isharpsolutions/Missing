@@ -1,6 +1,6 @@
 using System;
 
-namespace Missing.Diagnostics.Loggers
+namespace Missing.Diagnostics.Configurations
 {
 	/// <summary>
 	/// Holds appender configurations.
@@ -8,9 +8,9 @@ namespace Missing.Diagnostics.Loggers
 	/// This class is tightly bound to <see cref="LogImplementation"/> as
 	/// is not meant to be used in any other context.
 	/// </summary>
-	public partial class Loggers
+	public partial class AppenderConfigurations
 	{
-		public Loggers(LogImplementation impl)
+		public AppenderConfigurations(LogImplementation impl)
 		{
 			this.Implementation = impl;
 		}

@@ -1,9 +1,9 @@
 using System;
 using System.Xml;
 
-namespace Missing.Diagnostics.Loggers
+namespace Missing.Diagnostics.Configurations
 {
-	public partial class Loggers
+	public partial class AppenderConfigurations
 	{
 		/// <summary>
 		/// MySql AdoNetAppender with "caller"
