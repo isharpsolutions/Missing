@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using NHibernate;
 using NHibernate.Linq;
+using Missing.Data.Persistance;
 using Missing.Data.Persistance.DataInterfaces;
+
 namespace Missing.NhibernateProvider
 {
     public class Repository<T> : RepositoryWithTypedId<T, int>, IRepository<T> where T : class

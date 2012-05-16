@@ -51,7 +51,6 @@
     <Compile Include="Data\Persistance\ComparableObject.cs" />
     <Compile Include="Data\Persistance\DataInterfaces\IDbContext.cs" />
     <Compile Include="Data\Persistance\DataInterfaces\IEntityDuplicateChecker.cs" />
-    <Compile Include="Data\Persistance\DataInterfaces\IRepository.cs" />
     <Compile Include="Data\Persistance\DomainSignatureAttribute.cs" />
     <Compile Include="Data\Persistance\Entity.cs" />
     <Compile Include="Data\Persistance\IEntityWithTypedId.cs" />
@@ -110,6 +109,7 @@
     <Compile Include="Diagnostics\Internal\LogTools.cs" />
     <Compile Include="Diagnostics\Internal\Log4NetAppenders\ManagedColoredConsoleAppender.cs" />
     <Compile Include="Diagnostics\Internal\Log4NetAppenders\ColorMapping.cs" />
+    <Compile Include="Data\Persistance\IRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

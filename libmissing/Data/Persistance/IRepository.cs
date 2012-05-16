@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
+using Missing.Data.Persistance.DataInterfaces;
 
-namespace Missing.Data.Persistance.DataInterfaces
+namespace Missing.Data.Persistance
 {
     /// <summary>
     ///     Provides a standard interface for Repositories which are data-access mechanism agnostic.
     /// 
     ///     Since nearly all of the domain objects you create will have a type of int Id, this 
     ///     base IRepository assumes that.  If you want an entity with a type 
-    ///     other than int, such as string, then use <see cref = "IRepositoryWithTypedId{T, IdT}" />.
+    ///     other than int, such as string, then use <see cref = "IRepositoryWithTypedId{T, TId}" />.
     /// </summary>
     public interface IRepository<T> : IRepositoryWithTypedId<T, int> where T : class { }
 
