@@ -52,6 +52,9 @@
     <Compile Include="NhibernateProvider\Repository.cs" />
     <Compile Include="NhibernateProvider\Web\SessionPrRequestModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\VersionNumber.cs">
+      <Link>Properties\VersionNumber.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libmissing\libmissing.csproj">

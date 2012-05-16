@@ -110,6 +110,9 @@
     <Compile Include="Diagnostics\Internal\Log4NetAppenders\ManagedColoredConsoleAppender.cs" />
     <Compile Include="Diagnostics\Internal\Log4NetAppenders\ColorMapping.cs" />
     <Compile Include="Data\Persistance\IRepository.cs" />
+    <Compile Include="..\VersionNumber.cs">
+      <Link>VersionNumber.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

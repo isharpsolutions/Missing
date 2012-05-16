@@ -21,21 +21,3 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("32f3c060-84da-4055-8ac0-bece767f78f5")]
-
-
-// The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
-// The form "{Major}.{Minor}.*" will automatically update the build and revision,
-// and "{Major}.{Minor}.{Build}.*" will update just the revision.
-
-
-/**
- * Releases will be numbered with the follow format:
- * <major>.<minor>.<patch>
- *
- * And constructed with the following guidelines:
- *
- * Addition of new namespaces bumps the major
- * Additions in existing namespaces bumps the minor
- * Bug fixes and misc that does not change the public API bump the patch
- */
-[assembly: AssemblyVersion("0.12.1")]
