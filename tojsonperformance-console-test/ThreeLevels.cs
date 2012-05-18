@@ -2,18 +2,18 @@ using System;
 
 namespace tojsonperformanceconsoletest
 {
-	public class TwoLevels
+	public class ThreeLevels
 	{
-		public TwoLevels()
+		public ThreeLevels()
 		{
-			this.OneBool = false;
+			this.OneBool = true;
 			this.OneDecimal = 3632.2m;
 			this.OneDouble = 2525.224d;
 			this.OneFloat = 1243.24f;
 			this.OneInt = 5432;
 			this.OneLong = 987765L;
-			this.OneString = "Two Levels";
-			this.Sub = new OneLevel();
+			this.OneString = "Three Levels";
+			this.Sub = new TwoLevels();
 		}
 		
 		public string OneString { get; set; }
@@ -24,6 +24,6 @@ namespace tojsonperformanceconsoletest
 		public decimal OneDecimal { get; set; }
 		public bool OneBool { get; set; }
 		
-		public OneLevel Sub { get; set; }
+		public TwoLevels Sub { get; set; }
 	}
 }

@@ -41,6 +41,7 @@
     <Compile Include="ServiceStackTest.cs" />
     <Compile Include="OneLevel.cs" />
     <Compile Include="TwoLevels.cs" />
+    <Compile Include="ThreeLevels.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

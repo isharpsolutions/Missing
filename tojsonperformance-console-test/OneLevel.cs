@@ -6,6 +6,15 @@ namespace tojsonperformanceconsoletest
 	{
 		public OneLevel()
 		{
+			this.MyString = @"Something kewl with
+a newline in it";
+			
+			this.MyBool = true;
+			this.MyDecimal = 35.3m;
+			this.MyDouble = 235.2d;
+			this.MyFloat = 242.7f;
+			this.MyInt = 254;
+			this.MyLong = 35385L;
 		}
 		
 		public string MyString { get; set; }
