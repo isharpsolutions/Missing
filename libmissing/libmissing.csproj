@@ -123,6 +123,11 @@
     <Compile Include="Json\TypeSerializers\DoubleSerializer.cs" />
     <Compile Include="Json\TypeSerializers\DecimalSerializer.cs" />
     <Compile Include="Json\TypeSerializers\BoolSerializer.cs" />
+    <Compile Include="Json\ClassAnalysis\ClassSpecification.cs" />
+    <Compile Include="Json\ClassAnalysis\ClassSpecificationCache.cs" />
+    <Compile Include="Json\ClassAnalysis\ClassProperty.cs" />
+    <Compile Include="Json\ClassAnalysis\ClassPropertyCollection.cs" />
+    <Compile Include="Reflection\Primitives.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -139,5 +144,6 @@
     <Folder Include="Diagnostics\Internal\" />
     <Folder Include="Json\" />
     <Folder Include="Json\TypeSerializers\" />
+    <Folder Include="Json\ClassAnalysis\" />
   </ItemGroup>
 </Project>

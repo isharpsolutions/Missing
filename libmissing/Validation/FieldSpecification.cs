@@ -297,7 +297,7 @@ namespace Missing.Validation
 		public FieldSpecification Each<TItem>(Action<ValidationSpecification<TItem>> fieldMapping) where TItem : class
 		{
 			Type type = typeof(TItem);
-			if (this.IsPrimitive(type)) {
+			if (Primitives.IsPrimitive(type)) {
 				throw new ArgumentException(String.Format("The specified type, '{0}', is recognized as a primitive type. You should therefore use 'EachPrimitive<TItem>' instead." +
 					"The following are considered primitive: {1}",
 				                                          type.FullName,
@@ -332,7 +332,7 @@ namespace Missing.Validation
 		public FieldSpecification EachPrimitive<TItem>(Action<PrimitiveValidationSpecification<TItem>> valueMapping) where TItem : class
 		{
 			Type type = typeof(TItem);
-			if (!this.IsPrimitive(type)) {
+			if (!Primitives.IsPrimitive(type)) {
 				throw new ArgumentException(String.Format("The specified type, '{0}', is not recognized as a primitive type. The following are considered primitive: {1}",
 				                                          type.FullName,
 				                                          this.PrimitivesAsString()));
@@ -349,26 +349,6 @@ namespace Missing.Validation
 		
 		#region Primitives
 		/// <summary>
-		/// List of types recognized as primitives
-		/// </summary>
-		private List<Type> primitives = new List<Type>() {
-				typeof(Int16),
-				typeof(Int32),
-				typeof(Int64),
-				typeof(bool),
-				typeof(string),
-				typeof(decimal),
-				typeof(float),
-				typeof(double),
-				typeof(byte),
-				typeof(sbyte),
-				typeof(UInt16),
-				typeof(UInt32),
-				typeof(UInt64),
-				typeof(char)
-			};
-		
-		/// <summary>
 		/// Get a comma separated list of primitives
 		/// </summary>
 		/// <returns>
@@ -378,7 +358,7 @@ namespace Missing.Validation
 		{
 			StringBuilder sb = new StringBuilder();
 			
-			foreach (Type t in this.primitives) {
+			foreach (Type t in Primitives.List) {
 				sb.Append(t.FullName);
 				sb.Append(",");
 			}
@@ -389,20 +369,6 @@ namespace Missing.Validation
 			res = res.Remove(res.Length - 1);
 			
 			return res;
-		}
-		
-		/// <summary>
-		/// Check whether a given type is primitive
-		/// </summary>
-		/// <returns>
-		/// <c>true</c> if the given type is recognized as primitive; otherwise, <c>false</c>.
-		/// </returns>
-		/// <param name="type">
-		/// The type to check
-		/// </param>
-		private bool IsPrimitive(Type type)
-		{
-			return this.primitives.Contains(type);
 		}
 		#endregion Primitives
 		

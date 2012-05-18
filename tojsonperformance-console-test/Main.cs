@@ -20,6 +20,15 @@ namespace tojsonperformanceconsoletest
 			Run(new TwoLevels());
 			Run(new ThreeLevels());
 			Run(new FourLevels());
+			
+			Console.WriteLine();
+			Console.WriteLine("Running all tests again");
+			Console.WriteLine();
+			
+			Run(new OneLevel());
+			Run(new TwoLevels());
+			Run(new ThreeLevels());
+			Run(new FourLevels());
 		}
 		
 		public static void Disclaimer()

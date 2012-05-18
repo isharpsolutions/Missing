@@ -6,7 +6,7 @@ using JsonTest;
 namespace Missing
 {
 	[TestFixture]
-	public class ToJsonTests
+	public class ToJsonTests_OneLevel
 	{
 		#region String
 		[Test]
