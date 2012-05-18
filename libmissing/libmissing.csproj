@@ -113,6 +113,15 @@
     <Compile Include="..\VersionNumber.cs">
       <Link>VersionNumber.cs</Link>
     </Compile>
+    <Compile Include="Json\ToJsonExtension.cs" />
+    <Compile Include="Json\JsonSerializer.cs" />
+    <Compile Include="Json\TypeSerializers\ITypeSerializer.cs" />
+    <Compile Include="Json\TypeSerializers\StringSerializer.cs" />
+    <Compile Include="Json\TypeSerializers\Int32Serializer.cs" />
+    <Compile Include="Json\TypeSerializers\Int64Serializer.cs" />
+    <Compile Include="Json\TypeSerializers\SingleSerializer.cs" />
+    <Compile Include="Json\TypeSerializers\DoubleSerializer.cs" />
+    <Compile Include="Json\TypeSerializers\DecimalSerializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -127,5 +136,7 @@
   <ItemGroup>
     <Folder Include="Diagnostics\Configurations\" />
     <Folder Include="Diagnostics\Internal\" />
+    <Folder Include="Json\" />
+    <Folder Include="Json\TypeSerializers\" />
   </ItemGroup>
 </Project>
