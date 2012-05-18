@@ -16,11 +16,10 @@ namespace tojsonperformanceconsoletest
 			MissingTest.Run(new OneLevel());
 			ServiceStackTest.Run(new OneLevel());
 			
-			OneLevel();
-			Console.WriteLine();
-			TwoLevels();
-			Console.WriteLine();
-			ThreeLevels();
+			Run(new OneLevel());
+			Run(new TwoLevels());
+			Run(new ThreeLevels());
+			Run(new FourLevels());
 		}
 		
 		public static void Disclaimer()
@@ -33,52 +32,18 @@ namespace tojsonperformanceconsoletest
 			Console.WriteLine();
 		}
 		
-		#region OneLevel
-		public static void OneLevel()
+		public static void Run(object obj)
 		{
-			OneLevel obj = new OneLevel();
-			
 			Stopwatch missing = MissingTest.Run(obj);
 			Stopwatch sstext = ServiceStackTest.Run(obj);
 			
-			Console.WriteLine("OneLevel");
+			Console.WriteLine(obj.GetType().Name);
 			Console.WriteLine("==============================================");
 			Console.WriteLine("Unit is 'ticks'");
 			Console.WriteLine("Missing:      {0,7}", missing.ElapsedTicks);
 			Console.WriteLine("ServiceStack: {0,7}", sstext.ElapsedTicks);
+			
+			Console.WriteLine();
 		}
-		#endregion OneLevel
-		
-		#region TwoLevels
-		public static void TwoLevels()
-		{
-			TwoLevels obj = new TwoLevels();
-			
-			Stopwatch missing = MissingTest.Run(obj);
-			Stopwatch sstext = ServiceStackTest.Run(obj);
-			
-			Console.WriteLine("TwoLevels");
-			Console.WriteLine("==============================================");
-			Console.WriteLine("Unit is 'ticks'");
-			Console.WriteLine("Missing:      {0,7}", missing.ElapsedTicks);
-			Console.WriteLine("ServiceStack: {0,7}", sstext.ElapsedTicks);
-		}
-		#endregion TwoLevels
-		
-		#region ThreeLevels
-		public static void ThreeLevels()
-		{
-			ThreeLevels obj = new ThreeLevels();
-			
-			Stopwatch missing = MissingTest.Run(obj);
-			Stopwatch sstext = ServiceStackTest.Run(obj);
-			
-			Console.WriteLine("ThreeLevels");
-			Console.WriteLine("==============================================");
-			Console.WriteLine("Unit is 'ticks'");
-			Console.WriteLine("Missing:      {0,7}", missing.ElapsedTicks);
-			Console.WriteLine("ServiceStack: {0,7}", sstext.ElapsedTicks);
-		}
-		#endregion ThreeLevels
 	}
 }
