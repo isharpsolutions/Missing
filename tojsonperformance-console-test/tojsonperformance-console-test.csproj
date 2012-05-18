@@ -31,16 +31,19 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="ServiceStack.Text">
-      <HintPath>..\..\resources\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\resources\ServiceStack.Text.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="MissingTest.cs" />
+    <Compile Include="ServiceStackTest.cs" />
+    <Compile Include="OneLevel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\libmissing\libmissing.csproj">
+    <ProjectReference Include="..\libmissing\libmissing.csproj">
       <Project>{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}</Project>
       <Name>libmissing</Name>
     </ProjectReference>
