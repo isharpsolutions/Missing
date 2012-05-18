@@ -134,6 +134,15 @@ namespace Missing
 			Assert.AreEqual(expected, obj.ToJson());
 		}
 		#endregion
+		
+		#region Bool
+		[Test]
+		public void Bool()
+		{
+			Assert.AreEqual("{\"MyBool\":true}", new BoolContainer() { MyBool = true }.ToJson(), "True fails");
+			Assert.AreEqual("{\"MyBool\":false}", new BoolContainer() { MyBool = false }.ToJson(), "False fails");
+		}
+		#endregion
 	}
 }
 
@@ -151,5 +160,10 @@ namespace JsonTest
 		public float MyFloat { get; set; }
 		public double MyDouble { get; set; }
 		public decimal MyDecimal { get; set; }
+	}
+	
+	public class BoolContainer
+	{
+		public bool MyBool { get; set; }
 	}
 }

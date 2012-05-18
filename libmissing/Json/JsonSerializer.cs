@@ -14,7 +14,8 @@ namespace Missing.Json
 			{typeof(Int64), new Int64Serializer()},
 			{typeof(float), new SingleSerializer()},
 			{typeof(double), new DoubleSerializer()},
-			{typeof(decimal), new DecimalSerializer()}
+			{typeof(decimal), new DecimalSerializer()},
+			{typeof(bool), new BoolSerializer()}
 		};
 		
 		public JsonSerializer()

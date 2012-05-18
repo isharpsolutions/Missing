@@ -122,6 +122,7 @@
     <Compile Include="Json\TypeSerializers\SingleSerializer.cs" />
     <Compile Include="Json\TypeSerializers\DoubleSerializer.cs" />
     <Compile Include="Json\TypeSerializers\DecimalSerializer.cs" />
+    <Compile Include="Json\TypeSerializers\BoolSerializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
