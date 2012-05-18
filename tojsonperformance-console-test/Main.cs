@@ -10,6 +10,8 @@ namespace tojsonperformanceconsoletest
 			Console.WriteLine("ToJson performance test: Missing vs ServiceStack.Text");
 			Console.WriteLine();
 			
+			Disclaimer();
+			
 			// make sure both methods are "warm"
 			MissingTest.Run(new OneLevel());
 			ServiceStackTest.Run(new OneLevel());
@@ -19,6 +21,16 @@ namespace tojsonperformanceconsoletest
 			TwoLevels();
 			Console.WriteLine();
 			ThreeLevels();
+		}
+		
+		public static void Disclaimer()
+		{
+			Console.WriteLine("*** Disclaimer ***");
+			
+			Console.WriteLine("This should not be seen as the absolute thruth, as this test does not do millions of runs with proper reset between runs.");
+			
+			Console.WriteLine();
+			Console.WriteLine();
 		}
 		
 		#region OneLevel
