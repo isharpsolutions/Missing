@@ -10,6 +10,10 @@ namespace tojsonperformanceconsoletest
 			Console.WriteLine("ToJson performance test: Missing vs ServiceStack.Text");
 			Console.WriteLine();
 			
+			// make sure both methods are "warm"
+			MissingTest.Run(new OneLevel());
+			ServiceStackTest.Run(new OneLevel());
+			
 			OneLevel();
 			Console.WriteLine();
 			TwoLevels();
