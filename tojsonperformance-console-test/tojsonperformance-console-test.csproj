@@ -40,6 +40,7 @@
     <Compile Include="MissingTest.cs" />
     <Compile Include="ServiceStackTest.cs" />
     <Compile Include="OneLevel.cs" />
+    <Compile Include="TwoLevels.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -16,5 +16,16 @@ namespace tojsonperformanceconsoletest
 			
 			return sw;
 		}
+		
+		public static Stopwatch TwoLevels(TwoLevels obj)
+		{
+			Stopwatch sw = new Stopwatch();
+			
+			sw.Start();
+			obj.ToJson();
+			sw.Stop();
+			
+			return sw;
+		}
 	}
 }
