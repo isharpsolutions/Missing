@@ -44,10 +44,16 @@ namespace Missing.Data.Persistance
         T Commit(T entity);
 
         /// <summary>
-        /// I'll let you guess what this does.
+        /// Flag an entity as deleted by updating the <see cref="RecordState"/> to deleted
         /// </summary>
-        /// <remarks>The SharpLite.NHibernateProvider.Repository commits the deletion immediately; 
-        /// see that class for details.</remarks>
+        /// <param name="entity"></param>
         void Delete(T entity);
+
+		/// <summary>
+		/// Permanently remove an entity from the datastore
+		/// </summary>
+		/// <remarks>The Missing.NHibernateProvider.Repository commits the purge (deletion) immediately; 
+		/// see that class for details.</remarks>
+		void Purge(T entity);
     }
 }

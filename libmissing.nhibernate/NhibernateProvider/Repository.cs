@@ -65,17 +65,29 @@ namespace Missing.NhibernateProvider
 		}
 
 		/// <summary>
+		/// This flags the object as deleted by updating the <see cref="RecordState"/> to deleted
+		/// </summary>
+		/// <param name="entity"></param>
+		public virtual void Delete(T entity)
+		{
+			if (entity != null)
+			{
+				entity.RecordState = RecordState.Deleted;
+				Session.SaveOrUpdate(entity);
+			}
+		}
+
+		/// <summary>
 		/// This deletes the object and commits the deletion immediately.  We don't want to delay deletion
 		/// until a transaction commits, as it may throw a foreign key constraint exception which we could
 		/// likely handle and inform the user about.  Accordingly, this tries to delete right away; if there
 		/// is a foreign key constraint preventing the deletion, an exception will be thrown.
 		/// </summary>
-		public virtual void Delete(T entity)
+		public virtual void Purge(T entity)
 		{
 			Session.Delete(entity);
 			Session.Flush();
 		}
-
 		private readonly ISessionFactory _sessionFactory;
 
 		/// <summary>
