@@ -55,7 +55,7 @@ namespace Missing.NhibernateProvider
 
 		public virtual IQueryable<T> GetAll()
 		{
-			return Session.Query<T>();
+			return this.GetByPredicate(y=>y.RecordState != RecordState.Deleted);
 		}
 
 		public virtual T Commit(T entity)
