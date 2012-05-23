@@ -14,9 +14,9 @@ namespace Missing.Data.Persistance
     ///     base IRepository assumes that.  If you want an entity with a type 
     ///     other than int, such as string, then use <see cref = "IRepositoryWithTypedId{T, TId}" />.
     /// </summary>
-    public interface IRepository<T> : IRepositoryWithTypedId<T, int> where T : class { }
+    public interface IRepository<T> : IRepositoryWithTypedId<T, int> where T : IEntityWithTypedId<int> { }
 
-    public interface IRepositoryWithTypedId<T, TId> where T : class
+    public interface IRepositoryWithTypedId<T, TId> where T : IEntityWithTypedId<TId>
     {
         /// <summary>
         /// Provides a handle to application wide DB activities such as committing any pending changes,
