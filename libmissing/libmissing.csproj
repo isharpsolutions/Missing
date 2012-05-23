@@ -54,6 +54,7 @@
     <Compile Include="Data\Persistance\DomainSignatureAttribute.cs" />
     <Compile Include="Data\Persistance\Entity.cs" />
     <Compile Include="Data\Persistance\IEntityWithTypedId.cs" />
+    <Compile Include="Data\Persistance\RecordState.cs" />
     <Compile Include="Data\Persistance\RepositoryFactory.cs" />
     <Compile Include="Data\Persistance\RepositoryRetriever.cs" />
     <Compile Include="Options\Options.cs" />
@@ -124,8 +125,5 @@
   </ProjectExtensions>
   <ItemGroup />
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Diagnostics\Configurations\" />
-    <Folder Include="Diagnostics\Internal\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
