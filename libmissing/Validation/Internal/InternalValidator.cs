@@ -34,43 +34,40 @@ namespace Missing.Validation.Internal
 		{
 			Type vsType = null;
 			
-			try
+			// we do not want to search for types in "System...."
+			Assembly[] assemblies = AssemblyHelper.GetAssemblies(y => !y.FullName.StartsWith("System") && !y.FullName.StartsWith("mscorlib"));
+			
+			// find all possible validation specifications
+			List<Type> possibleMatches = TypeHelper.GetTypes(y => y.IsSubclassOf(typeof(ValidationSpecification<TModel>)), assemblies);
+		
+			// skip the scoring if there is only 1 match
+			if (possibleMatches.Count == 1)
 			{
-				// we do not want to search for types in "System...."
-				Assembly[] assemblies = AssemblyHelper.GetAssemblies(y => !y.FullName.StartsWith("System") && !y.FullName.StartsWith("mscorlib"));
-				
-				// find all possible validation specifications
-				List<Type> possibleMatches = TypeHelper.GetTypes(y => y.IsSubclassOf(typeof(ValidationSpecification<TModel>)), assemblies);
+				vsType = possibleMatches[0];
+			}
+		
+			else
+			{
+				OrderedList<TypeMatchScore> scores = new OrderedList<TypeMatchScore>(y => y.Score);
 			
-				// skip the scoring if there is only 1 match
-				if (possibleMatches.Count == 1)
+				// calculate score for all the matches
+				foreach (Type cur in possibleMatches)
 				{
-					vsType = possibleMatches[0];
+					scores.Add(TypeMatchScoreCalculator.Run(input.GetType(), cur));
 				}
 			
-				else
+				// if the two highest scores have the same value, then we
+				// cannot select between them... notify the user
+				if (scores[scores.Count-1].Score == scores[scores.Count-2].Score)
 				{
-					OrderedList<TypeMatchScore> scores = new OrderedList<TypeMatchScore>(y => y.Score);
-				
-					// calculate score for all the matches
-					foreach (Type cur in possibleMatches)
-					{
-						scores.Add(TypeMatchScoreCalculator.Run(input.GetType(), cur));
-					}
-				
-					// if the two highest scores have the same value, then we
-					// cannot select between them... notify the user
-					if (scores[scores.Count-1].Score == scores[scores.Count-2].Score)
-					{
-						throw new ArgumentException(String.Format("There was multiple equally valid validation specifications for '{0}'. Consider using the Validator.Validate<TModel>(input, ValidationSpecification<TModel>) overload.", input.GetType().Name));
-					}
-					
-					// highest scoring type wins :)
-					vsType = scores[scores.Count-1].Type;
+					throw new ArgumentException(String.Format("There was multiple equally valid validation specifications for '{0}'. Consider using the Validator.Validate<TModel>(input, ValidationSpecification<TModel>) overload.", input.GetType().Name));
 				}
+				
+				// highest scoring type wins :)
+				vsType = scores[scores.Count-1].Type;
 			}
 			
-			catch (Exception)
+			if (vsType == null)
 			{
 				throw new ArgumentException(String.Format("I was unable to find a validation specification for '{0}'. It should be called '{0}ValidationSpecification'", input.GetType().Name));
 			}

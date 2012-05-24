@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
+using Missing.Diagnostics;
 
 namespace Missing.Reflection
 {
@@ -138,6 +139,12 @@ namespace Missing.Reflection
 		/// <param name="assemblies">
 		/// The set of assemblies to search through
 		/// </param>
+		/// <remarks>
+		/// If an Exception occurs during the loading of types from an assembly,
+		/// warnings are written using <see cref="Log"/>, but execution continues.
+		/// 
+		/// This tends to happen with obfusticated assemblies.
+		/// </remarks>
 		public static List<Type> GetTypes(Predicate<Type> typePredicate, Assembly[] assemblies)
 		{
 			List<Type> result = new List<Type>();
@@ -146,7 +153,17 @@ namespace Missing.Reflection
 			
 			foreach (Assembly ass in assemblies)
 			{
-				allTypes = ass.GetTypes();
+				try
+				{
+					allTypes = ass.GetTypes();
+				}
+				
+				catch (Exception ex)
+				{
+					Log.Warning("Failed to load types for module '{0}'", ass.FullName);
+					Log.Warning(ex.ToString());
+					continue;
+				}
 				
 				foreach (Type t in allTypes)
 				{
