@@ -152,7 +152,7 @@ namespace Missing.Data.Persistance
 		/// <value>
 		/// The state of the record.
 		/// </value>
-		public RecordState RecordState
+		public virtual RecordState RecordState
 		{
 			get; set;
 		}
