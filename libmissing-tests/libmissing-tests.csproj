@@ -73,6 +73,7 @@
     <Compile Include="Validation\ValidatorTests_NumberRanges.cs" />
     <Compile Include="Validation\ValidatorTests_NonGenericValidate.cs" />
     <Compile Include="Network\EasyHttpRequest_GetTests.cs" />
+    <Compile Include="Security\MickeyMouseEncryptionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
