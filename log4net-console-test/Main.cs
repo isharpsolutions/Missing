@@ -2,6 +2,7 @@ using System;
 using Missing.Diagnostics;
 using System.Collections.Specialized;
 using System.Data;
+using System.Diagnostics;
 
 namespace log4netconsoletest
 {
@@ -12,7 +13,8 @@ namespace log4netconsoletest
 			Console.WriteLine("Missing Log4Net Console Test");
 			
 			//Log.Use().SimpleConsole();
-			Log.Use().SimpleConsoleColored();
+			Log.Use().SimpleConsoleColored()
+				.AddLogger(typeof(log4netconsoletest.Sub.SomeClass).Namespace, "ERROR");
 			
 			/*****************************************************************
 			 CREATE SCHEMA `missing` DEFAULT CHARACTER SET utf8;
@@ -32,6 +34,9 @@ namespace log4netconsoletest
 			 ******************************************************************/
 			
 			//Log.Use().MySqlAdoNetAppender("mysqladonetappender", "127.0.0.1", "missing", "missing", "123456");
+			
+			Stopwatch watch = new Stopwatch();
+			watch.Start();
 			
 			//
 			// trace
@@ -83,6 +88,62 @@ namespace log4netconsoletest
 			//
 			Log.Fatal("fatal with static message");
 			Log.Fatal("fatal with {0}", "format");
+			
+			// test named logging
+			new log4netconsoletest.Sub.SomeClass();
+			
+			// just to test the re-creation of the initial logger
+			Log.Warning("hephey");
+			
+			watch.Stop();
+			
+			Console.WriteLine("Elapsed milliseconds: {0}", watch.ElapsedMilliseconds);
+		}
+	}
+}
+
+namespace log4netconsoletest.Sub
+{
+	public class SomeClass
+	{
+		public SomeClass()
+		{
+			//
+			// trace
+			//
+			Log.Trace();
+			Log.Trace("SUB: trace with static message");
+			Log.Trace("SUB: trace with {0}", "format");
+			
+			//
+			// debug
+			//
+			Log.Debug("SUB: debug with static message");
+			Log.Debug("SUB: debug with {0}", "format");
+			
+			//
+			// information
+			//
+			Log.Information("SUB: information with static message");
+			Log.Information("SUB: information with {0}", "format");
+			
+			//
+			// warning
+			//
+			Log.Warning("SUB: warning with static message");
+			Log.Warning("SUB: warning with {0}", "format");
+			
+			//
+			// error
+			//
+			Log.Error("SUB: error with static message");
+			Log.Error("SUB: error with {0}", "format");
+			
+			//
+			// fatal
+			//
+			Log.Fatal("SUB: fatal with static message");
+			Log.Fatal("SUB: fatal with {0}", "format");
 		}
 	}
 }

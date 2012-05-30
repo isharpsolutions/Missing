@@ -6,6 +6,7 @@ using System.Data;
 using System.Collections.Specialized;
 using System.Text;
 using Missing.Diagnostics.Configurations;
+using System.Collections.Generic;
 
 namespace Missing.Diagnostics.Internal
 {
@@ -35,23 +36,47 @@ namespace Missing.Diagnostics.Internal
 		/// </returns>
 		private ILog GetLogger()
 		{
-			if (this.log == null)
+			// create a new logger if we do not have one already
+			// or if the name of the existing logger is wrong
+			if (this.log == null || !this.log.Logger.Name.Equals(this.loggerName))
 			{
-				this.log = LogManager.GetLogger("Missing.Diagnostics");
-				
-				if (this.Config == null)
+				// check if we have previosly created the wanted logger
+				if (LoggerCache.ContainsKey(this.loggerName))
 				{
-					XmlConfigurator.Configure();
+					this.log = LoggerCache[this.loggerName];
 				}
 				
 				else
 				{
-					XmlConfigurator.Configure( this.Config );
+					// create the logger
+					this.log = LogManager.GetLogger(this.loggerName);
+					
+					if (this.Config == null)
+					{
+						XmlConfigurator.Configure();
+					}
+					
+					else
+					{
+						XmlConfigurator.Configure( this.Config );
+					}
+					
+					LoggerCache.Add(this.loggerName, this.log);
 				}
 			}
 			
 			return this.log;
 		}
+		
+		/// <summary>
+		/// The name of the logger.
+		/// </summary>
+		private string loggerName = String.Empty;
+		
+		/// <summary>
+		/// Cache of previosly used loggers
+		/// </summary>
+		private static Dictionary<string, ILog> LoggerCache = new Dictionary<string, ILog>();
 		#endregion Logger specific
 		
 		/// <summary>
@@ -63,7 +88,14 @@ namespace Missing.Diagnostics.Internal
 		}
 		
 		/// <summary>
-		/// Add a <logger/> section to the current config
+		/// Add a <logger/> section to the current config.
+		/// 
+		/// You can filter your own loggers - code using Log.[level](...) - by adding
+		/// a logger with a name that begins with the namespace of the class/classes that you
+		/// wish to configure.
+		/// 
+		/// Like Log4Net, if you add a logger filter for "TopNamespace", you automatically filter
+		/// "TopNamespace.SubNamespace".
 		/// </summary>
 		/// <returns>
 		/// The log implementation
@@ -114,6 +146,9 @@ namespace Missing.Diagnostics.Internal
 			string callerNamespace = String.Empty;			
 
 			LogTools.FindFrame(out caller, out callerClass, out callerName, out fullName, out callerNamespace);
+			
+			// make sure we create the correct logger
+			this.loggerName = callerNamespace;
 			
 			log4net.ThreadContext.Properties[Log.CallerContextName] = String.Format("{0}.{1}.{2}", callerName, callerClass, caller);
 		}
