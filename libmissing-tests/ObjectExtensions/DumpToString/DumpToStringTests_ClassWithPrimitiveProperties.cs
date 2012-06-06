@@ -27,18 +27,18 @@ namespace Missing
 			};
 			
 			string expected = @"{
-String = 'String value'
-Char = 'A'
-Int = 29
-Long = 9999999999
-Float = 764.3
-Double = 75.3
-Decimal = -34.1
-DateTime = '12/31/2012 1:05:02 PM'
-Bool = False
-Byte = 23
-Enum = 'TheOption'
-Null = null
+	String = 'String value'
+	Char = 'A'
+	Int = 29
+	Long = 9999999999
+	Float = 764.3
+	Double = 75.3
+	Decimal = -34.1
+	DateTime = '12/31/2012 1:05:02 PM'
+	Bool = False
+	Byte = 23
+	Enum = 'TheOption'
+	Null = null
 }";
 			
 			Assert.AreEqual(expected, obj.DumpToString());

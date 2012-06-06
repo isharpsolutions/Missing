@@ -8,21 +8,33 @@ namespace Missing.ObjectExtensions
 {
 	public static class DumpToStringObjectExtension
 	{
-		public static string DumpToString(this object obj)
+		private static string MakeIndentation(int indendation)
 		{
-			return obj.DumpToString(String.Empty);
+			return "".PadLeft(indendation, '\t');
 		}
 		
-		public static string DumpToString(this object obj, string prefixFormat, params object[] args)
+		public static string DumpToString(this object obj)
 		{
-			return obj.DumpToString(String.Format(prefixFormat, args));
+			return obj.DumpToString(0);
+		}
+		
+		public static string DumpToString(this object obj, int indendation)
+		{
+			return obj.DumpToString(indendation, String.Empty);
+		}
+		
+		public static string DumpToString(this object obj, int indendation, string prefixFormat, params object[] args)
+		{
+			return obj.DumpToString(indendation, String.Format(prefixFormat, args));
 		}
 			
-		public static string DumpToString(this object obj, string prefix)
+		public static string DumpToString(this object obj, int indendation, string prefix)
 		{
+			string indent = MakeIndentation(indendation);
+			
 			if (obj == null)
 			{
-				return String.Format("{0}{1}", prefix, "null");
+				return String.Format("{0}{1}{2}", indent, prefix, "null");
 			}
 			
 			Type t = obj.GetType();
@@ -32,7 +44,7 @@ namespace Missing.ObjectExtensions
 			//
 			if (t == typeof(String) || t == typeof(Char) || t == typeof(DateTime) || t.IsEnum)
 			{
-				return String.Format("{0}'{1}'", prefix, obj.ToString());
+				return String.Format("{0}{1}'{2}'", indent, prefix, obj.ToString());
 			}
 			
 			//
@@ -40,18 +52,22 @@ namespace Missing.ObjectExtensions
 			//
 			if (t.IsPrimitive || t == typeof(Decimal))
 			{
-				return String.Format("{0}{1}", prefix, obj.ToString());
+				return String.Format("{0}{1}{2}", indent, prefix, obj.ToString());
 			}
 			
 			//
 			// complex types
 			//
-			return String.Format("{0}{1}", prefix, DumpNonPrimitiveType(t, obj));
+			return String.Format("{0}{1}{2}", indent, prefix, DumpNonPrimitiveType(t, obj, indendation));
 		}
 		
-		private static string DumpNonPrimitiveType(Type t, object obj)
+		
+		
+		private static string DumpNonPrimitiveType(Type t, object obj, int indendation)
 		{
 			StringBuilder sb = new StringBuilder();
+			
+			string indent = MakeIndentation(indendation);
 			
 			sb.AppendLine("{");
 			
@@ -63,14 +79,29 @@ namespace Missing.ObjectExtensions
 			{
 				val = pi.GetValue(obj, null);
 				
-				sb.Append(val.DumpToString("{0} = ", pi.Name));
+				sb.Append(val.DumpToString(indendation+1, "{0} = ", pi.Name));
 				sb.AppendLine();
 			}
 			
+			sb.Append(indent);
 			sb.Append("}");
 			
 			return sb.ToString();
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
