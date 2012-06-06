@@ -74,6 +74,7 @@
     <Compile Include="Validation\ValidatorTests_NonGenericValidate.cs" />
     <Compile Include="Network\EasyHttpRequest_GetTests.cs" />
     <Compile Include="Security\MickeyMouseEncryptionTests.cs" />
+    <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_Primitives.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
@@ -87,5 +88,7 @@
   <ItemGroup>
     <Folder Include="Reflection\Extensions\" />
     <Folder Include="Network\" />
+    <Folder Include="ObjectExtensions\" />
+    <Folder Include="ObjectExtensions\DumpToString\" />
   </ItemGroup>
 </Project>
