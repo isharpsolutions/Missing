@@ -75,6 +75,7 @@
     <Compile Include="Network\EasyHttpRequest_GetTests.cs" />
     <Compile Include="Security\MickeyMouseEncryptionTests.cs" />
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_Primitives.cs" />
+    <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_ClassWithPrimitiveProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">

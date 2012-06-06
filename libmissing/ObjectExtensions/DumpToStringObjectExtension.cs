@@ -12,25 +12,62 @@ namespace Missing.ObjectExtensions
 		{
 			return obj.DumpToString(String.Empty);
 		}
+		
+		public static string DumpToString(this object obj, string prefixFormat, params object[] args)
+		{
+			return obj.DumpToString(String.Format(prefixFormat, args));
+		}
 			
 		public static string DumpToString(this object obj, string prefix)
 		{
 			if (obj == null)
 			{
-				return "null";
+				return String.Format("{0}{1}", prefix, "null");
 			}
 			
 			Type t = obj.GetType();
 			
-			if (t.IsPrimitive || t == typeof(String) || t == typeof(DateTime) || t == typeof(Decimal) || t.IsEnum)
+			//
+			// types that need to be wrapped in single quotes
+			//
+			if (t == typeof(String) || t == typeof(Char) || t == typeof(DateTime) || t.IsEnum)
 			{
-				return obj.ToString();
+				return String.Format("{0}'{1}'", prefix, obj.ToString());
 			}
 			
-			throw new NotSupportedException(String.Format("Type '{0}' is not supported yet", t.Name));
+			//
+			// non-quoted types
+			//
+			if (t.IsPrimitive || t == typeof(Decimal))
+			{
+				return String.Format("{0}{1}", prefix, obj.ToString());
+			}
 			
-			
+			//
+			// complex types
+			//
+			return String.Format("{0}{1}", prefix, DumpNonPrimitiveType(t, obj));
+		}
+		
+		private static string DumpNonPrimitiveType(Type t, object obj)
+		{
 			StringBuilder sb = new StringBuilder();
+			
+			sb.AppendLine("{");
+			
+			PropertyInfo[] properties = t.GetProperties();
+			
+			object val;
+			
+			foreach (PropertyInfo pi in properties)
+			{
+				val = pi.GetValue(obj, null);
+				
+				sb.Append(val.DumpToString("{0} = ", pi.Name));
+				sb.AppendLine();
+			}
+			
+			sb.Append("}");
 			
 			return sb.ToString();
 		}

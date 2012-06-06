@@ -12,7 +12,7 @@ namespace Missing
 		{
 			string obj = "String";
 			
-			string expected = "String";
+			string expected = "'String'";
 			
 			Assert.AreEqual(expected, obj.DumpToString());
 		}
@@ -72,7 +72,7 @@ namespace Missing
 		{
 			DateTime obj = new DateTime(2012, 12, 31, 13, 5, 2);
 			
-			string expected = "12/31/2012 1:05:02 PM";
+			string expected = "'12/31/2012 1:05:02 PM'";
 			
 			Assert.AreEqual(expected, obj.DumpToString());
 		}
@@ -112,7 +112,7 @@ namespace Missing
 		{
 			char obj = 'c';
 			
-			string expected = "c";
+			string expected = "'c'";
 			
 			Assert.AreEqual(expected, obj.DumpToString());
 		}
@@ -122,7 +122,7 @@ namespace Missing
 		{
 			TestEnum obj = TestEnum.Option1;
 			
-			string expected = "Option1";
+			string expected = "'Option1'";
 			
 			Assert.AreEqual(expected, obj.DumpToString());
 		}
