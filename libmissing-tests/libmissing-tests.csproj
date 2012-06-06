@@ -77,6 +77,7 @@
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_Primitives.cs" />
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_ClassWithPrimitiveProperties.cs" />
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_ClassAsProperty.cs" />
+    <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_Enumerable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">

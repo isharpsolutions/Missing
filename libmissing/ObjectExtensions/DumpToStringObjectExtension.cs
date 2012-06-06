@@ -39,6 +39,11 @@ namespace Missing.ObjectExtensions
 			
 			Type t = obj.GetType();
 			
+			if (t.ImplementsInterface(typeof(IEnumerable)) && t != typeof(String))
+			{
+				return DumpEnumerable((IEnumerable)obj, indendation, prefix);
+			}
+			
 			//
 			// types that need to be wrapped in single quotes
 			//
@@ -91,82 +96,35 @@ namespace Missing.ObjectExtensions
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		private static string HandleNonPrimitiveType(PropertyInfo pi, object obj)
+		private static string DumpEnumerable(IEnumerable list, int indendation, string prefix)
 		{
-			if (pi.PropertyType.ImplementsInterface(typeof(IEnumerable)))
-			{
-				return HandleEnumerable(pi, obj);
-			}
-			
-			object val = pi.GetValue(obj, null);
-			
-			if (val == null)
-			{
-				return "null";
-			}
-			
-			switch (pi.PropertyType.ToString())
-			{
-				case "System.Decimal":
-				case "MongoDB.Bson.ObjectId":
-				{
-					return String.Format("'{0}'", val);
-				}
-					
-				default:
-				{
-					StringBuilder sb = new StringBuilder();
-					
-					sb.Append("{");
-					sb.AppendLine();
-					
-					sb.Append(val.DumpToString());
-					
-					//sb.AppendLine();
-					sb.Append("}");
-					
-					return sb.ToString();
-				}
-			}
-		}
-		
-		private static string HandleEnumerable(PropertyInfo pi, object obj)
-		{
-			IEnumerable list = (IEnumerable)pi.GetValue(obj, null);
-			
 			StringBuilder sb = new StringBuilder();
 			
-			sb.Append("[");
-			sb.AppendLine();
-			
-			foreach (Object cur in list)
+			if (prefix.EndsWith(" = "))
 			{
-				sb.Append("{");
-				sb.AppendLine();
-				
-				sb.Append(cur.DumpToString());
-				
-				sb.Append("},");
-				sb.AppendLine();
+				prefix = prefix.Remove(prefix.Length-3);
 			}
 			
-			sb.Append("]");
+			int index = 0;
+			
+			foreach (object cur in list)
+			{
+				sb.Append(cur.DumpToString(indendation, "{0}[{1}] = ", prefix, index));
+				sb.AppendLine();
+				index++;
+			}
+			
+			RemoveLastNewline(sb);
 			
 			return sb.ToString();
+		}
+		
+		
+		private static void RemoveLastNewline(StringBuilder sb)
+		{
+			string newline = System.Environment.NewLine;
+			
+			sb = sb.Remove(sb.Length-newline.Length, newline.Length);
 		}
 	}
 }
