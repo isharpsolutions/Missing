@@ -78,6 +78,7 @@
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_ClassWithPrimitiveProperties.cs" />
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_ClassAsProperty.cs" />
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_Enumerable.cs" />
+    <Compile Include="Text\Extensions\StringBuilderExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
@@ -93,5 +94,7 @@
     <Folder Include="Network\" />
     <Folder Include="ObjectExtensions\" />
     <Folder Include="ObjectExtensions\DumpToString\" />
+    <Folder Include="Text\" />
+    <Folder Include="Text\Extensions\" />
   </ItemGroup>
 </Project>

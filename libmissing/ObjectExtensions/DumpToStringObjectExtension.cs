@@ -3,16 +3,13 @@ using System.Text;
 using System.Reflection;
 using System.Collections;
 using Missing.Reflection.Extensions;
+using Missing.Text.Extensions;
 
 namespace Missing.ObjectExtensions
 {
 	public static class DumpToStringObjectExtension
 	{
-		private static string MakeIndentation(int indendation)
-		{
-			return "".PadLeft(indendation, '\t');
-		}
-		
+		#region Overloads
 		public static string DumpToString(this object obj)
 		{
 			return obj.DumpToString(0);
@@ -27,7 +24,9 @@ namespace Missing.ObjectExtensions
 		{
 			return obj.DumpToString(indendation, String.Format(prefixFormat, args));
 		}
+		#endregion Overloads
 			
+		#region Dump to string
 		public static string DumpToString(this object obj, int indendation, string prefix)
 		{
 			string indent = MakeIndentation(indendation);
@@ -65,9 +64,9 @@ namespace Missing.ObjectExtensions
 			//
 			return String.Format("{0}{1}{2}", indent, prefix, DumpNonPrimitiveType(t, obj, indendation));
 		}
+		#endregion Dump to string
 		
-		
-		
+		#region Non primitive
 		private static string DumpNonPrimitiveType(Type t, object obj, int indendation)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -93,9 +92,9 @@ namespace Missing.ObjectExtensions
 			
 			return sb.ToString();
 		}
+		#endregion Non primitive
 		
-		
-		
+		#region Enumerable
 		private static string DumpEnumerable(IEnumerable list, int indendation, string prefix)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -114,17 +113,17 @@ namespace Missing.ObjectExtensions
 				index++;
 			}
 			
-			RemoveLastNewline(sb);
+			sb.RemoveLastNewLine();
 			
 			return sb.ToString();
 		}
+		#endregion Enumerable
 		
-		
-		private static void RemoveLastNewline(StringBuilder sb)
+		#region Helpers
+		private static string MakeIndentation(int indendation)
 		{
-			string newline = System.Environment.NewLine;
-			
-			sb = sb.Remove(sb.Length-newline.Length, newline.Length);
+			return "".PadLeft(indendation, '\t');
 		}
+		#endregion Helpers
 	}
 }

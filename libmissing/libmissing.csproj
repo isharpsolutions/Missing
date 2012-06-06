@@ -116,6 +116,7 @@
     </Compile>
     <Compile Include="Security\MickeyMouseEncryption.cs" />
     <Compile Include="ObjectExtensions\DumpToStringObjectExtension.cs" />
+    <Compile Include="Text\Extensions\StringBuilderExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
@@ -130,5 +131,7 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="ObjectExtensions\" />
+    <Folder Include="Text\" />
+    <Folder Include="Text\Extensions\" />
   </ItemGroup>
 </Project>
