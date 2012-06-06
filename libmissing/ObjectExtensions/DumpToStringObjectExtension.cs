@@ -7,27 +7,84 @@ using Missing.Text.Extensions;
 
 namespace Missing.ObjectExtensions
 {
+	/// <summary>
+	/// "Dump to string" extensions for <see cref="Object"/>
+	/// </summary>
 	public static class DumpToStringObjectExtension
 	{
 		#region Overloads
+		/// <summary>
+		/// Dumps the entire object structure as a string
+		/// </summary>
+		/// <returns>
+		/// A string with the entire structure of the instance
+		/// </returns>
+		/// <param name="obj">
+		/// The instance to dump (<c>null</c> is allowed)
+		/// </param>
 		public static string DumpToString(this object obj)
 		{
 			return obj.DumpToString(0);
 		}
 		
-		public static string DumpToString(this object obj, int indendation)
+		/// <summary>
+		/// Dumps the entire object structure as a string
+		/// </summary>
+		/// <returns>
+		/// A string with the entire structure of the instance
+		/// </returns>
+		/// <param name="obj">
+		/// The instance to dump (<c>null</c> is allowed)
+		/// </param>
+		/// <param name="indendation">
+		/// The indendation level
+		/// </param>
+		private static string DumpToString(this object obj, int indendation)
 		{
 			return obj.DumpToString(indendation, String.Empty);
 		}
 		
-		public static string DumpToString(this object obj, int indendation, string prefixFormat, params object[] args)
+		/// <summary>
+		/// Dumps the entire object structure as a string
+		/// </summary>
+		/// <returns>
+		/// A string with the entire structure of the instance
+		/// </returns>
+		/// <param name="obj">
+		/// The instance to dump (<c>null</c> is allowed)
+		/// </param>
+		/// <param name="indendation">
+		/// The indendation level
+		/// </param>
+		/// <param name="prefixFormat">
+		/// Format of a text to output before the value
+		/// </param>
+		/// <param name="prefixArgs">
+		/// Arguments for the prefix
+		/// </param>
+		private static string DumpToString(this object obj, int indendation, string prefixFormat, params object[] prefixArgs)
 		{
-			return obj.DumpToString(indendation, String.Format(prefixFormat, args));
+			return obj.DumpToString(indendation, String.Format(prefixFormat, prefixArgs));
 		}
 		#endregion Overloads
 			
 		#region Dump to string
-		public static string DumpToString(this object obj, int indendation, string prefix)
+		/// <summary>
+		/// Dumps the entire object structure as a string
+		/// </summary>
+		/// <returns>
+		/// A string with the entire structure of the instance
+		/// </returns>
+		/// <param name="obj">
+		/// The instance to dump (<c>null</c> is allowed)
+		/// </param>
+		/// <param name="indendation">
+		/// The indendation level
+		/// </param>
+		/// <param name="prefix">
+		/// Text to output before the value
+		/// </param>
+		private static string DumpToString(this object obj, int indendation, string prefix)
 		{
 			string indent = MakeIndentation(indendation);
 			
@@ -67,6 +124,21 @@ namespace Missing.ObjectExtensions
 		#endregion Dump to string
 		
 		#region Non primitive
+		/// <summary>
+		/// Dumps the entire structure of a non-primitive object
+		/// </summary>
+		/// <returns>
+		/// A string with the entire structure of the instance
+		/// </returns>
+		/// <param name="t">
+		/// The type of the object
+		/// </param>
+		/// <param name="obj">
+		/// The instance to dump
+		/// </param>
+		/// <param name="indendation">
+		/// The indendation level
+		/// </param>
 		private static string DumpNonPrimitiveType(Type t, object obj, int indendation)
 		{
 			StringBuilder sb = new StringBuilder();
@@ -95,10 +167,27 @@ namespace Missing.ObjectExtensions
 		#endregion Non primitive
 		
 		#region Enumerable
+		/// <summary>
+		/// Dumps an enumerable type
+		/// </summary>
+		/// <returns>
+		/// The enumerable values as a string
+		/// </returns>
+		/// <param name="list">
+		/// The enumerable instance
+		/// </param>
+		/// <param name="indendation">
+		/// The indendation level
+		/// </param>
+		/// <param name="prefix">
+		/// Text to output before the value
+		/// </param>
 		private static string DumpEnumerable(IEnumerable list, int indendation, string prefix)
 		{
 			StringBuilder sb = new StringBuilder();
 			
+			// for enumerable-types that are properties,
+			// the prefix will be "wrong"
 			if (prefix.EndsWith(" = "))
 			{
 				prefix = prefix.Remove(prefix.Length-3);
@@ -120,6 +209,15 @@ namespace Missing.ObjectExtensions
 		#endregion Enumerable
 		
 		#region Helpers
+		/// <summary>
+		/// Makes a string of tabs
+		/// </summary>
+		/// <returns>
+		/// String of tabs
+		/// </returns>
+		/// <param name="indendation">
+		/// The number of tabs to include
+		/// </param>
 		private static string MakeIndentation(int indendation)
 		{
 			return "".PadLeft(indendation, '\t');
