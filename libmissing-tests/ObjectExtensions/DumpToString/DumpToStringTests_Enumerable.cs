@@ -15,7 +15,8 @@ namespace Missing
 		{
 			List<string> obj = new List<string>() { "One", "Two", "Three" };
 			
-			string expected = @"[0] = 'One'
+			string expected = @"Count = 3
+[0] = 'One'
 [1] = 'Two'
 [2] = 'Three'";
 			
@@ -29,7 +30,8 @@ namespace Missing
 		{
 			string[] obj = new string[] { "One", "Two", "Three" };
 			
-			string expected = @"[0] = 'One'
+			string expected = @"Count = 3
+[0] = 'One'
 [1] = 'Two'
 [2] = 'Three'";
 			
@@ -46,6 +48,7 @@ namespace Missing
 			};
 			
 			string expected = @"{
+	Strings.Count = 3
 	Strings[0] = 'One'
 	Strings[1] = 'Two'
 	Strings[2] = 'Three'
@@ -64,6 +67,7 @@ namespace Missing
 			};
 			
 			string expected = @"{
+	Strings.Count = 3
 	Strings[0] = 'One'
 	Strings[1] = 'Two'
 	Strings[2] = 'Three'

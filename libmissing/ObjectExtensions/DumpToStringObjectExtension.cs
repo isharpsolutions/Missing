@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Collections;
 using Missing.Reflection.Extensions;
 using Missing.Text.Extensions;
+using System.Linq;
 
 namespace Missing.ObjectExtensions
 {
@@ -186,11 +187,14 @@ namespace Missing.ObjectExtensions
 		{
 			StringBuilder sb = new StringBuilder();
 			
+			string countField = "Count";
+			
 			// for enumerable-types that are properties,
 			// the prefix will be "wrong"
 			if (prefix.EndsWith(" = "))
 			{
 				prefix = prefix.Remove(prefix.Length-3);
+				countField = ".Count";
 			}
 			
 			int index = 0;
@@ -204,7 +208,9 @@ namespace Missing.ObjectExtensions
 			
 			sb.RemoveLastNewLine();
 			
-			return sb.ToString();
+			string count = String.Format("{0}{1}{2} = {3}", MakeIndentation(indendation), prefix, countField, index);
+			
+			return String.Format("{0}{1}{2}", count, System.Environment.NewLine, sb.ToString());
 		}
 		#endregion Enumerable
 		
