@@ -10,7 +10,7 @@ using Missing.Diagnostics;
 namespace Missing.ObjectExtensions
 {
 	/// <summary>
-	/// "Dump to string" extensions for <see cref="Object"/>
+	/// "Dump to string" extension for <see cref="Object"/>
 	/// </summary>
 	public static class DumpToStringObjectExtension
 	{
@@ -22,12 +22,6 @@ namespace Missing.ObjectExtensions
 		/// </returns>
 		/// <param name="obj">
 		/// The instance to dump (<c>null</c> is allowed)
-		/// </param>
-		/// <param name="indendation">
-		/// The indendation level
-		/// </param>
-		/// <param name="prefix">
-		/// Text to output before the value
 		/// </param>
 		public static string DumpToString(this object obj)
 		{
