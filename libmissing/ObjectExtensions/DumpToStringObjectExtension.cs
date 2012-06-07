@@ -147,7 +147,7 @@ namespace Missing.ObjectExtensions
 			string indent = MakeIndentation(indendation);
 			
 			sb.AppendLine("{");
-			
+
 			PropertyInfo[] properties = t.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
 			
 			object val;
