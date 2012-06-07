@@ -1,15 +1,15 @@
 using System;
 using NUnit.Framework;
 using Missing.ObjectExtensions;
-using Missing.DumpToStringHelpers.Primitives;
+using Missing.DumpToStringHelpers.ClassPrimitives;
 
 namespace Missing
 {
 	[TestFixture]
-	public class DumpToStringTests_ClassWithPrimitiveProperties
+	public partial class DumpToStringTests
 	{
 		[Test]
-		public void Test()
+		public void ClassWithPrimitiveProperties()
 		{
 			ClassWithPrimitiveProperties obj = new ClassWithPrimitiveProperties() {
 				Bool = false,
@@ -47,7 +47,7 @@ namespace Missing
 }
 
 
-namespace Missing.DumpToStringHelpers.Primitives
+namespace Missing.DumpToStringHelpers.ClassPrimitives
 {
 	public class ClassWithPrimitiveProperties
 	{

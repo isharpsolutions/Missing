@@ -6,10 +6,10 @@ using Missing.DumpToStringHelpers.MultipleLevels;
 namespace Missing
 {
 	[TestFixture]
-	public class DumpToStringTests_MultipleLevels
+	public partial class DumpToStringTests
 	{
 		[Test]
-		public void Test()
+		public void MultipleLevels()
 		{
 			One obj = new One() {
 				Two = new Two() {

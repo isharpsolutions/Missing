@@ -117,6 +117,7 @@
     <Compile Include="Security\MickeyMouseEncryption.cs" />
     <Compile Include="ObjectExtensions\DumpToStringObjectExtension.cs" />
     <Compile Include="Text\Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="Diagnostics\ObjectDumper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

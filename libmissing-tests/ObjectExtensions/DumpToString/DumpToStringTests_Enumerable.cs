@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Missing
 {
 	[TestFixture]
-	public class DumpToStringTests_Enumerable
+	public partial class DumpToStringTests
 	{
 		#region Primitive list
 		[Test]
