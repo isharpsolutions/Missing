@@ -1,11 +1,12 @@
 using System;
 using NUnit.Framework;
 using Missing.ObjectExtensions;
+using Missing.DumpToStringHelpers.Primitives;
 
 namespace Missing
 {
 	[TestFixture]
-	public class DumpToStringTests_Primitives
+	public partial class DumpToStringTests
 	{
 		[Test]
 		public void String()
@@ -126,14 +127,13 @@ namespace Missing
 			
 			Assert.AreEqual(expected, obj.DumpToString());
 		}
-		
-		
-		
-		
-		
-		private enum TestEnum
-		{
-			Option1 = 2
-		}
+	}
+}
+
+namespace Missing.DumpToStringHelpers.Primitives
+{
+	public enum TestEnum
+	{
+		Option1 = 2
 	}
 }

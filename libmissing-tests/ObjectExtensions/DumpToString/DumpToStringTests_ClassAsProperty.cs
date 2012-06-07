@@ -6,10 +6,10 @@ using Missing.DumpToStringHelpers.PropertyWithClass;
 namespace Missing
 {
 	[TestFixture]
-	public class DumpToStringTests_ClassAsProperty
+	public partial class DumpToStringTests
 	{
 		[Test]
-		public void Test()
+		public void ClassAsProperty()
 		{
 			WrapperClass obj = new WrapperClass() {
 				String = "Defined in wrapper",

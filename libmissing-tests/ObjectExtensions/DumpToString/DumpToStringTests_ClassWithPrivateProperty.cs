@@ -6,10 +6,10 @@ using Missing.DumpToStringHelpers.PrivateProperty;
 namespace Missing
 {
 	[TestFixture]
-	public class DumpToStringTests_ClassWithPrivateProperty
+	public partial class DumpToStringTests
 	{
 		[Test]
-		public void Test()
+		public void ClassWithPrivateProperty()
 		{
 			ClassWithPrivateProperty obj = new ClassWithPrivateProperty() {
 				Public = "Public value"
