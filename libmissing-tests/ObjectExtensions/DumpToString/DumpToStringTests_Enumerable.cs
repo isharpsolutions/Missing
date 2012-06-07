@@ -76,6 +76,56 @@ namespace Missing
 			Assert.AreEqual(expected, obj.DumpToString());
 		}
 		#endregion Class with primitive array
+		
+		#region Non-primitive array
+		[Test]
+		public void ArrayOfNonPrimitive()
+		{
+			Simple[] obj = new Simple[] {
+				new Simple() { String = "One" },
+				new Simple() { String = "Two" },
+				new Simple() { String = "Three" }
+			};
+			
+			string expected = @"Count = 3
+[0] = {
+	String = 'One'
+}
+[1] = {
+	String = 'Two'
+}
+[2] = {
+	String = 'Three'
+}";
+			
+			Assert.AreEqual(expected, obj.DumpToString());
+		}
+		#endregion Non-primitive array
+		
+		#region Non-primitive list
+		[Test]
+		public void ListOfNonPrimitive()
+		{
+			List<Simple> obj = new List<Simple>() {
+				new Simple() { String = "One" },
+				new Simple() { String = "Two" },
+				new Simple() { String = "Three" }
+			};
+			
+			string expected = @"Count = 3
+[0] = {
+	String = 'One'
+}
+[1] = {
+	String = 'Two'
+}
+[2] = {
+	String = 'Three'
+}";
+			
+			Assert.AreEqual(expected, obj.DumpToString());
+		}
+		#endregion Non-primitive list
 	}
 }
 
@@ -90,5 +140,10 @@ namespace Missing.DumpToStringHelpers.Enumerable
 	public class ClassWithArray
 	{
 		public string[] Strings { get; set; }
+	}
+	
+	public class Simple
+	{
+		public string String { get; set; }
 	}
 }
