@@ -14,10 +14,38 @@ namespace Missing.Diagnostics
 	/// </summary>
 	public class ObjectDumper
 	{
-		private static Dictionary<string, Action<Type, string>> SpecialHandlers = new Dictionary<string, Action<Type, string>>();
+		/// <summary>
+		/// Contains a table of special handlers
+		/// </summary>
+		private static Dictionary<string, Func<object, string>> SpecialHandlers = new Dictionary<string, Func<object, string>>();
 		
 		#region Static
-		public static void AddSpecialCase(Type forType, Action<Type, string> action)
+		/// <summary>
+		/// Add a special case (meaning a custom handler
+		/// for a specific type).
+		/// </summary>
+		/// <example>
+		/// When working with MongoDB we always run into the special
+		/// ID format called an <c>ObjectId</c>. This consists of multiple
+		/// properties that are encoded to give a single string.
+		/// 
+		/// When we dump an entity we want the ID (i.e. the string) - not the
+		/// individual properties. Therefore we want to add a special handler
+		/// for that case. We do this like so...
+		/// 
+		/// <code>
+		/// Missing.Diagnostics.ObjectDumper.AddSpecialCase(typeof(ObjectId), y => {
+		///		return System.String.Format("'{0}'", y.ToString());
+		///	});
+		/// </code>
+		/// </example>
+		/// <param name="forType">
+		/// The type that this handler works on
+		/// </param>
+		/// <param name="action">
+		/// The actual handling code
+		/// </param>
+		public static void AddSpecialCase(Type forType, Func<object, string> action)
 		{
 			SpecialHandlers.Add(forType.FullName, action);
 		}
@@ -58,6 +86,11 @@ namespace Missing.Diagnostics
 			}
 			
 			Type t = obj.GetType();
+			
+			if (SpecialHandlers.ContainsKey(t.FullName))
+			{
+				return String.Format("{0}{1}{2}", indent, prefix, SpecialHandlers[t.FullName](obj));
+			}
 			
 			if (t.ImplementsInterface(typeof(IEnumerable)) && t != typeof(String))
 			{
