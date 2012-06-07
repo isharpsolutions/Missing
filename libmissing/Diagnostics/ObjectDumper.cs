@@ -60,6 +60,8 @@ namespace Missing.Diagnostics
 		}
 		#endregion Constructors
 		
+		private HashSet<int> seenBefore = new HashSet<int>();
+		
 		#region Dump
 		/// <summary>
 		/// Dumps the entire object structure as a string
@@ -87,11 +89,29 @@ namespace Missing.Diagnostics
 			
 			Type t = obj.GetType();
 			
+			//
+			// handle cyclic references
+			//
+			int seenBeforeKey = obj.GetHashCode();
+			
+			if (!t.IsEnum && this.seenBefore.Contains(seenBeforeKey))
+			{
+				return String.Format("{0}{1}{2}", indent, prefix, "--cyclic--");
+			}
+			
+			this.seenBefore.Add(seenBeforeKey);
+			
+			//
+			// special cases / custom handlers
+			//
 			if (SpecialHandlers.ContainsKey(t.FullName))
 			{
 				return String.Format("{0}{1}{2}", indent, prefix, SpecialHandlers[t.FullName](obj));
 			}
 			
+			//
+			// ienumerable
+			//
 			if (t.ImplementsInterface(typeof(IEnumerable)) && t != typeof(String))
 			{
 				return this.DumpEnumerable((IEnumerable)obj, indendation, prefix);
@@ -151,7 +171,7 @@ namespace Missing.Diagnostics
 			foreach (PropertyInfo pi in properties)
 			{
 				val = pi.GetValue(obj, null);
-				
+
 				sb.Append(this.Dump(val, indendation+1, "{0} = ", pi.Name));
 				sb.AppendLine();
 			}

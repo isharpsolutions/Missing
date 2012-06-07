@@ -82,6 +82,7 @@
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_ClassWithPrivateProperty.cs" />
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_MultipleLevels.cs" />
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_SpecialCase.cs" />
+    <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_CyclicReferences.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
