@@ -15,7 +15,7 @@ namespace Missing
 		{
 			CircularList<SimpleElement> list = new CircularList<SimpleElement>();
 			
-			Assert.AreEqual(10, list.Capacity, "Default capacity should be 10");
+			Assert.AreEqual(10, list.MaxLength, "Default capacity should be 10");
 			Assert.IsEmpty(list, "List should be empty by default");
 			Assert.AreEqual(-1, list.CurrentIndex, "Current index should be -1");
 		}
@@ -25,7 +25,7 @@ namespace Missing
 		{
 			CircularList<SimpleElement> list = new CircularList<SimpleElement>(55);
 			
-			Assert.AreEqual(55, list.Capacity, "Capacity should be 55");
+			Assert.AreEqual(55, list.MaxLength, "Capacity should be 55");
 			Assert.IsEmpty(list, "List should be empty");
 			Assert.AreEqual(-1, list.CurrentIndex, "Current index should be -1");
 		}
@@ -338,6 +338,129 @@ namespace Missing
 			Assert.AreEqual(five, actual[2], "Third yielded item is wrong");
 		}
 		#endregion Enumerator
+		
+		#region CopyTo at index 0
+		[Test]
+		public void CopyTo_BeforeLooping_FromIndexZero()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(3);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			
+			list.Add(one);
+			list.Add(two);
+			
+			SimpleElement[] array = new SimpleElement[3];
+			
+			list.CopyTo(array, 0);
+			
+			Assert.AreEqual(one, array[0]);
+			Assert.AreEqual(two, array[1]);
+			Assert.AreEqual(default(SimpleElement), array[2]);
+		}
+		
+		[Test]
+		public void CopyTo_AboutToLoop_FromIndexZero()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(2);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			
+			list.Add(one);
+			list.Add(two);
+			
+			SimpleElement[] array = new SimpleElement[2];
+			
+			list.CopyTo(array, 0);
+			
+			Assert.AreEqual(one, array[0]);
+			Assert.AreEqual(two, array[1]);
+		}
+		
+		[Test]
+		public void CopyTo_AfterLooping_FromIndexZero()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(2);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			SimpleElement three = new SimpleElement() { String = "Three" };
+			
+			list.Add(one);
+			list.Add(two);
+			list.Add(three);
+			
+			SimpleElement[] array = new SimpleElement[2];
+			
+			list.CopyTo(array, 0);
+			
+			Assert.AreEqual(two, array[0]);
+			Assert.AreEqual(three, array[1]);
+		}
+		#endregion CopyTo at index 0
+		
+		#region CopyTo at index > 0
+		[Test]
+		public void CopyTo_BeforeLooping_IndexGreaterThanZero()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(3);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			
+			list.Add(one);
+			list.Add(two);
+			
+			SimpleElement[] array = new SimpleElement[3];
+			
+			list.CopyTo(array, 1);
+			
+			Assert.AreEqual(default(SimpleElement), array[0]);
+			Assert.AreEqual(one, array[1]);
+		}
+		
+		[Test]
+		public void CopyTo_AboutToLoop_IndexGreaterThanZero()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(2);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			
+			list.Add(one);
+			list.Add(two);
+			
+			SimpleElement[] array = new SimpleElement[2];
+			
+			list.CopyTo(array, 1);
+			
+			Assert.AreEqual(default(SimpleElement), array[0]);
+			Assert.AreEqual(one, array[1]);
+		}
+		
+		[Test]
+		public void CopyTo_AfterLooping_IndexGreaterThanZero()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(2);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			SimpleElement three = new SimpleElement() { String = "Three" };
+			
+			list.Add(one);
+			list.Add(two);
+			list.Add(three);
+			
+			SimpleElement[] array = new SimpleElement[2];
+			
+			list.CopyTo(array, 1);
+			
+			Assert.AreEqual(default(SimpleElement), array[0]);
+			Assert.AreEqual(two, array[1]);
+		}
+		#endregion CopyTo at index > 0
 	}
 }
 
