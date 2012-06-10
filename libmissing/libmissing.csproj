@@ -118,6 +118,8 @@
     <Compile Include="ObjectExtensions\DumpToStringObjectExtension.cs" />
     <Compile Include="Text\Extensions\StringBuilderExtensions.cs" />
     <Compile Include="Diagnostics\ObjectDumper.cs" />
+    <Compile Include="Collections\CircularList.cs" />
+    <Compile Include="Collections\CircularListEnumerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
