@@ -140,14 +140,51 @@ using System.Linq;
 
 namespace Missing.Options
 {
+	/// <summary>
+	/// String coda.
+	/// </summary>
+	/// <exception cref='ArgumentNullException'>
+	/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+	/// </exception>
+	/// <exception cref='ArgumentOutOfRangeException'>
+	/// Is thrown when an argument passed to a method is invalid because it is outside the allowable range of values as
+	/// specified by the method.
+	/// </exception>
 	static class StringCoda {
-
+		
+		/// <summary>
+		/// Wrappeds the lines.
+		/// </summary>
+		/// <returns>
+		/// The lines.
+		/// </returns>
+		/// <param name='self'>
+		/// Self.
+		/// </param>
+		/// <param name='widths'>
+		/// Widths.
+		/// </param>
 		public static IEnumerable<string> WrappedLines (string self, params int[] widths)
 		{
 			IEnumerable<int> w = widths;
 			return WrappedLines (self, w);
 		}
-
+		
+		/// <summary>
+		/// Wrappeds the lines.
+		/// </summary>
+		/// <returns>
+		/// The lines.
+		/// </returns>
+		/// <param name='self'>
+		/// Self.
+		/// </param>
+		/// <param name='widths'>
+		/// Widths.
+		/// </param>
+		/// <exception cref='ArgumentNullException'>
+		/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+		/// </exception>
 		public static IEnumerable<string> WrappedLines (string self, IEnumerable<int> widths)
 		{
 			if (widths == null)
@@ -205,7 +242,7 @@ namespace Missing.Options
 		{
 			return !char.IsLetterOrDigit (c);
 		}
-
+		
 		private static int GetLineEnd (int start, int length, string description)
 		{
 			int end = System.Math.Min (start + length, description.Length);
@@ -221,7 +258,20 @@ namespace Missing.Options
 			return sep;
 		}
 	}
-
+	
+	/// <summary>
+	/// Option value collection.
+	/// </summary>
+	/// <exception cref='InvalidOperationException'>
+	/// Is thrown when an operation cannot be performed.
+	/// </exception>
+	/// <exception cref='ArgumentOutOfRangeException'>
+	/// Is thrown when an argument passed to a method is invalid because it is outside the allowable range of values as
+	/// specified by the method.
+	/// </exception>
+	/// <exception cref='OptionException'>
+	/// Is thrown when the option exception.
+	/// </exception>
 	public class OptionValueCollection : IList, IList<string> {
 
 		List<string> values = new List<string> ();
@@ -239,12 +289,60 @@ namespace Missing.Options
 		#endregion
 
 		#region ICollection<T>
+		/// <summary>
+		/// Add the specified item.
+		/// </summary>
+		/// <param name='item'>
+		/// Item.
+		/// </param>
 		public void Add (string item)                       {values.Add (item);}
+		
+		/// <summary>
+		/// Clear this instance.
+		/// </summary>
 		public void Clear ()                                {values.Clear ();}
+		
+		/// <summary>
+		/// Contains the specified item.
+		/// </summary>
+		/// <param name='item'>
+		/// If set to <c>true</c> item.
+		/// </param>
 		public bool Contains (string item)                  {return values.Contains (item);}
+		
+		/// <summary>
+		/// Copies to.
+		/// </summary>
+		/// <param name='array'>
+		/// Array.
+		/// </param>
+		/// <param name='arrayIndex'>
+		/// Array index.
+		/// </param>
 		public void CopyTo (string[] array, int arrayIndex) {values.CopyTo (array, arrayIndex);}
+		
+		/// <summary>
+		/// Remove the specified item.
+		/// </summary>
+		/// <param name='item'>
+		/// If set to <c>true</c> item.
+		/// </param>
 		public bool Remove (string item)                    {return values.Remove (item);}
+		
+		/// <summary>
+		/// Gets the count.
+		/// </summary>
+		/// <value>
+		/// The count.
+		/// </value>
 		public int Count                                    {get {return values.Count;}}
+		
+		/// <summary>
+		/// Gets a value indicating whether this instance is read only.
+		/// </summary>
+		/// <value>
+		/// <c>true</c> if this instance is read only; otherwise, <c>false</c>.
+		/// </value>
 		public bool IsReadOnly                              {get {return false;}}
 		#endregion
 
@@ -253,6 +351,12 @@ namespace Missing.Options
 		#endregion
 
 		#region IEnumerable<T>
+		/// <summary>
+		/// Gets the enumerator.
+		/// </summary>
+		/// <returns>
+		/// The enumerator.
+		/// </returns>
 		public IEnumerator<string> GetEnumerator () {return values.GetEnumerator ();}
 		#endregion
 
@@ -268,8 +372,34 @@ namespace Missing.Options
 		#endregion
 
 		#region IList<T>
+		/// <summary>
+		/// Indexs the of.
+		/// </summary>
+		/// <returns>
+		/// The of.
+		/// </returns>
+		/// <param name='item'>
+		/// Item.
+		/// </param>
 		public int IndexOf (string item)            {return values.IndexOf (item);}
+		
+		/// <summary>
+		/// Insert the specified index and item.
+		/// </summary>
+		/// <param name='index'>
+		/// Index.
+		/// </param>
+		/// <param name='item'>
+		/// Item.
+		/// </param>
 		public void Insert (int index, string item) {values.Insert (index, item);}
+		
+		/// <summary>
+		/// Removes at index.
+		/// </summary>
+		/// <param name='index'>
+		/// Index.
+		/// </param>
 		public void RemoveAt (int index)            {values.RemoveAt (index);}
 
 		private void AssertValid (int index)
@@ -284,7 +414,13 @@ namespace Missing.Options
 							c.OptionSet.MessageLocalizer ("Missing required value for option '{0}'."), c.OptionName), 
 						c.OptionName);
 		}
-
+		
+		/// <summary>
+		/// Gets or sets the <see cref="Missing.Options.OptionValueCollection"/> at the specified index.
+		/// </summary>
+		/// <param name='index'>
+		/// Index.
+		/// </param>
 		public string this [int index] {
 			get {
 				AssertValid (index);
@@ -295,78 +431,196 @@ namespace Missing.Options
 			}
 		}
 		#endregion
-
+		
+		/// <summary>
+		/// Tos the list.
+		/// </summary>
+		/// <returns>
+		/// The list.
+		/// </returns>
 		public List<string> ToList ()
 		{
 			return new List<string> (values);
 		}
-
+		
+		/// <summary>
+		/// Tos the array.
+		/// </summary>
+		/// <returns>
+		/// The array.
+		/// </returns>
 		public string[] ToArray ()
 		{
 			return values.ToArray ();
 		}
-
+		
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Missing.Options.OptionValueCollection"/>.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="System.String"/> that represents the current <see cref="Missing.Options.OptionValueCollection"/>.
+		/// </returns>
 		public override string ToString ()
 		{
 			return string.Join (", ", values.ToArray ());
 		}
 	}
-
+	
+	/// <summary>
+	/// Option context.
+	/// </summary>
 	public class OptionContext {
 		private Option                option;
 		private string                name;
 		private int                   index;
 		private OptionSet             set;
 		private OptionValueCollection c;
-
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.OptionContext"/> class.
+		/// </summary>
+		/// <param name='set'>
+		/// Set.
+		/// </param>
 		public OptionContext (OptionSet set)
 		{
 			this.set = set;
 			this.c   = new OptionValueCollection (this);
 		}
-
+		
+		/// <summary>
+		/// Gets or sets the option.
+		/// </summary>
+		/// <value>
+		/// The option.
+		/// </value>
 		public Option Option {
 			get {return option;}
 			set {option = value;}
 		}
-
+		
+		/// <summary>
+		/// Gets or sets the name of the option.
+		/// </summary>
+		/// <value>
+		/// The name of the option.
+		/// </value>
 		public string OptionName { 
 			get {return name;}
 			set {name = value;}
 		}
-
+		
+		/// <summary>
+		/// Gets or sets the index of the option.
+		/// </summary>
+		/// <value>
+		/// The index of the option.
+		/// </value>
 		public int OptionIndex {
 			get {return index;}
 			set {index = value;}
 		}
-
+		
+		/// <summary>
+		/// Gets the option set.
+		/// </summary>
+		/// <value>
+		/// The option set.
+		/// </value>
 		public OptionSet OptionSet {
 			get {return set;}
 		}
-
+		
+		/// <summary>
+		/// Gets the option values.
+		/// </summary>
+		/// <value>
+		/// The option values.
+		/// </value>
 		public OptionValueCollection OptionValues {
 			get {return c;}
 		}
 	}
-
+	
+	/// <summary>
+	/// Option value type.
+	/// </summary>
 	public enum OptionValueType {
+		/// <summary>
+		/// Constant none.
+		/// </summary>
 		None, 
+		
+		/// <summary>
+		/// Constant optional.
+		/// </summary>
 		Optional,
+		
+		/// <summary>
+		/// Constant required.
+		/// </summary>
 		Required,
 	}
-
+	
+	/// <summary>
+	/// Option.
+	/// </summary>
+	/// <exception cref='ArgumentNullException'>
+	/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+	/// </exception>
+	/// <exception cref='ArgumentException'>
+	/// Is thrown when an argument passed to a method is invalid.
+	/// </exception>
+	/// <exception cref='ArgumentOutOfRangeException'>
+	/// Is thrown when an argument passed to a method is invalid because it is outside the allowable range of values as
+	/// specified by the method.
+	/// </exception>
+	/// <exception cref='OptionException'>
+	/// Is thrown when the option exception.
+	/// </exception>
 	public abstract class Option {
 		string prototype, description;
 		string[] names;
 		OptionValueType type;
 		int count;
 		string[] separators;
-
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.Option"/> class.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='description'>
+		/// Description.
+		/// </param>
 		protected Option (string prototype, string description)
 			: this (prototype, description, 1)
 		{
 		}
-
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.Option"/> class.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='description'>
+		/// Description.
+		/// </param>
+		/// <param name='maxValueCount'>
+		/// Max value count.
+		/// </param>
+		/// <exception cref='ArgumentNullException'>
+		/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+		/// </exception>
+		/// <exception cref='ArgumentException'>
+		/// Is thrown when an argument passed to a method is invalid.
+		/// </exception>
+		/// <exception cref='ArgumentOutOfRangeException'>
+		/// Is thrown when an argument passed to a method is invalid because it is outside the allowable range of values as
+		/// specified by the method.
+		/// </exception>
 		protected Option (string prototype, string description, int maxValueCount)
 		{
 			if (prototype == null)
@@ -398,24 +652,78 @@ namespace Missing.Options
 						"The default option handler '<>' cannot require values.",
 						"prototype");
 		}
-
+		
+		/// <summary>
+		/// Gets the prototype.
+		/// </summary>
+		/// <value>
+		/// The prototype.
+		/// </value>
 		public string           Prototype       {get {return prototype;}}
+		
+		/// <summary>
+		/// Gets the description.
+		/// </summary>
+		/// <value>
+		/// The description.
+		/// </value>
 		public string           Description     {get {return description;}}
+		
+		/// <summary>
+		/// Gets the type of the option value.
+		/// </summary>
+		/// <value>
+		/// The type of the option value.
+		/// </value>
 		public OptionValueType  OptionValueType {get {return type;}}
+		
+		/// <summary>
+		/// Gets the max value count.
+		/// </summary>
+		/// <value>
+		/// The max value count.
+		/// </value>
 		public int              MaxValueCount   {get {return count;}}
-
+		
+		/// <summary>
+		/// Gets the names.
+		/// </summary>
+		/// <returns>
+		/// The names.
+		/// </returns>
 		public string[] GetNames ()
 		{
 			return (string[]) names.Clone ();
 		}
-
+		
+		/// <summary>
+		/// Gets the value separators.
+		/// </summary>
+		/// <returns>
+		/// The value separators.
+		/// </returns>
 		public string[] GetValueSeparators ()
 		{
 			if (separators == null)
 				return new string [0];
 			return (string[]) separators.Clone ();
 		}
-
+		
+		/// <summary>
+		/// Parse the specified value and c.
+		/// </summary>
+		/// <param name='value'>
+		/// Value.
+		/// </param>
+		/// <param name='c'>
+		/// C.
+		/// </param>
+		/// <typeparam name='T'>
+		/// The 1st type parameter.
+		/// </typeparam>
+		/// <exception cref='OptionException'>
+		/// Is thrown when the option exception.
+		/// </exception>
 		protected static T Parse<T> (string value, OptionContext c)
 		{
 			Type tt = typeof (T);
@@ -516,7 +824,13 @@ namespace Missing.Options
 						string.Format ("Ill-formed name/value separator found in \"{0}\".", name),
 						"prototype");
 		}
-
+		
+		/// <summary>
+		/// Invoke the specified c.
+		/// </summary>
+		/// <param name='c'>
+		/// C.
+		/// </param>
 		public void Invoke (OptionContext c)
 		{
 			OnParseComplete (c);
@@ -524,30 +838,92 @@ namespace Missing.Options
 			c.Option      = null;
 			c.OptionValues.Clear ();
 		}
-
+		
+		/// <summary>
+		/// Raises the parse complete event.
+		/// </summary>
+		/// <param name='c'>
+		/// C.
+		/// </param>
 		protected abstract void OnParseComplete (OptionContext c);
-
+		
+		/// <summary>
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Missing.Options.Option"/>.
+		/// </summary>
+		/// <returns>
+		/// A <see cref="System.String"/> that represents the current <see cref="Missing.Options.Option"/>.
+		/// </returns>
 		public override string ToString ()
 		{
 			return Prototype;
 		}
 	}
-
+	
+	/// <summary>
+	/// Argument source.
+	/// </summary>
 	public abstract class ArgumentSource {
-
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.ArgumentSource"/> class.
+		/// </summary>
 		protected ArgumentSource ()
 		{
 		}
-
+		
+		/// <summary>
+		/// Gets the names.
+		/// </summary>
+		/// <returns>
+		/// The names.
+		/// </returns>
 		public abstract string[] GetNames ();
+		
+		/// <summary>
+		/// Gets the description.
+		/// </summary>
+		/// <value>
+		/// The description.
+		/// </value>
 		public abstract string Description { get; }
+		
+		/// <summary>
+		/// Gets the arguments.
+		/// </summary>
+		/// <returns>
+		/// The arguments.
+		/// </returns>
+		/// <param name='value'>
+		/// If set to <c>true</c> value.
+		/// </param>
+		/// <param name='replacement'>
+		/// If set to <c>true</c> replacement.
+		/// </param>
 		public abstract bool GetArguments (string value, out IEnumerable<string> replacement);
-
+		
+		/// <summary>
+		/// Gets the arguments from file.
+		/// </summary>
+		/// <returns>
+		/// The arguments from file.
+		/// </returns>
+		/// <param name='file'>
+		/// File.
+		/// </param>
 		public static IEnumerable<string> GetArgumentsFromFile (string file)
 		{
 			return GetArguments (File.OpenText (file), true);
 		}
-
+		
+		/// <summary>
+		/// Gets the arguments.
+		/// </summary>
+		/// <returns>
+		/// The arguments.
+		/// </returns>
+		/// <param name='reader'>
+		/// Reader.
+		/// </param>
 		public static IEnumerable<string> GetArguments (TextReader reader)
 		{
 			return GetArguments (reader, false);
@@ -596,18 +972,45 @@ namespace Missing.Options
 			}
 		}
 	}
-
+	
+	/// <summary>
+	/// Response file source.
+	/// </summary>
 	public class ResponseFileSource : ArgumentSource {
-
+		
+		/// <summary>
+		/// Gets the names.
+		/// </summary>
+		/// <returns>
+		/// The names.
+		/// </returns>
 		public override string[] GetNames ()
 		{
 			return new string[]{"@file"};
 		}
-
+		
+		/// <summary>
+		/// Gets the description.
+		/// </summary>
+		/// <value>
+		/// The description.
+		/// </value>
 		public override string Description {
 			get {return "Read response file for more options.";}
 		}
-
+		
+		/// <summary>
+		/// Gets the arguments.
+		/// </summary>
+		/// <returns>
+		/// The arguments.
+		/// </returns>
+		/// <param name='value'>
+		/// If set to <c>true</c> value.
+		/// </param>
+		/// <param name='replacement'>
+		/// If set to <c>true</c> replacement.
+		/// </param>
 		public override bool GetArguments (string value, out IEnumerable<string> replacement)
 		{
 			if (string.IsNullOrEmpty (value) || !value.StartsWith ("@")) {
@@ -618,37 +1021,88 @@ namespace Missing.Options
 			return true;
 		}
 	}
-
+	
+	/// <summary>
+	/// Option exception.
+	/// </summary>
 	[Serializable]
 	public class OptionException : Exception {
 		private string option;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.OptionException"/> class.
+		/// </summary>
 		public OptionException ()
 		{
 		}
-
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.OptionException"/> class.
+		/// </summary>
+		/// <param name='message'>
+		/// Message.
+		/// </param>
+		/// <param name='optionName'>
+		/// Option name.
+		/// </param>
 		public OptionException (string message, string optionName)
 			: base (message)
 		{
 			this.option = optionName;
 		}
-
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.OptionException"/> class.
+		/// </summary>
+		/// <param name='message'>
+		/// Message.
+		/// </param>
+		/// <param name='optionName'>
+		/// Option name.
+		/// </param>
+		/// <param name='innerException'>
+		/// Inner exception.
+		/// </param>
 		public OptionException (string message, string optionName, Exception innerException)
 			: base (message, innerException)
 		{
 			this.option = optionName;
 		}
-
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.OptionException"/> class.
+		/// </summary>
+		/// <param name='info'>
+		/// Info.
+		/// </param>
+		/// <param name='context'>
+		/// Context.
+		/// </param>
 		protected OptionException (SerializationInfo info, StreamingContext context)
 			: base (info, context)
 		{
 			this.option = info.GetString ("OptionName");
 		}
-
+		
+		/// <summary>
+		/// Gets the name of the option.
+		/// </summary>
+		/// <value>
+		/// The name of the option.
+		/// </value>
 		public string OptionName {
 			get {return this.option;}
 		}
-
+		
+		/// <summary>
+		/// Gets the object data.
+		/// </summary>
+		/// <param name='info'>
+		/// Info.
+		/// </param>
+		/// <param name='context'>
+		/// Context.
+		/// </param>
 		[SecurityPermission (SecurityAction.LinkDemand, SerializationFormatter = true)]
 		public override void GetObjectData (SerializationInfo info, StreamingContext context)
 		{
@@ -656,16 +1110,40 @@ namespace Missing.Options
 			info.AddValue ("OptionName", option);
 		}
 	}
-
+	
+	/// <summary>
+	/// Option action.
+	/// </summary>
 	public delegate void OptionAction<TKey, TValue> (TKey key, TValue value);
-
+	
+	/// <summary>
+	/// Option set.
+	/// </summary>
+	/// <exception cref='ArgumentNullException'>
+	/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+	/// </exception>
+	/// <exception cref='InvalidOperationException'>
+	/// Is thrown when an operation cannot be performed.
+	/// </exception>
+	/// <exception cref='OptionException'>
+	/// Is thrown when the option exception.
+	/// </exception>
 	public class OptionSet : KeyedCollection<string, Option>
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.OptionSet"/> class.
+		/// </summary>
 		public OptionSet ()
 			: this (delegate (string f) {return f;})
 		{
 		}
-
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Options.OptionSet"/> class.
+		/// </summary>
+		/// <param name='localizer'>
+		/// Localizer.
+		/// </param>
 		public OptionSet (Converter<string, string> localizer)
 		{
 			this.localizer = localizer;
@@ -673,19 +1151,45 @@ namespace Missing.Options
 		}
 
 		Converter<string, string> localizer;
-
+		
+		/// <summary>
+		/// Gets the message localizer.
+		/// </summary>
+		/// <value>
+		/// The message localizer.
+		/// </value>
 		public Converter<string, string> MessageLocalizer {
 			get {return localizer;}
 		}
 
 		List<ArgumentSource> sources = new List<ArgumentSource> ();
 		ReadOnlyCollection<ArgumentSource> roSources;
-
+		
+		/// <summary>
+		/// Gets the argument sources.
+		/// </summary>
+		/// <value>
+		/// The argument sources.
+		/// </value>
 		public ReadOnlyCollection<ArgumentSource> ArgumentSources {
 			get {return roSources;}
 		}
 
-
+		/// <summary>
+		/// Gets the key for item.
+		/// </summary>
+		/// <returns>
+		/// The key for item.
+		/// </returns>
+		/// <param name='item'>
+		/// Item.
+		/// </param>
+		/// <exception cref='ArgumentNullException'>
+		/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+		/// </exception>
+		/// <exception cref='InvalidOperationException'>
+		/// Is thrown when an operation cannot be performed.
+		/// </exception>
 		protected override string GetKeyForItem (Option item)
 		{
 			if (item == null)
@@ -696,7 +1200,19 @@ namespace Missing.Options
 			// constructed w/o any names.
 			throw new InvalidOperationException ("Option has no names!");
 		}
-
+		
+		/// <summary>
+		/// Gets the name of the option for.
+		/// </summary>
+		/// <returns>
+		/// The option for name.
+		/// </returns>
+		/// <param name='option'>
+		/// Option.
+		/// </param>
+		/// <exception cref='ArgumentNullException'>
+		/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+		/// </exception>
 		[Obsolete ("Use KeyedCollection.this[string]")]
 		protected Option GetOptionForName (string option)
 		{
@@ -710,12 +1226,27 @@ namespace Missing.Options
 			}
 		}
 
+		/// <summary>
+		/// Inserts the item.
+		/// </summary>
+		/// <param name='index'>
+		/// Index.
+		/// </param>
+		/// <param name='item'>
+		/// Item.
+		/// </param>
 		protected override void InsertItem (int index, Option item)
 		{
 			base.InsertItem (index, item);
 			AddImpl (item);
 		}
 
+		/// <summary>
+		/// Removes the item.
+		/// </summary>
+		/// <param name='index'>
+		/// Index.
+		/// </param>
 		protected override void RemoveItem (int index)
 		{
 			Option p = Items [index];
@@ -725,7 +1256,16 @@ namespace Missing.Options
 				Dictionary.Remove (p.Names [i]);
 			}
 		}
-
+		
+		/// <summary>
+		/// Sets the item.
+		/// </summary>
+		/// <param name='index'>
+		/// Index.
+		/// </param>
+		/// <param name='item'>
+		/// Item.
+		/// </param>
 		protected override void SetItem (int index, Option item)
 		{
 			base.SetItem (index, item);
@@ -750,7 +1290,13 @@ namespace Missing.Options
 				throw;
 			}
 		}
-
+		
+		/// <summary>
+		/// Add the specified option.
+		/// </summary>
+		/// <param name='option'>
+		/// Option.
+		/// </param>
 		public new OptionSet Add (Option option)
 		{
 			base.Add (option);
@@ -773,12 +1319,36 @@ namespace Missing.Options
 				action (c.OptionValues);
 			}
 		}
-
+		
+		/// <summary>
+		/// Add the specified prototype and action.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='action'>
+		/// Action.
+		/// </param>
 		public OptionSet Add (string prototype, Action<string> action)
 		{
 			return Add (prototype, null, action);
 		}
-
+		
+		/// <summary>
+		/// Add the specified prototype, description and action.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='description'>
+		/// Description.
+		/// </param>
+		/// <param name='action'>
+		/// Action.
+		/// </param>
+		/// <exception cref='ArgumentNullException'>
+		/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+		/// </exception>
 		public OptionSet Add (string prototype, string description, Action<string> action)
 		{
 			if (action == null)
@@ -788,12 +1358,36 @@ namespace Missing.Options
 			base.Add (p);
 			return this;
 		}
-
+		
+		/// <summary>
+		/// Add the specified prototype and action.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='action'>
+		/// Action.
+		/// </param>
 		public OptionSet Add (string prototype, OptionAction<string, string> action)
 		{
 			return Add (prototype, null, action);
 		}
-
+		
+		/// <summary>
+		/// Add the specified prototype, description and action.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='description'>
+		/// Description.
+		/// </param>
+		/// <param name='action'>
+		/// Action.
+		/// </param>
+		/// <exception cref='ArgumentNullException'>
+		/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+		/// </exception>
 		public OptionSet Add (string prototype, string description, OptionAction<string, string> action)
 		{
 			if (action == null)
@@ -839,27 +1433,96 @@ namespace Missing.Options
 						Parse<TValue> (c.OptionValues [1], c));
 			}
 		}
-
+		
+		/// <summary>
+		/// Add the specified prototype and action.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='action'>
+		/// Action.
+		/// </param>
+		/// <typeparam name='T'>
+		/// The 1st type parameter.
+		/// </typeparam>
 		public OptionSet Add<T> (string prototype, Action<T> action)
 		{
 			return Add (prototype, null, action);
 		}
-
+		
+		/// <summary>
+		/// Add the specified prototype, description and action.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='description'>
+		/// Description.
+		/// </param>
+		/// <param name='action'>
+		/// Action.
+		/// </param>
+		/// <typeparam name='T'>
+		/// The 1st type parameter.
+		/// </typeparam>
 		public OptionSet Add<T> (string prototype, string description, Action<T> action)
 		{
 			return Add (new ActionOption<T> (prototype, description, action));
 		}
 
+		/// <summary>
+		/// Add the specified prototype and action.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='action'>
+		/// Action.
+		/// </param>
+		/// <typeparam name='TKey'>
+		/// The 1st type parameter.
+		/// </typeparam>
+		/// <typeparam name='TValue'>
+		/// The 2nd type parameter.
+		/// </typeparam>
 		public OptionSet Add<TKey, TValue> (string prototype, OptionAction<TKey, TValue> action)
 		{
 			return Add (prototype, null, action);
 		}
-
+		
+		/// <summary>
+		/// Add the specified prototype, description and action.
+		/// </summary>
+		/// <param name='prototype'>
+		/// Prototype.
+		/// </param>
+		/// <param name='description'>
+		/// Description.
+		/// </param>
+		/// <param name='action'>
+		/// Action.
+		/// </param>
+		/// <typeparam name='TKey'>
+		/// The 1st type parameter.
+		/// </typeparam>
+		/// <typeparam name='TValue'>
+		/// The 2nd type parameter.
+		/// </typeparam>
 		public OptionSet Add<TKey, TValue> (string prototype, string description, OptionAction<TKey, TValue> action)
 		{
 			return Add (new ActionOption<TKey, TValue> (prototype, description, action));
 		}
-
+		
+		/// <summary>
+		/// Add the specified source.
+		/// </summary>
+		/// <param name='source'>
+		/// Source.
+		/// </param>
+		/// <exception cref='ArgumentNullException'>
+		/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+		/// </exception>
 		public OptionSet Add (ArgumentSource source)
 		{
 			if (source == null)
@@ -868,11 +1531,26 @@ namespace Missing.Options
 			return this;
 		}
 
+		/// <summary>
+		/// Creates the option context.
+		/// </summary>
+		/// <returns>
+		/// The option context.
+		/// </returns>
 		protected virtual OptionContext CreateOptionContext ()
 		{
 			return new OptionContext (this);
 		}
 
+		/// <summary>
+		/// Parse the specified arguments.
+		/// </summary>
+		/// <param name='arguments'>
+		/// Arguments.
+		/// </param>
+		/// <exception cref='ArgumentNullException'>
+		/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+		/// </exception>
 		public List<string> Parse (IEnumerable<string> arguments)
 		{
 			if (arguments == null)
@@ -961,7 +1639,31 @@ namespace Missing.Options
 
 		private readonly Regex ValueOption = new Regex (
 			@"^(?<flag>--|-|/)(?<name>[^:=]+)((?<sep>[:=])(?<value>.*))?$");
-
+		
+		/// <summary>
+		/// Gets the option parts.
+		/// </summary>
+		/// <returns>
+		/// The option parts.
+		/// </returns>
+		/// <param name='argument'>
+		/// If set to <c>true</c> argument.
+		/// </param>
+		/// <param name='flag'>
+		/// If set to <c>true</c> flag.
+		/// </param>
+		/// <param name='name'>
+		/// If set to <c>true</c> name.
+		/// </param>
+		/// <param name='sep'>
+		/// If set to <c>true</c> sep.
+		/// </param>
+		/// <param name='value'>
+		/// If set to <c>true</c> value.
+		/// </param>
+		/// <exception cref='ArgumentNullException'>
+		/// Is thrown when an argument passed to a method is invalid because it is <see langword="null" /> .
+		/// </exception>
 		protected bool GetOptionParts (string argument, out string flag, out string name, out string sep, out string value)
 		{
 			if (argument == null)
@@ -980,7 +1682,16 @@ namespace Missing.Options
 			}
 			return true;
 		}
-
+		
+		/// <summary>
+		/// Parse the specified argument and c.
+		/// </summary>
+		/// <param name='argument'>
+		/// If set to <c>true</c> argument.
+		/// </param>
+		/// <param name='c'>
+		/// If set to <c>true</c> c.
+		/// </param>
 		protected virtual bool Parse (string argument, OptionContext c)
 		{
 			if (c.Option != null) {
@@ -1098,7 +1809,13 @@ namespace Missing.Options
 		}
 
 		private const int OptionWidth = 29;
-
+		
+		/// <summary>
+		/// Writes the option descriptions.
+		/// </summary>
+		/// <param name='o'>
+		/// O.
+		/// </param>
 		public void WriteOptionDescriptions (TextWriter o)
 		{
 			foreach (Option p in this) {
