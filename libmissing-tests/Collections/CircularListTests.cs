@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using Missing.Collections;
 using Missing.CircularListStuff;
+using System.Collections.Generic;
 
 namespace Missing
 {
@@ -92,7 +93,6 @@ namespace Missing
 			
 			SimpleElement one = new SimpleElement() { String = "One" };
 			SimpleElement two = new SimpleElement() { String = "Two" };
-			SimpleElement three = new SimpleElement() { String = "Three" };
 			
 			list.Add(one);
 			list.Add(two);
@@ -110,7 +110,6 @@ namespace Missing
 			
 			SimpleElement one = new SimpleElement() { String = "One" };
 			SimpleElement two = new SimpleElement() { String = "Two" };
-			SimpleElement three = new SimpleElement() { String = "Three" };
 			
 			list.Add(one);
 			list.Add(two);
@@ -203,7 +202,6 @@ namespace Missing
 			
 			SimpleElement one = new SimpleElement() { String = "One" };
 			SimpleElement two = new SimpleElement() { String = "Two" };
-			SimpleElement three = new SimpleElement() { String = "Three" };
 			
 			list.Add(one);
 			list.Add(two);
@@ -218,7 +216,6 @@ namespace Missing
 			
 			SimpleElement one = new SimpleElement() { String = "One" };
 			SimpleElement two = new SimpleElement() { String = "Two" };
-			SimpleElement three = new SimpleElement() { String = "Three" };
 			
 			list.Add(one);
 			list.Add(two);
@@ -242,6 +239,105 @@ namespace Missing
 			Assert.AreEqual(2, list.Count);
 		}
 		#endregion Count
+		
+		#region Enumerator
+		[Test]
+		public void Enumerator_BeforeLooping()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(3);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			
+			list.Add(one);
+			list.Add(two);
+			
+			List<SimpleElement> actual = new List<SimpleElement>();
+			foreach (SimpleElement cur in list)
+			{
+				actual.Add(cur);
+			}
+			
+			Assert.AreEqual(2, actual.Count, "The foreach should have yielded 2 items");
+			Assert.AreEqual(one, actual[0], "First yielded item is wrong");
+			Assert.AreEqual(two, actual[1], "Second yielded item is wrong");
+		}
+		
+		[Test]
+		public void Enumerator_AboutToLoop()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(2);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			
+			list.Add(one);
+			list.Add(two);
+			
+			List<SimpleElement> actual = new List<SimpleElement>();
+			foreach (SimpleElement cur in list)
+			{
+				actual.Add(cur);
+			}
+			
+			Assert.AreEqual(2, actual.Count, "The foreach should have yielded 2 items");
+			Assert.AreEqual(one, actual[0], "First yielded item is wrong");
+			Assert.AreEqual(two, actual[1], "Second yielded item is wrong");
+		}
+		
+		[Test]
+		public void Enumerator_AfterLooping()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(2);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			SimpleElement three = new SimpleElement() { String = "Three" };
+			
+			list.Add(one);
+			list.Add(two);
+			list.Add(three);
+			
+			List<SimpleElement> actual = new List<SimpleElement>();
+			foreach (SimpleElement cur in list)
+			{
+				actual.Add(cur);
+			}
+			
+			Assert.AreEqual(2, actual.Count, "The foreach should have yielded 2 items");
+			Assert.AreEqual(two, actual[0], "First yielded item is wrong");
+			Assert.AreEqual(three, actual[1], "Second yielded item is wrong");
+		}
+		
+		[Test]
+		public void Enumerator_AfterLooping_LongerList()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(3);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			SimpleElement three = new SimpleElement() { String = "Three" };
+			SimpleElement four = new SimpleElement() { String = "Four" };
+			SimpleElement five = new SimpleElement() { String = "FIve" };
+			
+			list.Add(one); // ==> 0
+			list.Add(two); // ==> 1
+			list.Add(three); // ==> 2
+			list.Add(four); // ==> 0
+			list.Add(five); // ==> 1
+			
+			List<SimpleElement> actual = new List<SimpleElement>();
+			foreach (SimpleElement cur in list)
+			{
+				actual.Add(cur);
+			}
+			
+			Assert.AreEqual(3, actual.Count, "The foreach should have yielded 3 items");
+			Assert.AreEqual(three, actual[0], "First yielded item is wrong");
+			Assert.AreEqual(four, actual[1], "Second yielded item is wrong");
+			Assert.AreEqual(five, actual[2], "Third yielded item is wrong");
+		}
+		#endregion Enumerator
 	}
 }
 
@@ -257,6 +353,11 @@ namespace Missing.CircularListStuff
 		}
 		
 		public string String { get; set; }
+		
+		public override string ToString()
+		{
+			return string.Format("[SimpleElement: String={0}]", String);
+		}
 	}
 }
 #endregion Stuff
