@@ -7,28 +7,52 @@ namespace Missing.Collections
 	{
 		private CircularList<T> collection;
 		private int curIndex;
-		private T curBox;
+		private T curElement;
+		
+		private int firstOuputIndex;
 
 		public CircularListEnumerator(CircularList<T> collection)
 		{
 			this.collection = collection;
-			this.curIndex = -1;
-			this.curBox = default(T);
+			this.curIndex = this.collection.CurrentIndex;
+			this.curElement = default(T);
+			
+			this.firstOuputIndex = -1;
 		}
-
+		
 		public bool MoveNext()
 		{
-			//Avoids going beyond the end of the collection.
-			if (++curIndex >= this.collection.Count)
+			// handle empty lists
+			if (this.collection.Count == 0)
 			{
 				return false;
 			}
 			
-			else
+			// move the index
+			this.curIndex++;
+			
+			// "flip" the index around the edge if necessary
+			if (this.curIndex >= this.collection.Count)
 			{
-				// Set current box to next item in collection.
-				this.curBox = this.collection[this.curIndex];
+				this.curIndex = 0;
 			}
+			
+			// if we have reached the first index we output
+			// we are at the end of the list
+			if (this.curIndex == this.firstOuputIndex)
+			{
+				return false;
+			}
+			
+			
+			// store the first index we output
+			if (this.firstOuputIndex == -1)
+			{
+				this.firstOuputIndex = this.curIndex;
+			}
+			
+			// update the element
+			this.curElement = this.collection[this.curIndex];
 			
 			return true;
 		}
@@ -44,7 +68,7 @@ namespace Missing.Collections
 
 		public T Current
 		{
-			get { return this.curBox; }
+			get { return this.curElement; }
 		}
 
 		object System.Collections.IEnumerator.Current
