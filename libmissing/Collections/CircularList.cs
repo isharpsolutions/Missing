@@ -29,6 +29,16 @@ namespace Missing.Collections
 			get;
 			private set;
 		}
+		
+		private int GetNextIndex()
+		{
+			return (this.CurrentIndex + 1) % this.items.Capacity;
+		}
+		
+		private void IncrementIndex()
+		{
+			this.CurrentIndex = this.GetNextIndex();
+		}
 
 		#region IList[T] implementation
 		public int IndexOf(T item)
@@ -70,7 +80,17 @@ namespace Missing.Collections
 		#region ICollection[T] implementation
 		public void Add(T item)
 		{
-			throw new NotImplementedException();
+			this.IncrementIndex();
+			
+			if (this.CurrentIndex >= this.items.Count)
+			{
+				this.items.Add(item);
+			}
+			
+			else
+			{
+				this.items[this.CurrentIndex] = item;
+			}
 		}
 
 		public void Clear()
