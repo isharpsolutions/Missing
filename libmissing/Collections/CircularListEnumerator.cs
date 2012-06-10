@@ -3,14 +3,38 @@ using System.Collections.Generic;
 
 namespace Missing.Collections
 {
+	/// <summary>
+	/// Enumerator for <see cref="CircularList"/>
+	/// </summary>
 	public class CircularListEnumerator<T> : IEnumerator<T>
 	{
+		/// <summary>
+		/// The collection we are enumerating
+		/// </summary>
 		private CircularList<T> collection;
+		
+		/// <summary>
+		/// The current index
+		/// </summary>
 		private int curIndex;
+		
+		/// <summary>
+		/// The current element
+		/// </summary>
 		private T curElement;
 		
+		/// <summary>
+		/// The index of the first item
+		/// we output
+		/// </summary>
 		private int firstOuputIndex;
-
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Missing.Collections.CircularListEnumerator`1"/> class.
+		/// </summary>
+		/// <param name="collection">
+		/// The collection to enumerate
+		/// </param>
 		public CircularListEnumerator(CircularList<T> collection)
 		{
 			this.collection = collection;
@@ -20,6 +44,12 @@ namespace Missing.Collections
 			this.firstOuputIndex = -1;
 		}
 		
+		/// <summary>
+		/// Move to the next element
+		/// </summary>
+		/// <returns>
+		/// Whether we are at the end of the list
+		/// </returns>
 		public bool MoveNext()
 		{
 			// handle empty lists
@@ -56,16 +86,23 @@ namespace Missing.Collections
 			
 			return true;
 		}
-
+		
+		/// <summary>
+		/// Reset this instance.
+		/// </summary>
 		public void Reset()
 		{
 			this.curIndex = -1;
+			this.firstOuputIndex = -1;
 		}
-
+		
 		void IDisposable.Dispose()
 		{
 		}
-
+		
+		/// <summary>
+		/// The current element
+		/// </summary>
 		public T Current
 		{
 			get { return this.curElement; }
