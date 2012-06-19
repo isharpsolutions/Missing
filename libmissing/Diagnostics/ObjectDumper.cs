@@ -60,7 +60,7 @@ namespace Missing.Diagnostics
 		}
 		#endregion Constructors
 		
-		private HashSet<int> seenBefore = new HashSet<int>();
+		private HashSet<object> seenBefore = new HashSet<object>();
 		
 		#region Dump
 		/// <summary>
@@ -92,14 +92,12 @@ namespace Missing.Diagnostics
 			//
 			// handle cyclic references
 			//
-			int seenBeforeKey = obj.GetHashCode();
-			
-			if (!t.IsEnum && this.seenBefore.Contains(seenBeforeKey))
+			if (!t.IsEnum && this.seenBefore.Contains(obj))
 			{
 				return String.Format("{0}{1}{2}", indent, prefix, "--cyclic--");
 			}
 			
-			this.seenBefore.Add(seenBeforeKey);
+			this.seenBefore.Add(obj);
 			
 			//
 			// special cases / custom handlers
