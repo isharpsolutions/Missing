@@ -40,13 +40,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="DbContext.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="MongoMappings.cs" />
     <Compile Include="..\VersionNumber.cs">
-      <Link>VersionNumber.cs</Link>
+      <Link>Properties\VersionNumber.cs</Link>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -54,5 +53,8 @@
       <Project>{FA76B33B-1B2A-4F9E-9648-9EDB534419FC}</Project>
       <Name>libmissing</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 </Project>
