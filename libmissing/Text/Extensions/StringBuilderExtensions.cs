@@ -22,7 +22,14 @@ namespace Missing.Text.Extensions
 		/// </param>
 		public static void RemoveLast(this StringBuilder sb, string toRemove)
 		{
-			sb = sb.Remove(sb.Length-toRemove.Length, toRemove.Length);
+			int start = Math.Max(0, sb.Length-toRemove.Length);
+
+			if ((start + toRemove.Length) > sb.Length)
+			{
+				return;
+			}
+
+			sb = sb.Remove(start, toRemove.Length);
 		}
 		
 		/// <summary>
