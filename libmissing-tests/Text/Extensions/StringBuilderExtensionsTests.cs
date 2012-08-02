@@ -48,5 +48,30 @@ namespace Missing
 			
 			Assert.AreEqual(expected, sb.ToString());
 		}
+
+		[Test]
+		public void RemoveLastEmptyInstance()
+		{
+			StringBuilder sb = new StringBuilder();
+
+			string expected = "";
+			
+			sb.RemoveLast("!");
+			
+			Assert.AreEqual(expected, sb.ToString());
+		}
+
+		[Test]
+		public void RemoveLastExactMatch()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.Append("!");
+
+			string expected = "";
+			
+			sb.RemoveLast("!");
+			
+			Assert.AreEqual(expected, sb.ToString());
+		}
 	}
 }

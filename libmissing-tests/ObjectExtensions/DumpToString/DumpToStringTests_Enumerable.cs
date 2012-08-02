@@ -23,6 +23,18 @@ namespace Missing
 			Assert.AreEqual(expected, obj.DumpToString());
 		}
 		#endregion Primitive list
+
+		#region Primitive list - empty
+		[Test]
+		public void ListOfPrimitives_Empty()
+		{
+			List<string> obj = new List<string>();
+			
+			string expected = @"Count = 0";
+			
+			Assert.AreEqual(expected, obj.DumpToString());
+		}
+		#endregion Primitive list - empty
 		
 		#region Primitive array
 		[Test]
@@ -37,7 +49,22 @@ namespace Missing
 			
 			Assert.AreEqual(expected, obj.DumpToString());
 		}
-		#endregion Primitive list
+		#endregion Primitive array
+
+		#region Primitive array - empty
+		[Test]
+		public void ArrayOfPrimitives_Empty()
+		{
+			string[] obj = new string[3];
+			
+			string expected = @"Count = 3
+[0] = null
+[1] = null
+[2] = null";
+			
+			Assert.AreEqual(expected, obj.DumpToString());
+		}
+		#endregion Primitive array - empty
 		
 		#region Class with primitive list
 		[Test]

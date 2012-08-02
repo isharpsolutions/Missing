@@ -223,6 +223,16 @@ namespace Missing.Diagnostics
 			sb.RemoveLastNewLine();
 			
 			string count = String.Format("{0}{1}{2} = {3}", this.MakeIndentation(indendation), prefix, countField, index);
+
+			// if the enuerable is empty, we do
+			// not need to do anything else than
+			// return the count - especially since
+			// we never want to return with a newline
+			// at the end
+			if (index == 0)
+			{
+				return count;
+			}
 			
 			return String.Format("{0}{1}{2}", count, System.Environment.NewLine, sb.ToString());
 		}
