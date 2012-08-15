@@ -13,12 +13,13 @@ namespace Missing
 		[Test]
 		public void ListOfPrimitives()
 		{
-			List<string> obj = new List<string>() { "One", "Two", "Three" };
+			List<string> obj = new List<string>() { "One", "Two", "Three", "Three" };
 			
-			string expected = @"Count = 3
+			string expected = @"Count = 4
 [0] = 'One'
 [1] = 'Two'
-[2] = 'Three'";
+[2] = 'Three'
+[3] = 'Three'";
 			
 			Assert.AreEqual(expected, obj.DumpToString());
 		}
@@ -40,12 +41,13 @@ namespace Missing
 		[Test]
 		public void ArrayOfPrimitives()
 		{
-			string[] obj = new string[] { "One", "Two", "Three" };
+			string[] obj = new string[] { "One", "Two", "Three", "Three" };
 			
-			string expected = @"Count = 3
+			string expected = @"Count = 4
 [0] = 'One'
 [1] = 'Two'
-[2] = 'Three'";
+[2] = 'Three'
+[3] = 'Three'";
 			
 			Assert.AreEqual(expected, obj.DumpToString());
 		}

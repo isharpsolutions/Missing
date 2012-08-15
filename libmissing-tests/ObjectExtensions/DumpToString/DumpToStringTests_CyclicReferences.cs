@@ -17,7 +17,7 @@ namespace Missing
 					Name = "Young Fart"
 				}
 			};
-			
+
 			obj.Child.Parent = obj;
 			
 			string expected = @"{
