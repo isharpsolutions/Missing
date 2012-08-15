@@ -18,6 +18,15 @@ namespace Missing.Diagnostics
 		/// Contains a table of special handlers
 		/// </summary>
 		private static Dictionary<string, Func<object, string>> SpecialHandlers = new Dictionary<string, Func<object, string>>();
+
+		/// <summary>
+		/// Holds a set of types that cannot result in cyclic references
+		/// </summary>
+		private static HashSet<string> NonCyclicTypes = new HashSet<string>() {
+			{"String"},
+			{"DateTime"},
+			{"Decimal"}
+		};
 		
 		#region Static
 		/// <summary>
@@ -86,13 +95,13 @@ namespace Missing.Diagnostics
 			{
 				return String.Format("{0}{1}{2}", indent, prefix, "null");
 			}
-			
+
 			Type t = obj.GetType();
-			
+
 			//
 			// handle cyclic references
 			//
-			if (!t.IsEnum && this.seenBefore.Contains(obj))
+			if (!t.IsEnum && !t.IsPrimitive && !NonCyclicTypes.Contains(t.Name) && this.seenBefore.Contains(obj))
 			{
 				return String.Format("{0}{1}{2}", indent, prefix, "--cyclic--");
 			}
