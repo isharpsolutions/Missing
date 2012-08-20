@@ -2,6 +2,10 @@ using System;
 
 namespace Missing.Validation
 {
+	/// <summary>
+	/// This exception is designed for cases where the throwing code is
+	/// unable to find a validation specification.
+	/// </summary>
 	[Serializable]
 	public class UnableToFindValidationSpecificationException : Exception
 	{

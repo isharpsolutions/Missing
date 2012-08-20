@@ -45,6 +45,11 @@ namespace Missing.Validation.Internal
 			{
 				vsType = possibleMatches[0];
 			}
+
+			else if (possibleMatches.Count == 0)
+			{
+				vsType = null;
+			}
 		
 			else
 			{

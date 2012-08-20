@@ -29,9 +29,9 @@ namespace Missing
 			try
 			{
 				Validator.Validate(model);
-				Assert.Fail("An ArgumentException should have been thrown");
+				Assert.Fail("An UnableToFindValidationSpecificationException should have been thrown");
 			}
-			catch (ArgumentException)
+			catch (UnableToFindValidationSpecificationException)
 			{
 				// good
 			}
