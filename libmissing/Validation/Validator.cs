@@ -48,6 +48,26 @@ namespace Missing.Validation
 			
 			return val.Validate<TModel>(input);
 		}
+
+		/// <summary>
+		/// Validates the specified input if a validation specification can be found.
+		/// Otherwise a positive validation result is returned.
+		/// </summary>
+		/// <returns>
+		/// The validation result (always positive for inputs with no specification)
+		/// </returns>
+		/// <param name="input">
+		/// The model that should be validated
+		/// </param>
+		/// <typeparam name="TModel">
+		/// The type of the model
+		/// </typeparam>
+		public static ValidationResult ValidateIfSpecExists<TModel>(TModel input) where TModel : class
+		{
+			InternalValidator val = new InternalValidator();
+			
+			return val.ValidateIfSpecExists<TModel>(input);
+		}
 		
 		/// <summary>
 		/// Validate the specified input.
@@ -90,6 +110,38 @@ namespace Missing.Validation
 		/// </exception>
 		public static ValidationResult Validate(object input)
 		{
+			return ObjectBasedWorker("Validate", input);
+		}
+
+		/// <summary>
+		/// Validates if spec exists.
+		/// </summary>
+		/// <returns>
+		/// The validation result (always positive for inputs with no specification)
+		/// </returns>
+		/// <param name="input">
+		/// The input model instance to validate
+		/// </param>
+		public static ValidationResult ValidateIfSpecExists(object input)
+		{
+			return ObjectBasedWorker("ValidateIfSpecExists", input);
+		}
+
+		/// <summary>
+		/// Common validation method used by validate methods that
+		/// takes an "object" input (aka non-generic validate methods).
+		/// </summary>
+		/// <returns>
+		/// The validation result
+		/// </returns>
+		/// <param name="methodToUse">
+		/// The name of the generic method to use
+		/// </param>
+		/// <param name="input">
+		/// The model to validate
+		/// </param>
+		private static ValidationResult ObjectBasedWorker(string methodToUse, object input)
+		{
 			ValidationResult val = null;
 			
 			#region Make generic validate method
@@ -97,7 +149,7 @@ namespace Missing.Validation
 			
 			var allMethods = typeof(Validator).GetMethods();
 			MethodInfo foundMi = allMethods.FirstOrDefault(
-				mi => mi.Name == "Validate" && mi.GetParameters().Count() == 1
+				mi => mi.Name == methodToUse && mi.GetParameters().Count() == 1
 			);
 			
 			if (foundMi == null)

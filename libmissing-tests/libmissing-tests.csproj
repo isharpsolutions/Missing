@@ -84,6 +84,7 @@
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_SpecialCase.cs" />
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_CyclicReferences.cs" />
     <Compile Include="Collections\CircularListTests.cs" />
+    <Compile Include="Validation\ValidatorTests_IfSpecExists.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">

@@ -45,6 +45,11 @@ namespace Missing.Validation.Internal
 			{
 				vsType = possibleMatches[0];
 			}
+
+			else if (possibleMatches.Count == 0)
+			{
+				vsType = null;
+			}
 		
 			else
 			{
@@ -60,7 +65,7 @@ namespace Missing.Validation.Internal
 				// cannot select between them... notify the user
 				if (scores[scores.Count-1].Score == scores[scores.Count-2].Score)
 				{
-					throw new ArgumentException(String.Format("There was multiple equally valid validation specifications for '{0}'. Consider using the Validator.Validate<TModel>(input, ValidationSpecification<TModel>) overload.", input.GetType().Name));
+					throw new UnableToFindValidationSpecificationException(String.Format("There was multiple equally valid validation specifications for '{0}'. Consider using the Validator.Validate<TModel>(input, ValidationSpecification<TModel>) overload.", input.GetType().Name));
 				}
 				
 				// highest scoring type wins :)
@@ -69,7 +74,7 @@ namespace Missing.Validation.Internal
 			
 			if (vsType == null)
 			{
-				throw new ArgumentException(String.Format("I was unable to find a validation specification for '{0}'. It should be called '{0}ValidationSpecification'", input.GetType().Name));
+				throw new UnableToFindValidationSpecificationException(String.Format("I was unable to find a validation specification for '{0}'. It should be called '{0}ValidationSpecification'", input.GetType().Name));
 			}
 			
 			//
@@ -146,6 +151,33 @@ namespace Missing.Validation.Internal
 			}
 			
 			return result;
+		}
+
+		/// <summary>
+		/// Runs validation if it is able to find a specification. Otherwise validation just passes.
+		/// </summary>
+		/// <param name="input">
+		/// The input model
+		/// </param>
+		/// <typeparam name="TModel">
+		/// The type of the input model
+		/// </typeparam>
+		public ValidationResult ValidateIfSpecExists<TModel>(TModel input) where TModel : class
+		{
+			ValidationSpecification<TModel> vs = null;
+
+			try
+			{
+				vs = this.FindValidationSpecification<TModel>(input);
+			}
+
+			catch (UnableToFindValidationSpecificationException)
+			{
+				return new ValidationResult();
+			}
+			
+			// run the actual validation :)
+			return Validate<TModel>(input, vs);
 		}
 		#endregion Validate
 		
