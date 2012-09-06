@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,7 @@ namespace Missing.Security.PasswordHashing
 		{
 			Algorithm = PasswordHasherAlgorithm.BCrypt;
 			Salt = PasswordHasher.RandomSalt();
-			WorkAmount = 10;
+			WorkFactor = 10;
 		}
 
 		/// <summary>
@@ -39,6 +39,6 @@ namespace Missing.Security.PasswordHashing
 		/// Determines the number of iterations, in log2 format, the underlying algorithm should use
 		/// Defaults to 10, so 2^10 iterations = 1024
 		/// </summary>
-		public uint WorkAmount { get; set; }
+		public uint WorkFactor { get; set; }
 	}
 }

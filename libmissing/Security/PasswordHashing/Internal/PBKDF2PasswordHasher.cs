@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,7 +44,7 @@ namespace Missing.Security.PasswordHashing.Internal
 			blocks.Add(new byte[0]);
 			for (uint i = 1; i <= byteBlocks; i++)
 			{
-				byte[] current = F(password, options.Salt, Convert.ToUInt32(Math.Pow(2.0d, options.WorkAmount)), i, options.HashType, hLen);
+				byte[] current = F(password, options.Salt, Convert.ToUInt32(Math.Pow(2.0d, options.WorkFactor)), i, options.HashType, hLen);
 				blocks.Add(current);
 			}
 
@@ -73,7 +73,7 @@ namespace Missing.Security.PasswordHashing.Internal
 			}
 
 			string encodedHash = String.Format("${0}${1}${2}",
-			                                  	options.WorkAmount.ToString().PadLeft(2, '0'),
+			                                  	options.WorkFactor.ToString().PadLeft(2, '0'),
 			                                   Convert.ToBase64String(options.Salt),
 			                                   Convert.ToBase64String(resultingHash));
 

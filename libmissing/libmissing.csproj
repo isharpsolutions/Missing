@@ -114,6 +114,7 @@
     <Compile Include="Validation\Internal\Range.cs" />
     <Compile Include="Validation\Internal\Validators\NumberValidator.cs" />
     <Compile Include="Validation\Internal\IRange.cs" />
+    <Compile Include="Security\PasswordHashing\Internal\BCryptPasswordHasher.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
