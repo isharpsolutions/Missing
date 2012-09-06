@@ -9,7 +9,7 @@ using Missing.Security.PasswordHashing;
 namespace Missing.Security
 {
 	[TestFixture]
-	public class KeyDerivationTests
+	public class PBKDF2PasswordHasherTests
 	{
 		#region RandomSalt tests
 		[Test]
@@ -61,13 +61,13 @@ namespace Missing.Security
 			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA512,
-				Iterations = 16854,
+				WorkAmount = 16854,
 				HashSize = 64,
 				Salt = PasswordHasher.RandomSalt(32)
 			};
 			PasswordHash key = PasswordHasher.Derive("thisisapassword", options);
 
-			Assert.IsTrue(key.Iterations == options.Iterations, "Wrong number of iterations was used");
+			Assert.IsTrue(key.Iterations == options.WorkAmount, "Wrong number of iterations was used");
 			Assert.IsTrue(key.Key.Length == Convert.ToInt32(options.HashSize), "Derived key is of incorrect length");
 			Assert.AreEqual(options.Salt, key.Salt, "returned salt did not equal the salt that was input");
 		}
@@ -80,7 +80,7 @@ namespace Missing.Security
 			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
-				Iterations = 1,
+				WorkAmount = 1,
 				HashSize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
@@ -102,7 +102,7 @@ namespace Missing.Security
 			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
-				Iterations = 2,
+				WorkAmount = 2,
 				HashSize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
@@ -124,7 +124,7 @@ namespace Missing.Security
 			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
-				Iterations = 4096,
+				WorkAmount = 4096,
 				HashSize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
@@ -146,7 +146,7 @@ namespace Missing.Security
 			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
-				Iterations = 16777216,
+				WorkAmount = 16777216,
 				HashSize = 20,
 				Salt = Encoding.ASCII.GetBytes("salt")
 			};
@@ -168,7 +168,7 @@ namespace Missing.Security
 			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
-				Iterations = 4096,
+				WorkAmount = 4096,
 				HashSize = 25,
 				Salt = Encoding.ASCII.GetBytes("saltSALTsaltSALTsaltSALTsaltSALTsalt")
 			};
@@ -191,7 +191,7 @@ namespace Missing.Security
 			PasswordHasherOptions options = new PasswordHasherOptions()
 			{
 				HashType = Cryptography.HashType.SHA1,
-				Iterations = 4096,
+				WorkAmount = 4096,
 				HashSize = 16,
 				Salt = Encoding.ASCII.GetBytes("sa\0lt")
 			};
