@@ -21,6 +21,8 @@ namespace Missing.Security.PasswordHashing.Internal
 		/// <exception cref="ArgumentExcetption">If the given hash lengh exceeds the lenght defined in the rfc standard</exception>
 		public override PasswordHash Compute(string password, PasswordHasherOptions options)
 		{
+			throw new NotSupportedException();
+
 			// create a new HMAC
 			HMAC hmac = HMACFactory.CreateInstance(options.HashType);
 			ulong hLen = Convert.ToUInt64(hmac.HashSize / 8);
