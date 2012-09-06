@@ -10,10 +10,8 @@ namespace Missing.Security.PasswordHashing
 	{
 		public PasswordHasherOptions()
 		{
-			Algorithm = PasswordHasherAlgorithm.PBKDF2;
+			Algorithm = PasswordHasherAlgorithm.BCrypt;
 			Salt = PasswordHasher.RandomSalt();
-			HashType = Cryptography.HashType.SHA256;
-			HashSize = 32;
 			WorkAmount = 10;
 		}
 
