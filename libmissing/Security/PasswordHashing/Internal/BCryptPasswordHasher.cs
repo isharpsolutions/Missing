@@ -45,7 +45,7 @@ namespace Missing.Security.PasswordHashing.Internal
 
 		public override bool Verify (string password, string encodedHash)
 		{
-			throw new System.NotImplementedException ();
+			return BCrypt.Verify(password, encodedHash);
 		}
 		#endregion
 
