@@ -17,7 +17,7 @@ namespace Missing.Security.PasswordHashing.Internal
 		/// <param name="password">The password.</param>
 		/// <param name="options">The options.</param>
 		/// <returns></returns>
-		public abstract PasswordHash Compute(string password, PasswordHasherOptions options);
+		public abstract string Compute(string password, PasswordHasherOptions options);
 
 		/// <summary>
 		/// Verify the specified password against the encoded hash

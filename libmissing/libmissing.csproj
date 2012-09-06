@@ -72,7 +72,6 @@
     <Compile Include="Security\PasswordHashing\Internal\PasswordHasherBase.cs" />
     <Compile Include="Security\PasswordHashing\Internal\PasswordHasherFactory.cs" />
     <Compile Include="Security\PasswordHashing\Internal\PBKDF2PasswordHasher.cs" />
-    <Compile Include="Security\PasswordHashing\PasswordHash.cs" />
     <Compile Include="Security\PasswordHashing\PasswordHasher.cs" />
     <Compile Include="Security\PasswordHashing\PasswordHasherAlgorithm.cs" />
     <Compile Include="Security\PasswordHashing\PasswordHasherOptions.cs" />

@@ -59,7 +59,7 @@ namespace Missing.Security.PasswordHashing
 		/// </remarks>
 		/// <param name="password">The master password to derive a key from</param>
 		/// <returns></returns>
-		public static PasswordHash Derive(string password)
+		public static string Derive(string password)
 		{
 			// default settings are good..
 			PasswordHasherOptions options = new PasswordHasherOptions();
@@ -73,7 +73,7 @@ namespace Missing.Security.PasswordHashing
 		/// <param name="password">The password.</param>
 		/// <param name="options">The options.</param>
 		/// <returns></returns>
-		public static PasswordHash Derive(string password, PasswordHasherOptions options)
+		public static string Derive(string password, PasswordHasherOptions options)
 		{
 			PasswordHasherBase kdb = PasswordHasherFactory.GetInstance(options.Algorithm);
 			return kdb.Compute(password, options);

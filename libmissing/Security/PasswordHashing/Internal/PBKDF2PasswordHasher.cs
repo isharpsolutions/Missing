@@ -19,7 +19,7 @@ namespace Missing.Security.PasswordHashing.Internal
 		/// <param name="options">The options.</param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentExcetption">If the given hash lengh exceeds the lenght defined in the rfc standard</exception>
-		public override PasswordHash Compute(string password, PasswordHasherOptions options)
+		public override string Compute(string password, PasswordHasherOptions options)
 		{
 			throw new NotSupportedException();
 
@@ -72,19 +72,13 @@ namespace Missing.Security.PasswordHashing.Internal
 				startIndex++;
 			}
 
-			string encodedHash = String.Format("${0}${1}${2}",
+			string encodedHash = String.Format("$9d${0}${1}${2}",
 			                                  	options.WorkFactor.ToString().PadLeft(2, '0'),
 			                                   Convert.ToBase64String(options.Salt),
 			                                   Convert.ToBase64String(resultingHash));
 
-			PasswordHash hash = new PasswordHash()
-			{
-				Algorithm = options.Algorithm,
-				Hash = encodedHash
-			};
-
 			hmac.Clear();
-			return hash;
+			return encodedHash;
 		}
 
 		public override bool Verify (string password, string encodedHash)

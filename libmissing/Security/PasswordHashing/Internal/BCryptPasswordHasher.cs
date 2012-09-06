@@ -32,15 +32,11 @@ namespace Missing.Security.PasswordHashing.Internal
 		{
 		}
 		#region implemented abstract members of Missing.Security.PasswordHashing.Internal.PasswordHasherBase
-		public override PasswordHash Compute (string password, PasswordHasherOptions options)
+		public override string Compute (string password, PasswordHasherOptions options)
 		{
 			string encodedHash = BCrypt.HashPassword(password, (int)options.WorkFactor );
 
-			return new PasswordHash
-			{
-				Hash = encodedHash,
-				Algorithm = PasswordHasherAlgorithm.BCrypt
-			};
+			return encodedHash;
 		}
 
 		public override bool Verify (string password, string encodedHash)
