@@ -29,7 +29,7 @@ namespace Missing
 			string passphrase = "awesomehorsesridingalong";
 			string hash = PasswordHasher.Derive(passphrase);
 
-			bool valid = PasswordHasher.Validate(passphrase, hash);
+			bool valid = PasswordHasher.IsMatch(passphrase, hash);
 
 			Assert.IsTrue(valid);
 		}
@@ -40,7 +40,7 @@ namespace Missing
 			string passphrase = "awesomehorsesridingalong";
 			string hash = PasswordHasher.Derive(passphrase);
 
-			bool valid = PasswordHasher.Validate("ShouldNotPass", hash);
+			bool valid = PasswordHasher.IsMatch("ShouldNotPass", hash);
 
 			Assert.IsFalse(valid);
 		}

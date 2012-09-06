@@ -81,15 +81,19 @@ namespace Missing.Security.PasswordHashing
 
 
 		/// <summary>
-		/// Validate the specified plaintext against the hash.
+		/// Check whether the given plaintext (i.e. non-hashed value) is
+		/// the value of the given hash.
 		/// </summary>
-		/// <param name='plaintext'>
-		/// If set to <c>true</c> plaintext.
+		/// <param name="plaintext">
+		/// The plaintext value to check
 		/// </param>
-		/// <param name='hash'>
-		/// <c>true</c> if the given plaintext matches the hash
+		/// <param name="hash">
+		/// The hashed value to check against
 		/// </param>
-		public static bool Validate(string plaintext ,string hash)
+		/// <returns>
+		/// <c>True</c> if the plaintext matches the value of the hash, <c>false</c> otherwise
+		/// </returns>
+		public static bool IsMatch(string plaintext, string hash)
 		{
 			PasswordHasherBase hasher = PasswordHasherFactory.GetInstance(hash);
 
