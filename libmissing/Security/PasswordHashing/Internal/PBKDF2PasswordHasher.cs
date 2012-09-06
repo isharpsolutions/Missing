@@ -42,7 +42,7 @@ namespace Missing.Security.PasswordHashing.Internal
 			blocks.Add(new byte[0]);
 			for (uint i = 1; i <= byteBlocks; i++)
 			{
-				byte[] current = F(password, options.Salt, options.WorkAmount, i, options.HashType, hLen);
+				byte[] current = F(password, options.Salt, Convert.ToUInt32(Math.Pow(2.0d, options.WorkAmount)), i, options.HashType, hLen);
 				blocks.Add(current);
 			}
 
