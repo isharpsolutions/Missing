@@ -71,6 +71,8 @@
     <Compile Include="Validation\ValidationSpecificationTests_ListItems.cs" />
     <Compile Include="Validation\ValidatorTests_ListFields.cs" />
     <Compile Include="Validation\ValidatorTests_NumberRanges.cs" />
+    <Compile Include="Security\PBKDF2PasswordHasherTests.cs" />
+    <Compile Include="Security\BCryptPasswordHasherTest.cs" />
     <Compile Include="Validation\ValidatorTests_NonGenericValidate.cs" />
     <Compile Include="Network\EasyHttpRequest_GetTests.cs" />
     <Compile Include="Security\MickeyMouseEncryptionTests.cs" />
@@ -95,12 +97,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reflection\Extensions\" />
+  <ItemGroup />
     <Folder Include="Network\" />
     <Folder Include="ObjectExtensions\" />
     <Folder Include="ObjectExtensions\DumpToString\" />
     <Folder Include="Text\" />
     <Folder Include="Text\Extensions\" />
-  </ItemGroup>
 </Project>

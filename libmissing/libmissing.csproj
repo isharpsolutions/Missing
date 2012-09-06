@@ -66,8 +66,15 @@
     <Compile Include="Network\EasyHttpRequestFactory.cs" />
     <Compile Include="Network\EasyHttpRequest.cs" />
     <Compile Include="Reflection\TypeHelper.cs" />
+    <Compile Include="Security\Cryptography\HMACFactory.cs" />
     <Compile Include="Security\PasswordGenerator.cs" />
     <Compile Include="Security\PasswordGeneratorParameters.cs" />
+    <Compile Include="Security\PasswordHashing\Internal\PasswordHasherBase.cs" />
+    <Compile Include="Security\PasswordHashing\Internal\PasswordHasherFactory.cs" />
+    <Compile Include="Security\PasswordHashing\Internal\PBKDF2PasswordHasher.cs" />
+    <Compile Include="Security\PasswordHashing\PasswordHasher.cs" />
+    <Compile Include="Security\PasswordHashing\PasswordHasherAlgorithm.cs" />
+    <Compile Include="Security\PasswordHashing\PasswordHasherOptions.cs" />
     <Compile Include="StringExtensions\StringExtensions.cs" />
     <Compile Include="Validation\ValidationResult.cs" />
     <Compile Include="Validation\ValidationSpecification.cs" />
@@ -100,6 +107,7 @@
     <Compile Include="Validation\Internal\Range.cs" />
     <Compile Include="Validation\Internal\Validators\NumberValidator.cs" />
     <Compile Include="Validation\Internal\IRange.cs" />
+    <Compile Include="Security\PasswordHashing\Internal\BCryptPasswordHasher.cs" />
     <Compile Include="Diagnostics\Log.cs" />
     <Compile Include="Diagnostics\Configurations\SimpleConsole.cs" />
     <Compile Include="Diagnostics\Configurations\ColoredConsoleAppender.cs" />
