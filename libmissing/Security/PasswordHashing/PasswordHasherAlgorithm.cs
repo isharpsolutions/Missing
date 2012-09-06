@@ -14,6 +14,11 @@ namespace Missing.Security.PasswordHashing
 		/// <summary>
 		/// Use the RFC2898 PBKDF2 algorithm for deriving keys
 		/// </summary>
-		PBKDF2
+		PBKDF2,
+
+		/// <summary>
+		/// Uses the BCrypt password deriver
+		/// </summary>
+		BCrypt
 	}
 }
