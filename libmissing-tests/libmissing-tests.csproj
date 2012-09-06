@@ -72,6 +72,7 @@
     <Compile Include="Validation\ValidatorTests_ListFields.cs" />
     <Compile Include="Validation\ValidatorTests_NumberRanges.cs" />
     <Compile Include="Security\PBKDF2PasswordHasherTests.cs" />
+    <Compile Include="Security\BCryptPasswordHasherTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
