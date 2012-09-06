@@ -78,6 +78,23 @@ namespace Missing.Security.PasswordHashing
 			PasswordHasherBase kdb = PasswordHasherFactory.GetInstance(options.Algorithm);
 			return kdb.Compute(password, options);
 		}
+
+
+		/// <summary>
+		/// Validate the specified plaintext against the hash.
+		/// </summary>
+		/// <param name='plaintext'>
+		/// If set to <c>true</c> plaintext.
+		/// </param>
+		/// <param name='hash'>
+		/// <c>true</c> if the given plaintext matches the hash
+		/// </param>
+		public static bool Validate(string plaintext ,string hash)
+		{
+			PasswordHasherBase hasher = PasswordHasherFactory.GetInstance(hash);
+
+			return hasher.Verify(plaintext, hash);
+		}
 		#endregion Key derivation
 	}
 }
