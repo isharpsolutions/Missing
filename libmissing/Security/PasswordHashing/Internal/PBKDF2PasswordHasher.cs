@@ -42,7 +42,7 @@ namespace Missing.Security.PasswordHashing.Internal
 			blocks.Add(new byte[0]);
 			for (uint i = 1; i <= byteBlocks; i++)
 			{
-				byte[] current = F(password, options.Salt, options.Iterations, i, options.HashType, hLen);
+				byte[] current = F(password, options.Salt, options.WorkAmount, i, options.HashType, hLen);
 				blocks.Add(current);
 			}
 
@@ -70,13 +70,15 @@ namespace Missing.Security.PasswordHashing.Internal
 				startIndex++;
 			}
 
+			string encodedHash = String.Format("${0}${1}${2}",
+			                                  	options.WorkAmount.ToString().PadLeft(2, '0'),
+			                                   Convert.ToBase64String(options.Salt),
+			                                   Convert.ToBase64String(resultingHash));
+
 			PasswordHash hash = new PasswordHash()
 			{
 				Algorithm = options.Algorithm,
-				Iterations = options.Iterations,
-				Key = resultingHash,
-				KeyHex = BitConverter.ToString(resultingHash).Replace("-", String.Empty).ToLower(),
-				Salt = options.Salt
+				Hash = encodedHash
 			};
 
 			hmac.Clear();

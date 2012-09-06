@@ -14,8 +14,7 @@ namespace Missing.Security.PasswordHashing
 			Salt = PasswordHasher.RandomSalt();
 			HashType = Cryptography.HashType.SHA256;
 			HashSize = 32;
-			Random rng = new Random();
-			Iterations = Convert.ToUInt32(rng.Next(8000, 9000));
+			WorkAmount = 10;
 		}
 
 		/// <summary>
@@ -39,9 +38,9 @@ namespace Missing.Security.PasswordHashing
 		public ulong HashSize { get; set; }
 
 		/// <summary>
-		/// Determines the number of iterations the underlying algorithm should use
-		/// Defaults to a random value between 8000 and 9000
+		/// Determines the number of iterations, in log2 format, the underlying algorithm should use
+		/// Defaults to 10, so 2^10 iterations = 1024
 		/// </summary>
-		public uint Iterations { get; set; }
+		public uint WorkAmount { get; set; }
 	}
 }
