@@ -87,6 +87,11 @@ namespace Missing.Security.PasswordHashing.Internal
 			return hash;
 		}
 
+		public override bool Verify (string password, string encodedHash)
+		{
+			throw new System.NotImplementedException ();
+		}
+
 		/// <summary>
 		/// The inner function F as defined in the RFC
 		/// </summary>

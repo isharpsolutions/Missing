@@ -1,5 +1,5 @@
 // iSharp Solutions Notice.
-// This is the Bcrypt class from bcrypt.codeplex.net encapsulated in
+// This is the Bcrypt class from bcrypt.codeplex.com encapsulated in
 // our password hasher framework.
 // All credits go to the original authors.
 //
@@ -41,6 +41,11 @@ namespace Missing.Security.PasswordHashing.Internal
 				Hash = encodedHash,
 				Algorithm = PasswordHasherAlgorithm.BCrypt
 			};
+		}
+
+		public override bool Verify (string password, string encodedHash)
+		{
+			throw new System.NotImplementedException ();
 		}
 		#endregion
 
