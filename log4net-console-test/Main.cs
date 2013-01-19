@@ -11,17 +11,17 @@ namespace log4netconsoletest
 		public static void Main(string[] args)
 		{
 			Console.WriteLine("Missing Log4Net Console Test");
-			
+
 			//Log.Use().SimpleConsole();
-			Log.Use().SimpleConsoleColored()
-				.AddLogger(typeof(log4netconsoletest.Sub.SomeClass).Namespace, "ERROR");
+			//Log.Use().SimpleConsoleColored().AddLogger(typeof(log4netconsoletest.Sub.SomeClass).Namespace, "ERROR");
+			Log.Use().SimpleFileAppender("test.log");
 			
 			/*****************************************************************
 			 CREATE SCHEMA `missing` DEFAULT CHARACTER SET utf8;
 			  
 			 CREATE TABLE `mysqladonetappender` (
 			   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-			   `DateTime` datetime DEFAULT NULL,
+			   `DateTime` datetime DEFAULT NULL,d
 			   `Level` text,
 			   `Caller` text,
 			   `Message` text,
