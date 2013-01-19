@@ -129,6 +129,7 @@
     <Compile Include="Collections\CircularList.cs" />
     <Compile Include="Collections\CircularListEnumerator.cs" />
     <Compile Include="Validation\UnableToFindValidationSpecificationException.cs" />
+    <Compile Include="Diagnostics\Configurations\SimpleFileAppender.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

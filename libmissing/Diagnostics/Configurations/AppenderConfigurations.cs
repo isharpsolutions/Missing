@@ -6,7 +6,7 @@ namespace Missing.Diagnostics.Configurations
 	/// <summary>
 	/// Holds appender configurations.
 	/// 
-	/// This class is tightly bound to <see cref="LogImplementation"/> as
+	/// This class is tightly bound to <see cref="LogImplementation"/> and
 	/// is not meant to be used in any other context.
 	/// </summary>
 	public partial class AppenderConfigurations
