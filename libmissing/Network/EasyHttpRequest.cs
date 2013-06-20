@@ -86,6 +86,12 @@ namespace Missing.Network
 		/// The actual request URL
 		/// </summary>
 		protected string url = String.Empty;
+
+		/// <summary>
+		/// An action that modifies the httprequest just before
+		/// it is sent
+		/// </summary>
+		protected Action<HttpWebRequest> requestModifier = null;
 		
 		#region Add data
 		/// <summary>
@@ -141,7 +147,12 @@ namespace Missing.Network
 			this.SpoofReferer();
 			
 			Stopwatch watch = new Stopwatch();
-			
+
+			if (this.requestModifier != null)
+			{
+				this.requestModifier(this.request);
+			}
+
 			watch.Start();
 			this.SendWorker();
 			
@@ -375,6 +386,16 @@ namespace Missing.Network
 		{
 			get { return this.url; }
 			set { this.url = value; }
+		}
+
+		/// <summary>
+		/// Get/set an action that modifies the httprequest
+		/// just before sending it.
+		/// </summary>
+		public Action<HttpWebRequest> RequestModifier
+		{
+			get { return this.requestModifier; }
+			set { this.requestModifier = value; }
 		}
 		#endregion Properties
 	}
