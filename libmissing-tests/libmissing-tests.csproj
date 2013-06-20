@@ -11,22 +11,22 @@
     <AssemblyName>libmissing-tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+    <ConsolePause>False</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+    <ConsolePause>False</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,7 +48,7 @@
         <Policies>
           <DotNetNamingPolicy DirectoryNamespaceAssociation="None" ResourceNamePolicy="FileFormatDefault" />
         </Policies>
-        <Deployment.LinuxDeployData generatePcFile="false" />
+        <Deployment.LinuxDeployData generatePcFile="False" />
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
@@ -87,20 +87,21 @@
     <Compile Include="ObjectExtensions\DumpToString\DumpToStringTests_CyclicReferences.cs" />
     <Compile Include="Collections\CircularListTests.cs" />
     <Compile Include="Validation\ValidatorTests_IfSpecExists.cs" />
+    <Compile Include="Security\Base64Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Security\Cryptography\Md5TestFile.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Gettext-ScanForTranslations>false</Gettext-ScanForTranslations>
+      <Gettext-ScanForTranslations>False</Gettext-ScanForTranslations>
     </None>
     <None Include="app.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup />
-    <Folder Include="Network\" />
-    <Folder Include="ObjectExtensions\" />
-    <Folder Include="ObjectExtensions\DumpToString\" />
-    <Folder Include="Text\" />
-    <Folder Include="Text\Extensions\" />
+  <Folder Include="Network\" />
+  <Folder Include="ObjectExtensions\" />
+  <Folder Include="ObjectExtensions\DumpToString\" />
+  <Folder Include="Text\" />
+  <Folder Include="Text\Extensions\" />
 </Project>
