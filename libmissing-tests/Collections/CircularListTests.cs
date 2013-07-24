@@ -6,6 +6,13 @@ using System.Collections.Generic;
 
 namespace Missing
 {
+	/**
+	 * Note that the "before looping", "about to loop" and "after looping"
+	 * terms do not refer to the user looping over the list, but to
+	 * instead to the list's internal ring-state (i.e. whether more than
+	 * maxlength elements have been added)
+	 **/
+
 	[TestFixture]
 	public class CircularListTests
 	{
@@ -338,6 +345,96 @@ namespace Missing
 			Assert.AreEqual(five, actual[2], "Third yielded item is wrong");
 		}
 		#endregion Enumerator
+
+		#region For-looping
+		[Test]
+		public void ForLoop_BeforeLooping()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(3);
+
+			var elements = new List<SimpleElement>() {
+				new SimpleElement() { String = "One" },
+				new SimpleElement() { String = "Two" }
+			};
+
+			foreach (var cur in elements)
+			{
+				list.Add(cur);
+			}
+
+			for (int i=0; i!=list.Count; i++)
+			{
+				Assert.AreEqual(elements[i], list[i], "Item {0} is wrong");
+			}
+		}
+		
+		[Test]
+		public void ForLoop_AboutToLoop()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(2);
+			
+			var elements = new List<SimpleElement>() {
+				new SimpleElement() { String = "One" },
+				new SimpleElement() { String = "Two" }
+			};
+			
+			foreach (var cur in elements)
+			{
+				list.Add(cur);
+			}
+			
+			for (int i=0; i!=list.Count; i++)
+			{
+				Assert.AreEqual(elements[i], list[i], "Item {0} is wrong");
+			}
+		}
+		
+		[Test]
+		public void ForLoop_AfterLooping()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(2);
+			
+			var elements = new List<SimpleElement>() {
+				new SimpleElement() { String = "One" },
+				new SimpleElement() { String = "Two" },
+				new SimpleElement() { String = "Three" }
+			};
+			
+			foreach (var cur in elements)
+			{
+				list.Add(cur);
+			}
+			
+			for (int i=0; i!=list.Count; i++)
+			{
+				Assert.AreEqual(elements[i+1], list[i], "Item {0} is wrong");
+			}
+		}
+		
+		[Test]
+		public void ForLoop_AfterLooping_LongerList()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(3);
+			
+			var elements = new List<SimpleElement>() {
+				new SimpleElement() { String = "One" },
+				new SimpleElement() { String = "Two" },
+				new SimpleElement() { String = "Three" },
+				new SimpleElement() { String = "Four" },
+				new SimpleElement() { String = "Five" }
+			};
+			
+			foreach (var cur in elements)
+			{
+				list.Add(cur);
+			}
+			
+			for (int i=0; i!=list.Count; i++)
+			{
+				Assert.AreEqual(elements[i+2], list[i], "Item {0} is wrong");
+			}
+		}
+		#endregion For-looping
 		
 		#region CopyTo at index 0
 		[Test]
