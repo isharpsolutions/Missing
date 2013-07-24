@@ -291,6 +291,37 @@ namespace Missing
 			Assert.AreEqual(one, actual[0], "First yielded item is wrong");
 			Assert.AreEqual(two, actual[1], "Second yielded item is wrong");
 		}
+
+		[Test]
+		public void Enumerator_AboutToLoop_LongerList()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(5);
+			
+			SimpleElement one = new SimpleElement() { String = "One" };
+			SimpleElement two = new SimpleElement() { String = "Two" };
+			SimpleElement three = new SimpleElement() { String = "Three" };
+			SimpleElement four = new SimpleElement() { String = "Four" };
+			SimpleElement five = new SimpleElement() { String = "FIve" };
+			
+			list.Add(one);
+			list.Add(two);
+			list.Add(three);
+			list.Add(four);
+			list.Add(five);
+			
+			List<SimpleElement> actual = new List<SimpleElement>();
+			foreach (SimpleElement cur in list)
+			{
+				actual.Add(cur);
+			}
+			
+			Assert.AreEqual(5, actual.Count, "The foreach should have yielded 5 items");
+			Assert.AreEqual(one, actual[0], "First yielded item is wrong");
+			Assert.AreEqual(two, actual[1], "Second yielded item is wrong");
+			Assert.AreEqual(three, actual[2], "Third yielded item is wrong");
+			Assert.AreEqual(four, actual[3], "Fourth yielded item is wrong");
+			Assert.AreEqual(five, actual[4], "Fifth yielded item is wrong");
+		}
 		
 		[Test]
 		public void Enumerator_AfterLooping()
@@ -325,7 +356,7 @@ namespace Missing
 			SimpleElement two = new SimpleElement() { String = "Two" };
 			SimpleElement three = new SimpleElement() { String = "Three" };
 			SimpleElement four = new SimpleElement() { String = "Four" };
-			SimpleElement five = new SimpleElement() { String = "FIve" };
+			SimpleElement five = new SimpleElement() { String = "Five" };
 			
 			list.Add(one); // ==> 0
 			list.Add(two); // ==> 1
@@ -376,6 +407,30 @@ namespace Missing
 			var elements = new List<SimpleElement>() {
 				new SimpleElement() { String = "One" },
 				new SimpleElement() { String = "Two" }
+			};
+			
+			foreach (var cur in elements)
+			{
+				list.Add(cur);
+			}
+			
+			for (int i=0; i!=list.Count; i++)
+			{
+				Assert.AreEqual(elements[i], list[i], "Item {0} is wrong");
+			}
+		}
+
+		[Test]
+		public void ForLoop_AboutToLoop_LongerList()
+		{
+			CircularList<SimpleElement> list = new CircularList<SimpleElement>(5);
+			
+			var elements = new List<SimpleElement>() {
+				new SimpleElement() { String = "One" },
+				new SimpleElement() { String = "Two" },
+				new SimpleElement() { String = "Three" },
+				new SimpleElement() { String = "Four" },
+				new SimpleElement() { String = "Five" }
 			};
 			
 			foreach (var cur in elements)
