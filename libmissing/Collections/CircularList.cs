@@ -129,10 +129,13 @@ namespace Missing.Collections
 		/// <param name="index">
 		/// The zero-based index of the element to get or set.
 		/// </param>
+		/// <exception cref="NotSupportedException">
+		/// SET: Always thrown, as this operation is not allowed
+		/// </exception>
 		public T this[int index]
 		{
 			get { return this.items[index]; }
-			set { this.items[index] = value; }
+			set { throw new NotSupportedException(); }
 		}
 		#endregion
 
