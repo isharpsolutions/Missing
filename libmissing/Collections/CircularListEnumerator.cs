@@ -22,13 +22,7 @@ namespace Missing.Collections
 		/// The current element
 		/// </summary>
 		private T curElement;
-		
-		/// <summary>
-		/// The index of the first item
-		/// we output
-		/// </summary>
-		private int firstOuputIndex;
-		
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Missing.Collections.CircularListEnumerator`1"/> class.
 		/// </summary>
@@ -38,10 +32,8 @@ namespace Missing.Collections
 		public CircularListEnumerator(CircularList<T> collection)
 		{
 			this.collection = collection;
-			this.curIndex = this.collection.CurrentIndex;
 			this.curElement = default(T);
-			
-			this.firstOuputIndex = -1;
+			this.curIndex = -1;
 		}
 		
 		/// <summary>
@@ -57,33 +49,19 @@ namespace Missing.Collections
 			{
 				return false;
 			}
-			
+
 			// move the index
 			this.curIndex++;
-			
-			// "flip" the index around the edge if necessary
+
+			// are we at the end of the list?
 			if (this.curIndex >= this.collection.Count)
-			{
-				this.curIndex = 0;
-			}
-			
-			// if we have reached the first index we output
-			// we are at the end of the list
-			if (this.curIndex == this.firstOuputIndex)
 			{
 				return false;
 			}
-			
-			
-			// store the first index we output
-			if (this.firstOuputIndex == -1)
-			{
-				this.firstOuputIndex = this.curIndex;
-			}
-			
+
 			// update the element
 			this.curElement = this.collection[this.curIndex];
-			
+
 			return true;
 		}
 		
@@ -93,7 +71,6 @@ namespace Missing.Collections
 		public void Reset()
 		{
 			this.curIndex = -1;
-			this.firstOuputIndex = -1;
 		}
 		
 		void IDisposable.Dispose()
