@@ -11,4 +11,4 @@ using System.Runtime.CompilerServices;
  * Additions in existing namespaces bumps the minor
  * Bug fixes and misc that does not change the public API bump the patch
  */
-[assembly: AssemblyVersion("666.20.0")]
+[assembly: AssemblyVersion("0.20.1")]
