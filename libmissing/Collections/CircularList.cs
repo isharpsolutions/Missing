@@ -129,10 +129,52 @@ namespace Missing.Collections
 		/// <param name="index">
 		/// The zero-based index of the element to get or set.
 		/// </param>
+		/// <exception cref="NotSupportedException">
+		/// SET: Always thrown, as this operation is not allowed
+		/// </exception>
 		public T this[int index]
 		{
-			get { return this.items[index]; }
-			set { this.items[index] = value; }
+			get
+			{
+				/*
+				 * Example
+				 * Max-length 4
+				 * add(1)
+				 * add(2)
+				 * add(3)
+				 * add(4)
+				 * add(5)
+				 * add(6)
+				 * 
+				 * Internal list should now be
+				 * [0] = 5 
+				 * [1] = 6	<-- CurrentIndex
+				 * [2] = 3
+				 * [3] = 4
+				 * 
+				 * In this case index should map like so
+				 * 0 = 2
+				 * 1 = 3
+				 * 2 = 0
+				 * 3 = 1
+				 * 
+				 * If list has wrapped/looped
+				 * index = (index + next_index) % maxlength
+				 * 
+				 * For non-wrapped list
+				 * index = index
+				 */
+
+				int actualIndex = index;
+
+				if (this.HasLooped())
+				{
+					actualIndex = (index + this.GetNextIndex()) % this.items.Capacity;
+				}
+
+				return this.items[actualIndex];
+			}
+			set { throw new NotSupportedException(); }
 		}
 		#endregion
 
@@ -161,6 +203,11 @@ namespace Missing.Collections
 			return this.GetEnumerator();
 		}
 		#endregion
+
+		private bool HasLooped()
+		{
+			return this.items.Count == this.items.Capacity;
+		}
 
 		#region ICollection[T] implementation
 		/// <summary>
